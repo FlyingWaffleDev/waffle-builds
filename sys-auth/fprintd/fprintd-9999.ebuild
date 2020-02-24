@@ -3,12 +3,11 @@
 
 EAPI=7
 
-inherit autotools pam systemd
+inherit autotools pam systemd git-r3
 
-DESCRIPTION="D-Bus service to access fingerprint readers"
+DESCRIPTION="D-Bus service to access fingerprint readers - live version"
 HOMEPAGE="https://cgit.freedesktop.org/libfprint/fprintd/"
-MY_PV="V_$(ver_rs 0- _)"
-SRC_URI="https://gitlab.freedesktop.org/libfprint/${PN}/-/archive/${MY_PV}/fprintd-${MY_PV}.tar.bz2 -> ${P}.tar.bz2"
+EGIT_REPO_URI="https://gitlab.freedesktop.org/libfprint/fprintd.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -18,7 +17,7 @@ IUSE="doc pam static-libs"
 RDEPEND="
 	dev-libs/dbus-glib
 	dev-libs/glib:2
-	sys-auth/libfprint
+	>=sys-auth/libfprint-9999
 	sys-auth/polkit
 	pam? ( sys-libs/pam )
 "
@@ -29,7 +28,9 @@ DEPEND="${RDEPEND}
 	doc? ( dev-libs/libxml2 dev-libs/libxslt )
 "
 
-S=${WORKDIR}/${PN}-${MY_PV}
+#PATCHES=( ${FILESDIR}/sys-auth/${PN}/ )
+
+S="${WORKDIR}/fprintd-9999"
 
 src_prepare() {
 	default
