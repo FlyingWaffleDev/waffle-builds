@@ -7,7 +7,6 @@ inherit meson udev git-r3
 
 DESCRIPTION="library to add support for consumer fingerprint readers - live version"
 HOMEPAGE="https://cgit.freedesktop.org/libfprint/libfprint/ https://github.com/freedesktop/libfprint"
-#SRC_URI="https://github.com/freedesktop/libfprint/archive/V_$(ver_rs 0-3 "_").tar.gz -> ${P}.tar.gz"
 EGIT_REPO_URI="https://gitlab.freedesktop.org/libfprint/libfprint.git"
 
 LICENSE="LGPL-2.1"
@@ -31,7 +30,6 @@ BDEPEND="virtual/pkgconfig"
 
 #PATCHES=( ${FILESDIR}/${PN}-0.8.2-fix-implicit-declaration.patch )
 
-#S="${WORKDIR}/${PN}-V_$(ver_rs 0-3 '_')"
 S="${WORKDIR}/libfprint-9999"
 
 src_configure() {

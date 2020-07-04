@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit autotools pam systemd git-r3
+inherit meson pam systemd git-r3
 
 DESCRIPTION="D-Bus service to access fingerprint readers - live version"
 HOMEPAGE="https://cgit.freedesktop.org/libfprint/fprintd/"
@@ -32,41 +32,14 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/fprintd-9999"
 
-src_prepare() {
-	default
-
-	sed -i 's#@localstatedir@/lib/fprint#@localstatedir@/fprint#g' data/fprintd.service.in || die "sed failed"
-	sed -i 's#(localstatedir)/lib/fprint#(localstatedir)/fprint#g' src/Makefile.am || die "sed failed"
-
-	eautoreconf
-}
-
 src_configure() {
-	econf --disable-silent-rules \
-		$(use_enable pam) \
-		$(use_enable static-libs static) \
-		$(use_enable doc gtk-doc-html) \
-		--with-systemdsystemunitdir="$(systemd_get_systemunitdir)"
-}
-
-src_install() {
-	emake DESTDIR="${D}" install \
-		pammoddir=$(getpam_mod_dir)
-
-	keepdir /var/lib/fprint
-
-	find "${D}" -name "*.la" -delete || die
-
-	dodoc AUTHORS NEWS README{,.transifex} TODO
-	newdoc pam/README README.pam_fprintd
-	if use doc ; then
-		insinto /usr/share/doc/${PF}/html
-		doins doc/{fprintd-docs,version}.xml
-		insinto /usr/share/doc/${PF}/html/dbus
-		doins doc/dbus/net.reactivated.Fprint.{Device,Manager}.ref.xml
-	fi
-}
-
-pkg_postinst() {
-	elog "Please take a look at README.pam_fprintd for integration docs."
+	local emesonargs=(
+		-Dpam=true
+		-Dman=true
+		-Dsystemd_system_unit_dir="$(systemd_get_systemunitdir)"
+#		-Ddbus_service_dir="$()"
+		-Dpam_modules_dir="$(getpam_mod_dir)"
+		-Dgtk_doc=false
+	)
+	meson_src_configure
 }
