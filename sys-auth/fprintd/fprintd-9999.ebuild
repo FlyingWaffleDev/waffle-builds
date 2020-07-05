@@ -32,18 +32,15 @@ DEPEND="${RDEPEND}
 	dev-python/dbus-python
 	dev-python/dbusmock
 	dev-python/pycairo
+	pam? ( >=sys-auth/pam_wrapper-1.1.0 )
 	doc? (
 		dev-util/gtk-doc
 		dev-util/gtk-doc-am
 	)"
 
-	# need to make an ebuild for this if tests are enabled
-	#sys-auth/pam_wrapper
-	# the three python might only be required for tests as well
-
 S="${WORKDIR}/${PN}-${PV}"
 
-RESTRICT="test"	# manually disable tests
+RESTRICT="test"	# manually disable tests (hopefully)
 
 src_configure() {
 	local emesonargs=(
