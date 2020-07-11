@@ -18,7 +18,7 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="doc pam static-libs"
+IUSE="doc pam static-libs test"
 
 RDEPEND="sys-apps/systemd
 	sys-apps/dbus
@@ -29,10 +29,11 @@ RDEPEND="sys-apps/systemd
 	pam? ( sys-libs/pam )"
 
 DEPEND="${RDEPEND}
-	dev-python/dbus-python
-	dev-python/dbusmock
-	dev-python/pycairo
-	pam? ( >=sys-auth/pam_wrapper-1.1.0 )
+	test? ( dev-python/dbus-python
+		dev-python/dbusmock
+		dev-python/pycairo
+		pam? ( >=sys-auth/pam_wrapper-1.1.0 )
+	)
 	doc? (
 		dev-util/gtk-doc
 		dev-util/gtk-doc-am
@@ -40,7 +41,7 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${PN}-${PV}"
 
-RESTRICT="test"	# manually disable tests (hopefully)
+RESTRICT="!test? ( test )"	# manually disable tests (hopefully)
 
 src_configure() {
 	local emesonargs=(
