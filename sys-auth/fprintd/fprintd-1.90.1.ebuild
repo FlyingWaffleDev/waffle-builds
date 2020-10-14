@@ -18,17 +18,20 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="doc pam static-libs test"
+IUSE="doc pam test"
 
-RDEPEND="sys-apps/systemd
+RDEPEND="
+	sys-apps/systemd
 	sys-apps/dbus
 	dev-libs/dbus-glib
 	dev-libs/glib:2
 	>=sys-auth/libfprint-1.90.0
 	sys-auth/polkit
-	pam? ( sys-libs/pam )"
+	pam? ( sys-libs/pam )
+	"
 
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	test? ( dev-python/dbus-python
 		dev-python/dbusmock
 		dev-python/pycairo
@@ -37,20 +40,26 @@ DEPEND="${RDEPEND}
 	doc? (
 		dev-util/gtk-doc
 		dev-util/gtk-doc-am
-	)"
+	)
+	"
 
 S="${WORKDIR}/${PN}-${PV}"
 
-RESTRICT="!test? ( test )
-	mirror"
+RESTRICT="
+	!test? ( test )
+	mirror
+	"
 
 src_configure() {
+	if ! use test ; then
+		sed -i '159d' meson.build || die "couldn't disable tests"
+		sed -i '123,136d' meson.build || die "couldn't disable tests"
+		sed -i '119d' meson.build || die "couldn't disable tests"
+	fi
 	local emesonargs=(
 		-Dpam=$(usex pam true false)
 		-Dman=true
 		-Dsystemd_system_unit_dir="$(systemd_get_systemunitdir)"
-		# probably need something here, but letting it default seems to work
-		#-Ddbus_service_dir="$()"
 		-Dpam_modules_dir="$(getpam_mod_dir)"
 		-Dgtk_doc=$(usex doc true false)
 	)
