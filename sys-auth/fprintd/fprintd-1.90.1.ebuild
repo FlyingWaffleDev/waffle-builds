@@ -41,7 +41,8 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${PN}-${PV}"
 
-RESTRICT="!test? ( test )"	# manually disable tests (hopefully)
+RESTRICT="!test? ( test )
+	mirror"
 
 src_configure() {
 	local emesonargs=(

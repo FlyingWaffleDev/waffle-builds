@@ -29,10 +29,11 @@ RDEPEND="sys-apps/systemd
 	pam? ( sys-libs/pam )"
 
 DEPEND="${RDEPEND}
-	dev-python/dbus-python
-	dev-python/dbusmock
-	dev-python/pycairo
-	pam? ( >=sys-auth/pam_wrapper-1.1.0 )
+	test? ( dev-python/dbus-python
+		dev-python/dbusmock
+		dev-python/pycairo
+		pam? ( >=sys-auth/pam_wrapper-1.1.0 )
+	)
 	doc? (
 		dev-util/gtk-doc
 		dev-util/gtk-doc-am
@@ -40,18 +41,10 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${PN}-${PV}"
 
-RESTRICT="!test? ( tests )"	# manually disable tests (doesn't fucking work)
+RESTRICT="!test? ( test )
+	mirror"
 
 src_configure() {
-	# remove test dependencies unless explicitly enabled
-#	if ! use test; then
-#		sed -e '/pam_wrapper_dep/ s/^#*/#/' -i meson.build
-#		sed -e '/'"'"'cairo'"'"'/ s/^#*/#/' -i meson.build
-#		sed -e '/'"'"'dbus'"'"'/ s/^#*/#/' -i meson.build
-#		sed -e '/'"'"'dbusmock'"'"'/ s/^#*/#/' -i meson.build
-#		sed -e '/'"'"'pypamtest'"'"'/ s/^#*/#/' -i meson.build
-#	fi
-
 	local emesonargs=(
 		-Dpam=$(usex pam true false)
 		-Dman=true
