@@ -24,7 +24,7 @@ S="${WORKDIR}/blender-${PV}-linux64"
 
 src_prepare() {
     default
-    sed -e 's|Exec=blender|Exec=/opt/blender-bin|' -i ${S}/blender.desktop || die
+    sed -e 's|Exec=blender|Exec=/opt/blender-bin/blender-bin|' -i ${S}/blender.desktop || die
     mv ${S}/blender ${S}/blender-bin
     mv ${S}/blender.desktop ${S}/blender-bin.desktop
 }
