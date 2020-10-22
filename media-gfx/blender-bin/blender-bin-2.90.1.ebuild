@@ -17,6 +17,17 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 RESTRICT="mirror"
 
+QA_PREBUILT="
+	/opt/blender-bin/blender-bin
+	/opt/blender-bin/2.90/python/lib/python3.7/lib-dynload/*.so
+	/opt/blender-bin/2.90/python/lib/python3.7/site-packages/libextern_draco.so
+	/opt/blender-bin/2.90/python/lib/python3.7/site-packages/numpy/fft/*.so
+	/opt/blender-bin/2.90/python/lib/python3.7/site-packages/numpy/core/*.so
+	/opt/blender-bin/2.90/python/lib/python3.7/site-packages/numpy/linalg/*.so
+	/opt/blender-bin/2.90/python/lib/python3.7/site-packages/numpy/random/*.so
+	/opt/blender-bin/2.90/scripts/addons/cycles/lib/*.cubin
+	"
+
 DEPEND=""
 RDEPEND=""
 
@@ -44,9 +55,4 @@ pkg_postinst() {
 
 pkg_postrm() {
 	xdg_desktop_database_update
-    ewarn ""
-    ewarn "You may want to remove the following directory:"
-    ewarn "~/.config/blender/${MY_PV}/cache/"
-    ewarn "It may contain extra render kernels not tracked by portage"
-    ewarn ""
 }
