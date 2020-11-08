@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+    <repo priority="100" quality="experimental" status="unofficial">
+        <name>waffle-builds</name>
+        <description lang="en">FlyingWaffle's personal ebuild overlay.</description>
+        <homepage>https://github.com/FlyingWaffleDev/waffle-builds</homepage>
+        <owner>
+            <name>FlyingWaffle</name>
+            <email>flyingwaffle@pm.me</email>
+        </owner>
+        <source type="git">https://github.com/FlyingWaffleDev/waffle-builds.git</source>
+        <source type="git">git://github.com/FlyingWaffleDev/waffle-builds.git</source>
+        <source type="git">git@github.com:FlyingWaffleDev/waffle-builds.git</source>
+        <feed>https://github.com/FlyingWaffleDev/waffle-builds/commits/master.atom</feed>
+    </repo>
+</repositories>

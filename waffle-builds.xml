@@ -1,0 +1,11 @@
+<repositories encoding="unicode" version="1.1">
+  <repo priority="50" quality="experimental">
+    <name>waffle-builds</name>
+    <description>FlyingWaffle's personal ebuild overlay.</description>
+    <owner>
+      <email>flyingwaffle@pm.me</email>
+      <name>FlyingWaffle</name>
+    </owner>
+    <source type="git">https://github.com/FlyingWaffleDev/waffle-builds.git</source>
+  </repo>
+</repositories>
