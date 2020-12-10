@@ -12,7 +12,7 @@ if [[ "${PV}" == 9999 ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://gitlab.freedesktop.org/libfprint/${PN}.git"
 else
-	SRC_URI="https://gitlab.freedesktop.org/libfprint/${PN}/-/archive/${PV}/${P}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://gitlab.freedesktop.org/libfprint/${PN}/-/archive/v${PV}/${PN}-v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 LICENSE="GPL-2"
@@ -20,48 +20,60 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc +pam test systemd"
 
-RDEPEND="systemd? ( sys-apps/systemd )
-	!systemd? ( sys-auth/elogind )
+RDEPEND="
 	sys-apps/dbus
 	dev-libs/dbus-glib
 	dev-libs/glib:2
 	>=sys-auth/libfprint-1.90.0
 	sys-auth/polkit
-	pam? ( sys-libs/pam )"
+	pam? (
+		systemd? ( sys-apps/systemd )
+		!systemd? ( sys-auth/elogind )
+		sys-libs/pam
+	)"
 
-DEPEND="${RDEPEND}
-	test? ( dev-python/dbus-python
+DEPEND="${RDEPEND}"
+
+BDEPEND="
+	virtual/pkgconfig
+	test? (
+		dev-python/dbus-python
 		dev-python/dbusmock
 		dev-python/pycairo
-		pam? ( >=sys-libs/pam_wrapper-1.1.0 )
+		pam? ( sys-libs/pam_wrapper )
 	)
 	doc? (
 		dev-util/gtk-doc
-		dev-util/gtk-doc-am
+		dev-libs/libxml2
+		dev-libs/libxslt
 	)"
-
-S="${WORKDIR}/${PN}-${PV}"
 
 RESTRICT="mirror
 	!test? ( test )"
 
-src_prepare() {
-	if ! use test ; then
-		eapply "${FILESDIR}/${PV}-tests.patch"
-	fi
-	if ! use systemd ; then
-		eapply "${FILESDIR}/${PV}-elogind.patch"
-	fi
-	eapply_user
-}
+S="${WORKDIR}/${PN}-v${PV}"
+
+PATCHES=(
+	"${FILESDIR}/${PV}-tests-optional.patch"
+	"${FILESDIR}/${PV}-libsystemd-provider.patch"
+)
 
 src_configure() {
 	local emesonargs=(
+		$(meson_feature test)
+		$(meson_use pam)
 		-Dman=true
 		-Dgtk_doc=$(usex doc true false)
 		-Dpam=$(usex pam true false)
-		-Dpam_modules_dir=$(usex pam "$(getpam_mod_dir)")
-		-Dsystemd_system_unit_dir=$(usex systemd "$(systemd_get_systemunitdir)")
+		-Dpam_modules_dir=$(getpam_mod_dir)
+		-Dsystemd_system_unit_dir=$(systemd_get_systemunitdir)
 	)
 	meson_src_configure
+}
+
+src_install() {
+	meson_src_install
+
+	dodoc NEWS README
+	newdoc pam/README README.pam_fprintd
 }
