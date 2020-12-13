@@ -1,5 +1,8 @@
+diff --git a/1.90.8-libsystemd-provider.patch b/1.90.8-libsystemd-provider.patch
+new file mode 100644
+index 0000000..e69de29
 diff --git a/meson.build b/meson.build
-index 66aa2f7..af5f099 100644
+index 78ebe84..61d5cd8 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -84,7 +84,7 @@ gmodule_dep = dependency('gmodule-2.0', version: '>=' + glib_min_version)
@@ -15,20 +18,20 @@ index 66aa2f7..af5f099 100644
  xsltproc = find_program('xsltproc', required: get_option('gtk_doc'))
  
  # StateDirectory was introduced in systemd 235
--systemd_dep = dependency('systemd', version: '>= 235')
+-systemd_dep = dependency('systemd', version: '>= 235', required: false)
  systemd_unit_dir = get_option('systemd_system_unit_dir')
  
- if systemd_unit_dir == ''
-+    systemd_dep = dependency('systemd', version: '>= 235')
+ if systemd_unit_dir == '' and systemd_dep.found()
++    systemd_dep = dependency('systemd', version: '>= 235', required: false)
      systemd_unit_dir = systemd_dep.get_pkgconfig_variable('systemdsystemunitdir')
  endif
  
 diff --git a/meson_options.txt b/meson_options.txt
-index be31fe1..7f82f95 100644
+index 5daa9a4..ccd2f9e 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -6,6 +6,10 @@ option('man',
-     description: 'Generate the man files',
+@@ -10,6 +10,10 @@ option('systemd',
+     description: 'Install system service files',
      type: 'boolean',
      value: true)
 +option('libsystemd',

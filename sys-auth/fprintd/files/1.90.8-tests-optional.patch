@@ -1,11 +1,8 @@
-diff --git a/1.90.7-tests-optional.patch b/1.90.7-tests-optional.patch
-new file mode 100644
-index 0000000..e69de29
 diff --git a/meson.build b/meson.build
-index 66aa2f7..06b405a 100644
+index 78ebe84..2a653c4 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -125,7 +125,7 @@ endif
+@@ -129,7 +129,7 @@ endif
  polkit_policy_directory = polkit_gobject_dep.get_pkgconfig_variable('policydir')
  
  # Tests dependencies
@@ -14,7 +11,7 @@ index 66aa2f7..06b405a 100644
  
  xmllint = find_program('xmllint', required: false)
  python3 = find_program('python3') # No meson without it!
-@@ -139,11 +139,13 @@ python3_test_modules = {
+@@ -143,11 +143,13 @@ python3_test_modules = {
  }
  python3_available_modules = []
  
@@ -33,7 +30,7 @@ index 66aa2f7..06b405a 100644
  
  cdata = configuration_data()
  cdata.set_quoted('GETTEXT_PACKAGE', meson.project_name())
-@@ -167,7 +169,9 @@ endif
+@@ -171,7 +173,9 @@ endif
  if get_option('gtk_doc')
      subdir('doc')
  endif
@@ -44,7 +41,7 @@ index 66aa2f7..06b405a 100644
  subdir('po')
  
  output = []
-@@ -189,7 +193,9 @@ output += '  PAM module: ' + pam_dep.found().to_string()
+@@ -193,7 +197,9 @@ output += '  PAM module: ' + pam_dep.found().to_string()
  output += '  Manuals: ' + get_option('man').to_string()
  output += '  GTK Doc: ' + get_option('gtk_doc').to_string()
  output += '  XML Linter ' + xmllint.found().to_string()
@@ -57,10 +54,10 @@ index 66aa2f7..06b405a 100644
  
  message('\n'+'\n'.join(output)+'\n')
 diff --git a/meson_options.txt b/meson_options.txt
-index be31fe1..92c01cd 100644
+index 5daa9a4..fa03f70 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -19,3 +19,7 @@ option('gtk_doc',
+@@ -23,3 +23,7 @@ option('gtk_doc',
      type: 'boolean',
      value: false,
      description: 'Use gtk-doc to build documentation')
