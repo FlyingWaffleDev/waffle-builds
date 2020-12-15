@@ -3,62 +3,42 @@
 
 EAPI=7
 
-inherit xdg autotools git-r3
+inherit xdg git-r3 meson
 
 DESCRIPTION="Nintendo DS emulator"
-HOMEPAGE="http://desmume.org/"
-#COMMIT="7a3699aba6318ac5818a162dfc55feb3718bcd0e"
-#MY_PN="${PN/_/-}"
+HOMEPAGE="https://desmume.org/ https://github.com/TASVideos/desmume"
 
-#SRC_URI="https://github.com/TASVideos/desmume/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
-EGIT_REPO_URI="https://github.com/TASVideos/desmume.git"
+EGIT_REPO_URI="https://github.com/TASVideos/${PN}.git"
 
-#S="${WORKDIR}/${MY_PN}-${COMMIT}/desmume/src/frontend/posix"
-S="${WORKDIR}/desmume-9999/desmume/src/frontend/posix"
+S="${WORKDIR}/${P}/${PN}/src/frontend/posix"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 ~x86"
-IUSE="hud openal osmesa soundtouch wifi"
+IUSE="hud openal soundtouch wifi glade"
 
 RDEPEND="
-	dev-libs/zziplib
-	gnome-base/libglade
+	x11-libs/gtk+:2
 	media-libs/libsdl[joystick,opengl,video]
-	openal? ( media-libs/openal )
-	osmesa? ( media-libs/mesa[osmesa] )
 	sys-libs/zlib
 	virtual/opengl
-	hud? ( x11-libs/agg )
+	openal? ( media-libs/openal )
 	soundtouch? ( media-libs/soundtouch )
-	x11-libs/gtk+:2"
+	hud? ( x11-libs/agg )
+	glade? ( gnome-base/libglade )
+	"
+
 DEPEND="${RDEPEND}
-	dev-util/intltool
 	net-libs/libpcap
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	"
 
-DOCS=( AUTHORS ChangeLog README README.LIN )
+DOCS=( ../../../README ../../../README.LIN )
 
-src_prepare() {
-	default
-	eautoreconf
-}
-
-src_install(){
-	einfo "docs: ${DOCS[@]}"
-	for i in "${DOCS[@]}"; do
-		dodoc "../../../$i"
-	done
-	unset DOCS
-
-	default
-}
-
-# why does $( use_enable hud ) fail without agg?
 src_configure() {
-	econf \
-		$(use_enable openal) \
-		$(use_enable osmesa) \
-		$(use_enable wifi) \
-		|| die "econf failed"
+	local emesonargs=(
+		$(meson_use openal)
+		$(meson_use wifi)
+	)
+	meson_src_configure
 }

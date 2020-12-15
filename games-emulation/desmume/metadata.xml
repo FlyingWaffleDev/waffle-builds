@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+	<email>flyingwaffle@pm.me</email>
+	<name>FlyingWaffle</name>
+</maintainer>
+<upstream>
+	<bugs-to>https://github.com/TASVideos/desmume/issues</bugs-to>
+</upstream>
+<use>
+    <flag name="hud">Enable Heads Up Display</flag>
+    <flag name="openal">Enable experimental microphone support</flag>
+    <flag name="soundtouch">Use Soundtouch for audio processing</flag>
+    <flag name="glade">Build Gnome-Glade frontend (currently not working)</flag>
+</use>
+</pkgmetadata>
