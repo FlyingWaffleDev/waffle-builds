@@ -35,6 +35,10 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
+src_prepare() {
+	cmake_src_prepare
+}
+
 pkg_postinst() {
 	xdg_pkg_postinst
 	echo
