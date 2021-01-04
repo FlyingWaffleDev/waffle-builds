@@ -13,6 +13,7 @@ if [[ "${PV}" == 9999 ]] ; then
 	EGIT_REPO_URI="https://gitlab.freedesktop.org/libfprint/${PN}.git"
 else
 	SRC_URI="https://gitlab.freedesktop.org/libfprint/${PN}/-/archive/v${PV}/${PN}-v${PV}.tar.gz -> ${P}.tar.gz"
+	S="${WORKDIR}/${PN}-v${PV}"
 fi
 
 LICENSE="GPL-2"
@@ -50,8 +51,6 @@ BDEPEND="
 
 RESTRICT="mirror
 	!test? ( test )"
-
-S="${WORKDIR}/${PN}-v${PV}"
 
 PATCHES=(
 	"${FILESDIR}/${PV}-tests-optional.patch"
