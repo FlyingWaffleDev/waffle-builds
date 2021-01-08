@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -20,12 +20,13 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc +pam test systemd"
+RESTRICT="mirror
+	!test? ( test )"
 
 RDEPEND="
-	sys-apps/dbus
 	dev-libs/dbus-glib
 	dev-libs/glib:2
-	>=sys-auth/libfprint-1.90.0
+	sys-auth/libfprint:2
 	sys-auth/polkit
 	pam? (
 		systemd? ( sys-apps/systemd )
@@ -49,9 +50,6 @@ BDEPEND="
 		dev-libs/libxslt
 	)"
 
-RESTRICT="mirror
-	!test? ( test )"
-
 PATCHES=(
 	"${FILESDIR}/${PV}-tests-optional.patch"
 	"${FILESDIR}/${PV}-libsystemd-provider.patch"
@@ -63,9 +61,9 @@ src_configure() {
 		$(meson_use pam)
 		-Dman=true
 		-Dgtk_doc=$(usex doc true false)
-		-Dpam=$(usex pam true false)
 		-Dpam_modules_dir=$(getpam_mod_dir)
 		-Dsystemd_system_unit_dir=$(systemd_get_systemunitdir)
+		-Dlibsystemd=$(usex systemd libsystemd libelogind)
 	)
 	meson_src_configure
 }
@@ -75,4 +73,8 @@ src_install() {
 
 	dodoc NEWS README
 	newdoc pam/README README.pam_fprintd
+}
+
+pkg_postinst() {
+	elog "Please take a look at README.pam_fprintd for integration docs."
 }
