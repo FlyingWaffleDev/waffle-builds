@@ -20,7 +20,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc +pam test systemd"
-RESTRICT="mirror
+RESTRICT="primaryuri
 	!test? ( test )"
 
 RDEPEND="
