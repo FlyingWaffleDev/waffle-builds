@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>flyingwaffle@pm.me</email>
+		<name>FlyingWaffle</name>
+	</maintainer>
+	<use>
+		<flag name="auto-away">Add support to set the state depending on desktop activity</flag>
+		<flag name="notification">Adds support for GTK Status Notifier tray backends</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">qTox/qTox</remote-id>
+	</upstream>
+</pkgmetadata>
