@@ -17,6 +17,8 @@ RESTRICT="bindist
 	mirror
 	strip"
 
+DEPEND="sys-libs/ncurses-compat"
+
 QA_PREBUILT="*"
 
 S="${WORKDIR}/blender-${PV}-linux64"
