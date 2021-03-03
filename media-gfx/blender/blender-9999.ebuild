@@ -4,34 +4,28 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 
-inherit check-reqs cmake python-single-r1 xdg-utils pax-utils toolchain-funcs flag-o-matic
+inherit check-reqs cmake python-single-r1 xdg-utils pax-utils toolchain-funcs flag-o-matic git-r3
 
 DESCRIPTION="Blender is a free and open-source 3D creation suite."
 HOMEPAGE="http://www.blender.org/"
 
 LICENSE="|| ( GPL-2 BL )"
 
-inherit git-r3
+EGIT_REPO_URI="https://git.blender.org/blender.git https://github.com/blender/blender.git"
+EGIT_SUBMODULES=( release/datafiles/locale )
+
 if [[ ${PV} == 9999 ]]; then
-	#inherit git-r3
-	EGIT_REPO_URI="https://git.blender.org/blender"
-	EGIT_SUBMODULES=( release/datafiles/locale )
-	EGIT_BRANCH="master"
-	#EGIT_COMMIT=""
-    KEYWORDS=""
 	MY_PV="2.93"
+	KEYWORDS=""
 else
-	#SRC_URI="https://download.blender.org/source/${P}.tar.xz"
 	MY_PV="$(ver_cut 1-2)"
-	EGIT_REPO_URI="https://git.blender.org/blender"
-	EGIT_SUBMODULES=( release/datafiles/locale )
-	EGIT_BRANCH="blender-v${MY_PV}-release"
-    #EGIT_COMMIT="3e85bb34d0d792b49cf4923f781d98791c5a161c"
+	EGIT_COMMIT="v${PV}"
 	KEYWORDS="~amd64 ~x86"
 fi
+
 SLOT="${MY_PV}"
 
-IUSE_DESKTOP="+cg -portable +X +addons +addons_contrib +nls -ndof"
+IUSE_DESKTOP="cg -portable +X +addons +addons_contrib +nls -ndof"
 IUSE_GPU="+opengl -optix cuda opencl llvm -sm_30 -sm_35 -sm_50 -sm_52 -sm_61 -sm_70 -sm_75"
 IUSE_LIBS="+cycles sdl jack openal +freestyle -osl +openvdb nanovdb abi6-compat abi7-compat abi8-compat +opensubdiv +opencolorio +openimageio +collada -alembic +gltf-draco +fftw +oidn +quadriflow -usd +bullet -valgrind +jemalloc"
 IUSE_CPU="+openmp embree +sse +tbb"
@@ -71,7 +65,7 @@ RDEPEND="${PYTHON_DEPS}
 	$(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_MULTI_USEDEP}]
 		dev-python/requests[${PYTHON_MULTI_USEDEP}]
-        dev-libs/boost[python,nls?,threads(+),${PYTHON_MULTI_USEDEP}]
+		dev-libs/boost[python,nls?,threads(+),${PYTHON_MULTI_USEDEP}]
 	')
 	dev-cpp/gflags
 	sys-libs/zlib:=
@@ -175,9 +169,9 @@ src_prepare() {
 	python_setup
 	cmake_src_prepare
 	if use addons_contrib; then
-        #set BLENDER_ADDONS_DIR to userpref
-        sed -i -e "s|.pythondir.*|.pythondir = \"${BLENDER_ADDONS_DIR}\",|" "${S}"/release/datafiles/userdef/userdef_default.c || die
-    fi
+		#set BLENDER_ADDONS_DIR to userpref
+		sed -i -e "s|.pythondir.*|.pythondir = \"${BLENDER_ADDONS_DIR}\",|" "${S}"/release/datafiles/userdef/userdef_default.c || die
+	fi
 	# remove some bundled deps
 	rm -rf extern/{Eigen3,glew-es,lzo,gtest,gflags,draco,glew} || die
 
@@ -189,8 +183,8 @@ src_prepare() {
 		sed -i -e '/-DGLEW_STATIC/d' "${file}" || die
 	done < <(find . -type f -name "CMakeLists.txt")
 
-	# Disable MS Windows help generation. The variable doesn't do what it
-	# it sounds like.
+	# Disable MS Windows help generation.
+	# The variable doesn't do what it sounds like.
 	sed -e "s|GENERATE_HTMLHELP      = YES|GENERATE_HTMLHELP      = NO|" \
 			-i doc/doxygen/Doxyfile || die
 	ewarn "$(echo "Remaining bundled dependencies:";
@@ -213,12 +207,12 @@ src_prepare() {
 src_configure() {
 	python_setup
 	if use cg; then
-        eapply "${FILESDIR}"/cg-addons.patch
-        eapply "${FILESDIR}"/cg-defaults.patch
-        eapply "${FILESDIR}"/cg-keymap.patch
-        #eapply "${FILESDIR}"/cg-mesh.patch
-        eapply "${FILESDIR}"/cg-userdef.patch
-    fi
+		eapply "${FILESDIR}"/cg-addons.patch
+		eapply "${FILESDIR}"/cg-defaults.patch
+		eapply "${FILESDIR}"/cg-keymap.patch
+		#eapply "${FILESDIR}"/cg-mesh.patch
+		eapply "${FILESDIR}"/cg-userdef.patch
+	fi
 	# FIX: forcing '-funsigned-char' fixes an anti-aliasing issue with menu
 	# shadows, see bug #276338 for reference
 	append-flags -funsigned-char -fno-strict-aliasing
@@ -230,7 +224,7 @@ src_configure() {
 			version=6;
 		elif use abi7-compat; then
 			version=7;
-        elif use abi8-compat; then
+		elif use abi8-compat; then
 			version=8;
 		else
 			die "Openvdb abi version not compatible"
@@ -416,13 +410,13 @@ src_install() {
 
 pkg_postinst() {
 	elog
-	elog "Blender compiles from master thunk by default"
+	elog "Blender compiles from master trunk by default"
 	elog
-	elog "There is some my prefer blender settings as patches"
+	elog "There are some of my prefer Blender settings as patches"
 	elog "find them in cg/local-patches/blender/"
-	elog "To apply someone copy them in "
+	elog "To apply them, copy them to "
 	elog "/etc/portage/patches/media-gfx/blender/"
-	elog "or create simlink"
+	elog "or create a symlink"
 	elog
 	xdg_icon_cache_update
 	xdg_mimeinfo_database_update
