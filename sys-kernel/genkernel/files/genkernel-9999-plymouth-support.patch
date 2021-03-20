@@ -1,5 +1,5 @@
 diff --git a/defaults/initrd.scripts b/defaults/initrd.scripts
-index ff956b0..94b998c 100644
+index d68875b..1dd5d77 100644
 --- a/defaults/initrd.scripts
 +++ b/defaults/initrd.scripts
 @@ -1033,6 +1033,8 @@ run_emergency_shell() {
@@ -11,16 +11,18 @@ index ff956b0..94b998c 100644
  	if ! is_userinteraction_allowed
  	then
  		bad_msg "gk.userinteraction.disabled is set; Spawning a shell is disabled!"
-@@ -1197,7 +1199,7 @@ bad_msg() {
+@@ -1191,8 +1193,8 @@ bad_msg() {
  
- 	if [ "$2" != '1' ]
- 	then
--		splash 'verbose' >/dev/null &
-+		splashCmd 'verbose' >/dev/null &
- 		printf "%b\n" "${BAD}!!${NORMAL}${BOLD} ${msg_string} ${NORMAL}"
- 	fi
+ 	log_msg "[!!] ${msg_string}"
+ 
+-	splash 'verbose' >/dev/null &
+-	printf "%b\n" "${BAD}!!${NORMAL}${BOLD} ${msg_string} ${NORMAL}"
++    splashCmd 'verbose' >/dev/null &
++    printf "%b\n" "${BAD}!!${NORMAL}${BOLD} ${msg_string} ${NORMAL}"
  }
-@@ -1238,13 +1240,19 @@ crypt_filter() {
+ 
+ warn_msg() {
+@@ -1231,13 +1233,19 @@ crypt_filter() {
  	if [ "${CRYPT_SILENT}" = '1' ]
  	then
  		eval run ${1} >/dev/null 2>&1
@@ -42,7 +44,7 @@ index ff956b0..94b998c 100644
  		fi
  		return ${res}
  	fi
-@@ -1315,6 +1323,7 @@ prompt_user() {
+@@ -1308,6 +1316,7 @@ prompt_user() {
  	fi
  	[ -n "${3}" ] && local explnt=" or : ${3}" || local explnt="."
  
@@ -50,7 +52,7 @@ index ff956b0..94b998c 100644
  	bad_msg "Could not find the ${2} in ${oldvalue}${explnt}"
  
  	if [ -f "${GK_USERINTERACTION_DISABLED_STATEFILE}" ]
-@@ -1397,6 +1406,8 @@ prompt_user() {
+@@ -1390,6 +1399,8 @@ prompt_user() {
  			eval ${1}'='${oldvalue}
  			;;
  	esac
@@ -59,7 +61,7 @@ index ff956b0..94b998c 100644
  }
  
  cmdline_hwopts() {
-@@ -1476,7 +1487,7 @@ chooseKeymap() {
+@@ -1469,7 +1480,7 @@ chooseKeymap() {
  	good_msg "Loading keymaps"
  	if [ -z "${keymap}" ]
  	then
@@ -68,7 +70,7 @@ index ff956b0..94b998c 100644
  		run cat /lib/keymaps/keymapList
  		read -t 10 -p '<< Load keymap (Enter for default): ' keymap
  		case ${keymap} in
-@@ -1534,12 +1545,12 @@ chooseKeymap() {
+@@ -1527,12 +1538,12 @@ chooseKeymap() {
  
  		run mkdir -p /etc/sysconfig
  		echo "XKEYBOARD=${keymap}" > /etc/sysconfig/keyboard
@@ -83,7 +85,7 @@ index ff956b0..94b998c 100644
  	else
  		bad_msg "Sorry, but keymap '${keymap}' is invalid!"
  		unset keymap
-@@ -1562,6 +1573,71 @@ splash() {
+@@ -1555,6 +1566,71 @@ splash() {
  	return 0
  }
  
@@ -155,7 +157,7 @@ index ff956b0..94b998c 100644
  start_volumes() {
  	# Here, we check for /dev/device-mapper, and if it exists, we setup a
  	# a symlink, which should hopefully fix bug #142775 and bug #147015
-@@ -1837,6 +1913,7 @@ openLUKS() {
+@@ -1838,6 +1914,7 @@ openLUKS() {
  	while true
  	do
  		local gpg_cmd=""
@@ -163,7 +165,7 @@ index ff956b0..94b998c 100644
  		if [ -e "${OPENED_LOCKFILE}" ]
  		then
  			good_msg "The LUKS device ${LUKS_DEVICE} meanwhile was opened by someone else."
-@@ -1957,15 +2034,27 @@ openLUKS() {
+@@ -1958,15 +2035,27 @@ openLUKS() {
  							[ -e /dev/tty ] && run mv /dev/tty /dev/tty.org
  							run mknod /dev/tty c 5 1
  							cryptsetup_options="${cryptsetup_options} -d -"
@@ -194,10 +196,10 @@ index ff956b0..94b998c 100644
  				[ -e /dev/tty.org ] \
  					&& run rm -f /dev/tty \
 diff --git a/defaults/linuxrc b/defaults/linuxrc
-index ebed7d8..ed94c72 100644
+index dc34439..85b1312 100644
 --- a/defaults/linuxrc
 +++ b/defaults/linuxrc
-@@ -178,6 +178,18 @@ do
+@@ -176,6 +176,18 @@ do
  			MLIST=$(echo ${MLIST} ${x#*=} | sed -e 's/^\ *//;s/,/ /g')
  			export MLIST
  		;;
@@ -216,7 +218,7 @@ index ebed7d8..ed94c72 100644
  		# /dev/md
  		lvmraid=*)
  			warn_msg "'${x}' kernel command-line argument is deprecated; Use 'dolvm' instead!"
-@@ -541,8 +553,6 @@ then
+@@ -540,8 +552,6 @@ then
  	FIRSTMODS="${FIRSTMODS} btrfs"
  fi
  
@@ -225,7 +227,7 @@ index ebed7d8..ed94c72 100644
  cmdline_hwopts
  
  # Mount devfs
-@@ -620,6 +630,9 @@ fi
+@@ -619,6 +629,9 @@ fi
  
  cd /
  
@@ -235,7 +237,7 @@ index ebed7d8..ed94c72 100644
  # Start iSCSI
  if hash iscsistart >/dev/null 2>&1
  then
-@@ -1296,6 +1309,8 @@ fi # if [ "${CDROOT}" = '1' ]
+@@ -1295,6 +1308,8 @@ fi # if [ "${CDROOT}" = '1' ]
  # Re-run to ensure $NEWROOT/etc/initramfs.mounts was processed at least once
  process_initramfs_mounts
  
