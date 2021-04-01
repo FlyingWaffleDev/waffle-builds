@@ -1,0 +1,513 @@
+diff --git a/defaults/initrd.scripts b/defaults/initrd.scripts
+index 5ec8adb..f733917 100644
+--- a/defaults/initrd.scripts
++++ b/defaults/initrd.scripts
+@@ -1041,6 +1041,8 @@ run_emergency_shell() {
+ }
+ 
+ run_shell() {
++	splashCmd 'verbose' >/dev/null &
++
+ 	if ! is_userinteraction_allowed
+ 	then
+ 		bad_msg "gk.userinteraction.disabled is set; Spawning a shell is disabled!"
+@@ -1199,7 +1201,7 @@ bad_msg() {
+ 
+ 	log_msg "[!!] ${msg_string}"
+ 
+-	splash 'verbose' >/dev/null &
++	splashCmd 'verbose' >/dev/null &
+ 	printf "%b\n" "${BAD}!!${NORMAL}${BOLD} ${msg_string} ${NORMAL}"
+ }
+ 
+@@ -1239,13 +1241,19 @@ crypt_filter() {
+ 	if [ "${CRYPT_SILENT}" = '1' ]
+ 	then
+ 		eval run ${1}
++	elif [ "${PLYMOUTH}" = '1' ] && plymouth_running
++	then
++		run plymouth ask-for-password --prompt "Enter LUKS passphrase" \
++			--number-of-tries=3 --command="${2}"
++		res=$?
++		return ${res}
+ 	else
+-		splash 'verbose' >/dev/null &
++		splashCmd 'verbose' >/dev/null &
+ 		eval run ${1}
+ 		res=$?
+ 		if [ ${res} -eq 0 ]
+ 		then
+-			splash set_msg 'Disk unlocked.'
++			splashCmd set_msg 'Disk unlocked.'
+ 		fi
+ 		return ${res}
+ 	fi
+@@ -1316,6 +1324,7 @@ prompt_user() {
+ 	fi
+ 	[ -n "${3}" ] && local explnt=" or : ${3}" || local explnt="."
+ 
++	splashCmd 'verbose' >/dev/null &
+ 	bad_msg "Could not find the ${2} in ${oldvalue}${explnt}"
+ 
+ 	if [ -f "${GK_USERINTERACTION_DISABLED_STATEFILE}" ]
+@@ -1398,6 +1407,8 @@ prompt_user() {
+ 			eval ${1}'='${oldvalue}
+ 			;;
+ 	esac
++
++	splashCmd 'quiet' >/dev/null &
+ }
+ 
+ cmdline_hwopts() {
+@@ -1477,7 +1488,7 @@ chooseKeymap() {
+ 	good_msg "Loading keymaps"
+ 	if [ -z "${keymap}" ]
+ 	then
+-		splash 'verbose' >/dev/null &
++		splashCmd 'verbose' >/dev/null &
+ 		run cat /lib/keymaps/keymapList
+ 		read -t 10 -p '<< Load keymap (Enter for default): ' keymap
+ 		case ${keymap} in
+@@ -1535,12 +1546,12 @@ chooseKeymap() {
+ 
+ 		run mkdir -p /etc/sysconfig
+ 		echo "XKEYBOARD=${keymap}" > /etc/sysconfig/keyboard
+-		splash set_msg "Set keymap to '${keymap}'"
++		splashCmd set_msg "Set keymap to '${keymap}'"
+ 	elif [ -z "${keymap}" ]
+ 	then
+ 		good_msg
+ 		good_msg "Keeping default keymap"
+-		splash set_msg "Keeping default keymap"
++		splashCmd set_msg "Keeping default keymap"
+ 	else
+ 		bad_msg "Sorry, but keymap '${keymap}' is invalid!"
+ 		unset keymap
+@@ -1563,6 +1574,71 @@ splash() {
+ 	return 0
+ }
+ 
++splashCmd() {
++	case "${1}" in
++		init)
++		if [ "${FBSPLASH}" = '1' ]
++		then
++			splash 'init'
++		elif [ "${PLYMOUTH}" = '1' ]
++		then
++			plymouthInit
++		fi
++		;;
++
++		verbose)
++		if [ "${FBSPLASH}" = '1' ]
++		then
++			splash 'verbose'
++		elif [ "${PLYMOUTH}" = '1' ]
++		then
++			plymouth_running && run plymouth --hide-splash
++		fi
++		;;
++
++		set_msg)
++		if [ "${FBSPLASH}" = '1' ]
++		then
++			splash 'set_msg' "${2}"
++		elif [ "${PLYMOUTH}" = '1' ]
++		then
++			plymouth_running && run plymouth --update="${2}"
++		fi
++		;;
++
++		quiet)
++		plymouth_running && run plymouth --show-splash
++		;;
++
++		hasroot)
++		plymouth_running && run plymouth --newroot="${2}"
++		;;
++	esac
++}
++
++plymouth_running() {
++	[ -n "${PLYMOUTH_FAIL}" ] && return 1
++	run plymouth --ping 2>/dev/null
++	return $?
++}
++
++plymouthInit() {
++	good_msg "Starting Plymouth..."
++	run mkdir -p -m 0755 /run/plymouth || return 1
++
++	# Make sure that udev is done loading tty and drm
++	run udevadm trigger --action=add --attr-match=class=0x030000 >/dev/null 2>&1
++	run udevadm trigger --action=add --subsystem-match=graphics \
++		--subsystem-match=drm --subsystem-match=tty >/dev/null 2>&1
++	udevsettle
++
++	run plymouthd --mode=boot --attach-to-session \
++		--pid-file=/run/plymouth/pid || { PLYMOUTH_FAIL=1; return 1; }
++
++	plymouth_running && run plymouth --show-splash
++	good_msg "Plymouth initialized"
++}
++
+ start_volumes() {
+ 	# Here, we check for /dev/device-mapper, and if it exists, we setup a
+ 	# a symlink, which should hopefully fix bug #142775 and bug #147015
+@@ -1846,6 +1922,7 @@ openLUKS() {
+ 	while true
+ 	do
+ 		local gpg_cmd=""
++		local ply_cmd=""
+ 		if [ -e "${OPENED_LOCKFILE}" ]
+ 		then
+ 			good_msg "The LUKS device ${LUKS_DEVICE} meanwhile was opened by someone else."
+@@ -1966,15 +2043,27 @@ openLUKS() {
+ 							[ -e /dev/tty ] && run mv /dev/tty /dev/tty.org
+ 							run mknod /dev/tty c 5 1
+ 							cryptsetup_options="${cryptsetup_options} -d -"
+-							gpg_cmd="gpg --logger-file /dev/null --quiet --decrypt ${mntkey}${LUKS_KEY} |"
++							gpg_cmd="gpg --logger-file /dev/null --quiet --decrypt ${mntkey}${LUKS_KEY} | "
++							ply_cmd="gpg --logger-file /dev/null --quiet --passphrase-fd 0 --batch --no-tty --decrypt ${mntkey}${LUKS_KEY} | "
+ 						fi
+ 					else
+ 						cryptsetup_options="${cryptsetup_options} -d ${mntkey}${LUKS_KEY}"
+ 					fi
+ 				fi
+ 				# At this point, keyfile or not, we're ready!
+-				crypt_filter "${gpg_cmd}cryptsetup ${cryptsetup_options} luksOpen ${LUKS_DEVICE} ${LUKS_NAME}"
++				if [ "${PLYMOUTH}" = '1' ]
++				then
++					ply_cmd="${ply_cmd}cryptsetup ${cryptsetup_options} luksOpen ${LUKS_DEVICE} ${LUKS_NAME}"
++					local ply_cmd_file="$(mktemp -t "ply_cmd.XXXXXX")"
++					printf '#!/bin/sh\n%s\n' "${ply_cmd}" > "${ply_cmd_file}"
++					run chmod 500 "${ply_cmd_file}"
++				fi
++				crypt_filter "${gpg_cmd}cryptsetup ${cryptsetup_options} luksOpen ${LUKS_DEVICE} ${LUKS_NAME}" "${ply_cmd_file}"
+ 				crypt_filter_ret=$?
++				if [ "${PLYMOUTH}" = '1' ]
++				then
++					run rm -f "${ply_cmd_file}"
++				fi
+ 
+ 				[ -e /dev/tty.org ] \
+ 					&& run rm -f /dev/tty \
+diff --git a/defaults/linuxrc b/defaults/linuxrc
+index 81e1050..a152f2c 100644
+--- a/defaults/linuxrc
++++ b/defaults/linuxrc
+@@ -163,6 +163,18 @@ do
+ 			MLIST=$(echo ${MLIST} ${x#*=} | sed -e 's/^\ *//;s/,/ /g')
+ 			export MLIST
+ 		;;
++		splash)
++			if [ -x /usr/bin/plymouth -a -x /usr/sbin/plymouthd ]
++			then
++				PLYMOUTH=1
++			fi
++		;;
++		splash=*)
++			if [ -e /etc/initrd.splash ]
++			then
++				FBSPLASH=1
++			fi
++		;;
+ 		# /dev/md
+ 		lvmraid=*)
+ 			warn_msg "'${x}' kernel command-line argument is deprecated; Use 'dolvm' instead!"
+@@ -527,8 +539,6 @@ then
+ 	FIRSTMODS="${FIRSTMODS} btrfs"
+ fi
+ 
+-splash 'init'
+-
+ cmdline_hwopts
+ 
+ # Mount devfs
+@@ -606,6 +616,9 @@ fi
+ 
+ cd /
+ 
++# start splash; plymouth must start after udev
++splashCmd 'init'
++
+ # Start iSCSI
+ if hash iscsistart >/dev/null 2>&1
+ then
+@@ -1284,6 +1297,8 @@ fi # if [ "${CDROOT}" = '1' ]
+ # Re-run to ensure $NEWROOT/etc/initramfs.mounts was processed at least once
+ process_initramfs_mounts
+ 
++splashCmd 'hasroot' "${NEW_ROOT}"
++
+ # Execute script on the cdrom just before boot to update things if necessary
+ cdupdate
+ 
+diff --git a/doc/genkernel.8.txt b/doc/genkernel.8.txt
+index aa18496..af44c60 100644
+--- a/doc/genkernel.8.txt
++++ b/doc/genkernel.8.txt
+@@ -317,6 +317,13 @@ INITIALIZATION
+     <theme>  rather than the default theme specified in your splash
+     configuration. If *--no-splash* is specified, then splash is disabled.
+ 
++*--*[*no-*]*plymouth*::
++    Includes or excludes Plymouth from the initramfs. If "splash" is
++    passed at boot, Plymouth will be activated.
++
++*--plymouth-theme*=<theme>::
++    Embeds the given Plymouth theme into the initramfs.
++
+ *--do-keymap-auto*::
+     Force keymap selection at boot.
+ 
+diff --git a/gen_cmdline.sh b/gen_cmdline.sh
+index 33bf1c5..d5cd436 100755
+--- a/gen_cmdline.sh
++++ b/gen_cmdline.sh
+@@ -53,6 +53,8 @@ longusage() {
+   echo "	--no-mrproper		Do not run 'make mrproper' before compilation"
+   echo "	--splash		Install framebuffer splash support into initramfs"
+   echo "	--no-splash		Do not install framebuffer splash"
++  echo "	--plymouth		Enable Plymouth support"
++  echo "	--no-plymouth		Do not enable Plymouth support"
+   echo "	--install		Install the kernel after building"
+   echo "	--no-install		Do not install the kernel after building"
+   echo "	--symlink		Manage symlinks in /boot for installed images"
+@@ -113,6 +115,7 @@ longusage() {
+   echo "	--splash-res=<res>	Select splash theme resolutions to install"
+   echo "	--splash=<theme>	Enable framebuffer splash using <theme>"
+   echo "	--splash-res=<res>	Select splash theme resolutions to install"
++  echo "	--plymouth-theme=<theme>    Embed the given Plymouth theme"
+   echo "	--do-keymap-auto	Forces keymap selection at boot"
+   echo "	--keymap		Enables keymap selection support"
+   echo "	--no-keymap		Disables keymap selection support"
+@@ -600,6 +603,17 @@ parse_cmdline() {
+ 			SPLASH_RES="${*#*=}"
+ 			print_info 3 "SPLASH_RES: ${SPLASH_RES}"
+ 			;;
++		--plymouth)
++			CMD_PLYMOUTH="yes"
++			PLYMOUTH_THEME='text'
++			print_info 3 "CMD_PLYMOUTH: ${CMD_PLYMOUTH}"
++			;;
++		--plymouth-theme=*)
++			CMD_PLYMOUTH="yes"
++			PLYMOUTH_THEME="${*#*=}"
++			print_info 3 "CMD_PLYMOUTH: ${CMD_PLYMOUTH}"
++			print_info 3 "PLYMOUTH_THEME: ${PLYMOUTH_THEME}"
++			;;
+ 		--install|--no-install)
+ 			CMD_INSTALL=$(parse_optbool "$*")
+ 			print_info 3 "CMD_INSTALL: ${CMD_INSTALL}"
+diff --git a/gen_determineargs.sh b/gen_determineargs.sh
+index 3e6e4dd..5c8470c 100755
+--- a/gen_determineargs.sh
++++ b/gen_determineargs.sh
+@@ -352,6 +352,7 @@ determine_real_args() {
+ 	set_config_with_override STRING MODPROBEDIR                           CMD_MODPROBEDIR                           "/etc/modprobe.d"
+ 
+ 	set_config_with_override BOOL   SPLASH                                CMD_SPLASH                                "no"
++	set_config_with_override BOOL   PLYMOUTH                              CMD_PLYMOUTH                              "no"
+ 	set_config_with_override BOOL   CLEAR_CACHEDIR                        CMD_CLEAR_CACHEDIR                        "no"
+ 	set_config_with_override BOOL   POSTCLEAR                             CMD_POSTCLEAR                             "no"
+ 	set_config_with_override BOOL   MRPROPER                              CMD_MRPROPER                              "yes"
+@@ -984,6 +985,11 @@ determine_real_args() {
+ 			fi
+ 		fi
+ 
++		if isTrue "${PLYMOUTH}" && isTrue "${SPLASH}"
++		then
++			gen_die "--plymouth and --splash are mutually exclusive!"
++		fi
++
+ 		if isTrue "${SSH}"
+ 		then
+ 			local ssh_authorized_keys_file=$(expand_file "${SSH_AUTHORIZED_KEYS_FILE}")
+diff --git a/gen_initramfs.sh b/gen_initramfs.sh
+index 9a9f07d..120f53f 100755
+--- a/gen_initramfs.sh
++++ b/gen_initramfs.sh
+@@ -483,6 +483,7 @@ append_base_layout() {
+ 	isTrue "${UNIONFS}" && build_parameters+=( --unionfs ) || build_parameters+=( --no-unionfs )
+ 	isTrue "${ZFS}" && build_parameters+=( --zfs ) || build_parameters+=( --no-zfs )
+ 	isTrue "${SPLASH}" && build_parameters+=( --splash ) || build_parameters+=( --no-splash )
++	isTrue "${PLYMOUTH}" && build_parameters+=( --plymouth ) || build_parameters+=( --no-plymouth )
+ 	isTrue "${STRACE}" && build_parameters+=( --strace ) || build_parameters+=( --no-strace )
+ 	isTrue "${GPG}" && build_parameters+=( --gpg ) || build_parameters+=( --no-gpg )
+ 	isTrue "${LUKS}" && build_parameters+=( --luks ) || build_parameters+=( --no-luks )
+@@ -1284,6 +1285,137 @@ append_splash() {
+ 	fi
+ }
+ 
++append_plymouth() {
++	local PN=plymouth
++	local TDIR="${TEMP}/initramfs-${PN}-temp"
++	if [ -d "${TDIR}" ]
++	then
++		rm -r "${TDIR}" || gen_die "Failed to clean out existing '${TDIR}'!"
++	fi
++
++	mkdir "${TDIR}" || gen_die "Failed to create '${TDIR}'!"
++	cd "${TDIR}" || gen_die "Failed to chdir to '${TDIR}'!"
++
++	# set plymouth theme
++	if [ -n "${PLYMOUTH_THEME}" ]
++	then
++		plymouth-set-default-theme ${PLYMOUTH_THEME} || gen_die "Failed to set default plymouth theme!"
++	fi
++	if [ -z "${PLYMOUTH_THEME}" -a -e /etc/plymouth/plymouthd.conf ]
++	then
++		PLYMOUTH_THEME=$(plymouth-set-default-theme) || gen_die "Failed to set default plymouth theme!"
++	fi
++	if [ -z "${PLYMOUTH_THEME}" ]
++	then
++		PLYMOUTH_THEME=text
++	fi
++
++	print_info 1 "$(get_indent 1)>> Installing plymouth [ using the '${PLYMOUTH_THEME}' theme ]..."
++
++	/usr/libexec/plymouth/plymouth-populate-initrd -t "${TDIR}" \
++		|| gen_die "Failed to build plymouth cpio archive!"
++
++	# can probably get rid of this; depends if plymouth was built with static libs
++	# rm -f "${TDIR}"/lib*/{ld*,libc*,libz*} \
++		# || gen_die "Failed to clean up plymouth cpio archive!"
++
++	ln -sf "${PLYMOUTH_THEME}/${PLYMOUTH_THEME}.plymouth" "${TDIR}/usr/share/plymouth/themes/default.plymouth" \
++		|| gen_die "Failed to set the default plymouth theme!"
++
++	# this might be better located in append_drm (?)
++	mkdir -p "${TDIR}"/usr/lib/udev/rules.d || gen_die "Failed to create '${TDIR}/usr/lib/udev/rules.d'!"
++	cp -aL /lib/udev/rules.d/70-uaccess.rules "${TDIR}/usr/lib/udev/rules.d" || gen_die "Failed to copy '70-uaccess.rules'!"
++	cp -aL /lib/udev/rules.d/71-seat.rules "${TDIR}/usr/lib/udev/rules.d" || gen_die "Failed to copy '71-seat.rules'!"
++
++	# clean up
++	cd "${TDIR}" || gen_die "Failed to chdir to '${TDIR}'!"
++	log_future_cpio_content
++	find . -print0 | "${CPIO_COMMAND}" ${CPIO_ARGS} --append -F "${CPIO_ARCHIVE}" \
++		|| gen_die "Failed to append ${PN} to cpio!"
++
++	cd "${TEMP}" || die "Failed to chdir to '${TEMP}'!"
++	if isTrue "${CLEANUP}"
++	then
++		rm -rf "${TDIR}"
++	fi
++}
++
++append_drm() {
++	local PN=drm
++	local TDIR="${TEMP}/initramfs-${PN}-${KV}-temp"
++	if [ -d "${TDIR}" ]
++	then
++		rm -r "${TDIR}" || gen_die "Failed to clean out existing '${TDIR}'!"
++	fi
++
++	mkdir "${TDIR}" || gen_die "Failed to create '${TDIR}'!"
++	cd "${TDIR}" || gen_die "Failed to chdir to '${TDIR}'!"
++
++	print_info 1 "$(get_indent 1)>> Appending drm drivers..."
++
++	# mkdir -p "${TDIR}/lib/modules/${KV}"
++
++	local drm_path="/lib/modules/${KV}/kernel/drivers/gpu/drm"
++	local modules
++	if [ -d "${drm_path}" ]
++	then
++		modules=$(strip_mod_paths $(find "${drm_path}" -name "*.ko"))
++	else
++		print_info 1 "$(get_indent 2)Warning :: no drm modules in drivers/gpu/drm..."
++	fi
++
++	rm -f "${TEMP}/moddeps" || gen_die "Failed to clear old moddeps!"
++	gen_deps ${modules}
++	if [ -f "${TEMP}/moddeps" ]
++	then
++		modules=$(cat "${TEMP}/moddeps" | sort | uniq)
++	else
++		print_info 1 "$(get_indent 2)Warning :: module dependencies not generated..."
++	fi
++
++	local mod i fws fw
++	for i in ${modules}
++	do
++		mod=$(find "/lib/modules/${KV}" -name "${i}.ko" 2>/dev/null| head -n 1)
++		if [ -z "${mod}" ]
++		then
++			print_info 1 "$(get_indent 2)Warning :: ${i}.ko not found; skipping..."
++			continue
++		fi
++
++		print_info 1 "$(get_indent 2)>> Copying ${mod}..."
++		cp -ax --parents "${mod}" "${TDIR}" || gen_die "Failed to copy '${mod}'!"
++
++		# check that firmware files exist, then copy them (modinfo may list deprecated firmware)
++		fws=( $(get_firmware_files "${mod}") )
++		for fw in "${fws[@]}"
++		do
++			if [ -e "/lib/firmware/${fw}" ]
++			then
++				print_info 1 "$(get_indent 2)>> Copying firmware ${fw}..."
++				cp -ax --parents "/lib/firmware/${fw}" "${TDIR}" \
++					|| gen_die "Failed to copy ${fw}!"
++			fi
++		done
++	done
++
++	cd "${TDIR}" || gen_die "Failed to chdir to '${TDIR}'!"
++	log_future_cpio_content
++	find . -print0 | "${CPIO_COMMAND}" ${CPIO_ARGS} --append -F "${CPIO_ARCHIVE}" \
++		|| gen_die "Failed to append ${PN} to cpio!"
++
++	cd "${TEMP}" || die "Failed to chdir to '${TEMP}'!"
++	if isTrue "${CLEANUP}"
++	then
++		rm -rf "${TDIR}"
++	fi
++}
++
++get_firmware_files() {
++	local kmod="${1}"
++	modinfo --set-version="${KV}" -F firmware "${kmod}" || gen_die "Failed to get modinfo for ${kmod}!"
++}
++
+ append_strace() {
+ 	local PN=strace
+ 	local TDIR="${TEMP}/initramfs-${PN}-temp"
+@@ -1998,11 +2130,17 @@ create_initramfs() {
+ 	append_data 'modprobed'
+ 	append_data 'multipath' "${MULTIPATH}"
+ 	append_data 'splash' "${SPLASH}"
++	append_data 'plymouth' "${PLYMOUTH}"
+ 	append_data 'strace' "${STRACE}"
+ 	append_data 'unionfs_fuse' "${UNIONFS}"
+ 	append_data 'xfsprogs' "${XFSPROGS}"
+ 	append_data 'zfs' "${ZFS}"
+ 
++	if isTrue "${PLYMOUTH}"
++	then
++		append_data 'drm'
++	fi
++
+ 	if isTrue "${ZFS}"
+ 	then
+ 		append_data 'libgcc_s'
+diff --git a/genkernel.conf b/genkernel.conf
+index 6c350a6..347db14 100644
+--- a/genkernel.conf
++++ b/genkernel.conf
+@@ -171,6 +171,13 @@ NOCOLOR="false"
+ # This supersedes the "SPLASH_THEME" option in '/etc/conf.d/splash'.
+ #SPLASH_THEME="gentoo"
+ 
++# Includes or excludes Plymouth from the initramfs. If "splash" is
++# passed at boot, Plymouth will be activated.
++#PLYMOUTH="no"
++
++# Embeds the given plymouth theme in the initramfs.
++#PLYMOUTH_THEME="text"
++
+ # Run "emerge @module-rebuild" automatically when possible and necessary
+ # after kernel and modules have been compiled
+ #MODULEREBUILD="yes"
