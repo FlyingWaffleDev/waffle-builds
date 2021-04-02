@@ -23,8 +23,8 @@ RDEPEND="
 	dev-qt/qtdeclarative:5
 	dev-qt/qtmultimedia:5
 	dev-qt/qtsvg:5
-	dev-qt/qtcontrols:5
-	dev-qt/qtcontrols2:5
+	dev-qt/qtquickcontrols:5
+	dev-qt/qtquickcontrols2:5
 	sys-libs/glibc
 	dev-libs/glib:2
 	media-fonts/dejavu
