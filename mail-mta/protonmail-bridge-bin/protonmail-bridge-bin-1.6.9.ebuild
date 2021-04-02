@@ -7,31 +7,29 @@ inherit rpm xdg-utils
 
 DESCRIPTION="Serves ProtonMail to IMAP/SMTP clients"
 HOMEPAGE="https://protonmail.com/bridge/"
-SRC_URI="https://protonmail.com/download/${P/-bin/}-1.x86_64.rpm"
+SRC_URI="https://protonmail.com/download/bridge/${P/-bin/}-1.x86_64.rpm"
 
 RESTRICT="bindist primaryuri"
 
-LICENSE="MIT protonmail-bridge-EULA"
+LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
-IUSE=""
+KEYWORDS="amd64"
+IUSE="pass keyring"
 
 DEPEND=""
 RDEPEND="
-	app-crypt/libsecret
+	media-libs/libglvnd
+	dev-qt/qtcore:5
+	dev-qt/qtdeclarative:5
+	dev-qt/qtmultimedia:5
+	dev-qt/qtsvg:5
+	dev-qt/qtcontrols:5
+	dev-qt/qtcontrols2:5
+	sys-libs/glibc
 	dev-libs/glib:2
-	media-sound/pulseaudio[glib]
-	sys-apps/dbus
-	virtual/opengl
-	media-libs/fontconfig
-	media-libs/freetype
-	x11-libs/libICE
-	x11-libs/libSM
-	x11-libs/libX11
-	x11-libs/libxcb
-	x11-libs/libXext
-	x11-libs/libXi
-	x11-libs/libxkbcommon[X]
+	media-fonts/dejavu
+	pass? ( app-admin/pass )
+	keyring? ( gnome-base/gnome-keyring )
 "
 S="${WORKDIR}"
 
@@ -40,7 +38,7 @@ QA_PREBUILT="*"
 src_prepare() {
 	# Some bogus files got into package.
 	rm -rf usr/lib/.build-id
-	rm -rf usr/share/doc/protonmail-bridge
+	rm -rf usr/share/doc/protonmail
 
 	default
 }
