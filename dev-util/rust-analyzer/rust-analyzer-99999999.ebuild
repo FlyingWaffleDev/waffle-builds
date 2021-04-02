@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -27,11 +27,12 @@ BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD-2
 Boost-1.0 CC0-1.0 ISC MIT Unlicense ZLIB
 "
 
-RESTRICT="mirror"
+RESTRICT="primaryuri"
 SLOT="0"
 IUSE=""
 
-DEPEND=">=dev-lang/rust-1.46.0[rls]"
+DEPEND="|| ( >=dev-lang/rust-1.51.0[rls] >=dev-lang/rust-bin-1.51.0[rls] )"
+
 RDEPEND="${DEPEND}"
 
 src_unpack() {
@@ -45,6 +46,5 @@ src_unpack() {
 }
 
 src_install() {
-	cargo_src_install --path "${S}/crates/rust-analyzer"
+	cargo_src_install --path "./crates/rust-analyzer"
 }
-
