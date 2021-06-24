@@ -16,13 +16,14 @@ SRC_URI="https://github.com/ProtonVPN/linux-cli/archive/refs/tags/${PV}.tar.gz -
 LICENSE="GPL-3"
 KEYWORDS="~amd64"
 SLOT="0"
-IUSE="gui"
+IUSE="gui systemd"
 RESTRICT="primaryuri"
 
 RDEPEND="
 	gui? ( net-vpn/protonvpn-gui )
 	dev-python/pythondialog
 	net-vpn/protonvpn-nm-lib
+	systemd? ( dev-python/python-systemd )
 "
 
 DEPEND="${RDEPEND}"
