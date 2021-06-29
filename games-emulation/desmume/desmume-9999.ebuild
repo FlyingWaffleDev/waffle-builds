@@ -15,7 +15,7 @@ S="${WORKDIR}/${P}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="cli glade +gui gdb hud openal soundtouch wifi"
+IUSE="cli +gui gdb hud openal soundtouch wifi"
 
 RDEPEND="
 	media-libs/alsa-lib
@@ -27,7 +27,6 @@ RDEPEND="
 	openal? ( media-libs/openal )
 	soundtouch? ( media-libs/soundtouch )
 	hud? ( x11-libs/agg )
-	glade? ( gnome-base/libglade )
 	"
 
 DEPEND="${RDEPEND}
@@ -37,6 +36,11 @@ DEPEND="${RDEPEND}
 	"
 
 DOCS=( ${PN}/{AUTHORS,ChangeLog,README,README.LIN,doc/.} )
+
+src_prepare() {
+	default
+	sed -e 's|Name=DeSmuME (Gtk)|Name=DeSmuME|' -i "${S}/${PN}/src/frontend/posix/gtk/org.desmume.DeSmuME.desktop" || die
+}
 
 src_configure() {
 	local EMESON_SOURCE="${S}/${PN}/src/frontend/posix"

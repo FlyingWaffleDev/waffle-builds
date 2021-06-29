@@ -5,9 +5,12 @@
 	<bugs-to>https://github.com/TASVideos/desmume/issues</bugs-to>
 </upstream>
 <use>
+    <flag name="cli">Enable cli frontend</flag>
+    <flag name="gui">Enable GTK frontend</flag>
+    <flag name="gdb">Enable gdb stub</flag>
     <flag name="hud">Enable Heads Up Display</flag>
     <flag name="openal">Enable experimental microphone support</flag>
     <flag name="soundtouch">Use Soundtouch for audio processing</flag>
-    <flag name="glade">Build Gnome-Glade frontend (currently not working)</flag>
+    <flag name="wifi">Enable experimental wifi support</flag>
 </use>
 </pkgmetadata>
