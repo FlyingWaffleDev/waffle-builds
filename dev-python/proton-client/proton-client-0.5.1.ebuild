@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{8..10} )
 
-DISTUTILS_USE_SETUPTOOLS=rdepend
+DISTUTILS_USE_SETUPTOOLS=bdepend
 
 inherit distutils-r1
 
@@ -19,10 +19,10 @@ SLOT="0"
 RESTRICT="primaryuri"
 
 RDEPEND="
-	dev-python/requests
-	dev-python/bcrypt
-	dev-python/python-gnupg
-	dev-python/pyopenssl
+	dev-python/requests[${PYTHON_USEDEP}]
+	dev-python/bcrypt[${PYTHON_USEDEP}]
+	dev-python/python-gnupg[${PYTHON_USEDEP}]
+	dev-python/pyopenssl[${PYTHON_USEDEP}]
 "
 
 DEPEND="${RDEPEND}"
@@ -30,3 +30,5 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}/proton-python-client-${PV}"
 
 DOCS=( README.md )
+
+distutils_enable_tests unittest

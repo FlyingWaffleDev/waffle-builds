@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/psutil[${PYTHON_USEDEP}]
 	dev-python/pycairo[${PYTHON_USEDEP}]
 	appindicator? ( dev-libs/libappindicator:3 )
-	net-vpn/protonvpn-nm-lib
+	net-vpn/protonvpn-nm-lib[${PYTHON_USEDEP}]
 "
 
 DEPEND="${RDEPEND}"

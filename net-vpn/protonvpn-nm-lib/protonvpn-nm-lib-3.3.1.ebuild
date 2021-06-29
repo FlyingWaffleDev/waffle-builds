@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{8..10} )
 
-DISTUTILS_USE_SETUPTOOLS=rdepend
+DISTUTILS_USE_SETUPTOOLS=bdepend
 
 inherit distutils-r1
 
@@ -22,11 +22,13 @@ RDEPEND="
 	net-misc/networkmanager
 	net-vpn/networkmanager-openvpn
 	net-vpn/openvpn
-	dev-python/pyxdg
-	dev-python/keyring
-	dev-python/jinja
-	dev-python/distro
-	dev-python/proton-client
+	dev-python/pygobject[${PYTHON_USEDEP}]
+	dev-python/pyxdg[${PYTHON_USEDEP}]
+	dev-python/keyring[${PYTHON_USEDEP}]
+	dev-python/jinja[${PYTHON_USEDEP}]
+	dev-python/distro[${PYTHON_USEDEP}]
+	dev-python/python-gnupg[${PYTHON_USEDEP}]
+	dev-python/proton-client[${PYTHON_USEDEP}]
 "
 
 DEPEND="${RDEPEND}"

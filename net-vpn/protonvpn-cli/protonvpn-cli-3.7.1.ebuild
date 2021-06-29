@@ -17,13 +17,14 @@ LICENSE="GPL-3"
 KEYWORDS="~amd64"
 SLOT="0"
 IUSE="gui systemd"
-RESTRICT="primaryuri"
+RESTRICT="test primaryuri" # only has dummy tests anyway
 
 RDEPEND="
-	gui? ( net-vpn/protonvpn-gui )
-	dev-python/pythondialog
-	net-vpn/protonvpn-nm-lib
-	systemd? ( dev-python/python-systemd )
+	gui? ( net-vpn/protonvpn-gui[${PYTHON_USEDEP}] )
+	dev-python/pythondialog[${PYTHON_USEDEP}]
+	dev-python/dbus-python[${PYTHON_USEDEP}]
+	net-vpn/protonvpn-nm-lib[${PYTHON_USEDEP}]
+	systemd? ( dev-python/python-systemd[${PYTHON_USEDEP}] )
 "
 
 DEPEND="${RDEPEND}"
