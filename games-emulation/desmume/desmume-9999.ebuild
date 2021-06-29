@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -10,18 +10,20 @@ HOMEPAGE="https://desmume.org/ https://github.com/TASVideos/desmume"
 
 EGIT_REPO_URI="https://github.com/TASVideos/${PN}.git"
 
-S="${WORKDIR}/${P}/${PN}/src/frontend/posix"
+S="${WORKDIR}/${P}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
-IUSE="hud openal soundtouch wifi glade"
+KEYWORDS="~amd64 ~x86"
+IUSE="cli glade +gui gdb hud openal soundtouch wifi"
 
 RDEPEND="
-	x11-libs/gtk+:2
-	media-libs/libsdl[joystick,opengl,video]
+	media-libs/alsa-lib
+	media-libs/libsdl2[X,joystick,opengl,video]
 	sys-libs/zlib
 	virtual/opengl
+	x11-libs/libX11
+	gui? ( x11-libs/gtk+:3 )
 	openal? ( media-libs/openal )
 	soundtouch? ( media-libs/soundtouch )
 	hud? ( x11-libs/agg )
@@ -30,13 +32,18 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	net-libs/libpcap
+	x11-base/xorg-proto
 	virtual/pkgconfig
 	"
 
-DOCS=( ../../../README ../../../README.LIN )
+DOCS=( ${PN}/{AUTHORS,ChangeLog,README,README.LIN,doc/.} )
 
 src_configure() {
+	local EMESON_SOURCE="${S}/${PN}/src/frontend/posix"
 	local emesonargs=(
+		$(meson_use cli frontend-cli)
+		$(meson_use gdb gdb-stub)
+		$(meson_use gui frontend-gtk)
 		$(meson_use openal)
 		$(meson_use wifi)
 	)
