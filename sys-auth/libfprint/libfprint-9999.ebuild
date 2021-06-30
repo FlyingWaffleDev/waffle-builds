@@ -13,14 +13,14 @@ if [[ "${PV}" == 9999 ]] ; then
 	EGIT_REPO_URI="https://gitlab.freedesktop.org/libfprint/libfprint.git"
 else
 	SRC_URI="https://gitlab.freedesktop.org/libfprint/${PN}/-/archive/v${PV}/${PN}-v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 	S="${WORKDIR}/${PN}-v${PV}"
 fi
 
 LICENSE="LGPL-2.1"
 SLOT="2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="examples doc +introspection"
-RESTRICT="mirror"
+RESTRICT="primaryuri"
 
 RDEPEND="dev-libs/glib:2
 	dev-libs/nss
@@ -46,7 +46,7 @@ src_configure() {
 		$(meson_use examples gtk-examples)
 		$(meson_use introspection)
 		-Ddrivers=all
-		-Dudev_rules=true
+		-Dudev_rules=enabled
 		-Dudev_rules_dir=$(get_udevdir)/rules.d
 		--libdir=/usr/$(get_libdir)
 	)
