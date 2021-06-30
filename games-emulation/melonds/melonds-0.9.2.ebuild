@@ -34,7 +34,6 @@ DEPEND="
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5
 	dev-qt/qtwidgets:5
-	dev-libs/teakra
 	"
 
 RDEPEND="${DEPEND}"
@@ -43,8 +42,6 @@ RDEPEND="${DEPEND}"
 QA_EXECSTACK="usr/bin/melonDS"
 
 BUILD_DIR="${S}/build"
-
-CMAKE_MAKEFILE_GENERATOR="emake"
 
 src_prepare() {
 	cmake_src_prepare

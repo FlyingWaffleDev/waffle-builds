@@ -47,6 +47,9 @@ BUILD_DIR="${S}/build"
 CMAKE_MAKEFILE_GENERATOR="emake"
 
 src_prepare() {
+	# make sure melonDS uses system teakra
+	rmdir "${S}/src/teakra"
+	cmake_comment_add_subdirectory teakra
 	cmake_src_prepare
 }
 
