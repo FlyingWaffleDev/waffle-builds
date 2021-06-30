@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2019-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,35 +6,45 @@ EAPI=7
 inherit cmake xdg
 
 MY_PN="melonDS"
+MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="NintendoDS emulator, sorta. Also 1st quality melon."
-HOMEPAGE="http://melonds.kuribo64.net"
+HOMEPAGE="http://melonds.kuribo64.net https://github.com/Arisotura/melonDS"
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/Arisotura/${MY_PN}"
+	EGIT_REPO_URI="https://github.com/Arisotura/${MY_PN}.git"
 else
 	MY_P="${MY_PN}-${PV}"
-	RESTRICT="mirror"
+	RESTRICT="primaryuri"
 	SRC_URI="https://github.com/Arisotura/${MY_PN}/archive/${PV}.tar.gz -> ${MY_P}.tar.gz"
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+	KEYWORDS="~amd64 ~x86"
 	S="${WORKDIR}/${MY_P}"
 fi
 
-LICENSE="GPL-3"
+LICENSE="BSD-2 GPL-2 GPL-3 Unlicense"
 SLOT="0"
 
 DEPEND="
+	app-arch/libarchive
 	media-libs/libsdl2[sound,video]
+	media-libs/libepoxy
 	net-libs/libpcap
 	net-libs/libslirp
-	net-misc/curl
-	x11-libs/cairo
-	dev-qt/qtcore
-	dev-qt/qtdeclarative
+	dev-qt/qtcore:5
+	dev-qt/qtgui:5
+	dev-qt/qtwidgets:5
+	dev-libs/teakra
 	"
 
 RDEPEND="${DEPEND}"
+
+# used for JIT recompiler
+QA_EXECSTACK="usr/bin/melonDS"
+
+BUILD_DIR="${S}/build"
+
+CMAKE_MAKEFILE_GENERATOR="emake"
 
 src_prepare() {
 	cmake_src_prepare
