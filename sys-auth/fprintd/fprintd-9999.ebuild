@@ -13,12 +13,12 @@ if [[ "${PV}" == 9999 ]] ; then
 	EGIT_REPO_URI="https://gitlab.freedesktop.org/libfprint/${PN}.git"
 else
 	SRC_URI="https://gitlab.freedesktop.org/libfprint/${PN}/-/archive/v${PV}/${PN}-v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86"
 	S="${WORKDIR}/${PN}-v${PV}"
 fi
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 IUSE="doc +pam test systemd"
 RESTRICT="primaryuri
 	!test? ( test )"
