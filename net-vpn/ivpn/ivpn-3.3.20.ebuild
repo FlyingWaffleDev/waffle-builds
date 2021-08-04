@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit go-module
+inherit go-module systemd
 
 EGO_SUM=(
 	"github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4="
@@ -57,6 +57,7 @@ SRC_URI="https://github.com/ivpn/desktop-app/archive/v${PV}.tar.gz -> ${P}.tar.g
 LICENSE="GPL-3"
 KEYWORDS="~amd64"
 SLOT="0"
+IUSE="systemd"
 RESTRICT="primaryuri"
 
 RDEPEND="sys-libs/glibc
@@ -94,7 +95,6 @@ src_compile() {
 	cd "${S}/daemon" || die
 	go build -o "$OUT_FILE" -trimpath -ldflags "-X github.com/ivpn/desktop-app/daemon/version._version=$VERSION -X github.com/ivpn/desktop-app/daemon/version._commit=$COMMIT -X github.com/ivpn/desktop-app/daemon/version._time=$DATE" || die "failed to compile daemon"
 
-
 	# build cli
 	SCRIPT_DIR="${S}/cli/References/Linux"
 	OUT_DIR="$SCRIPT_DIR/_out_bin"
@@ -127,7 +127,9 @@ src_install() {
 	cd "${S}/cli" || die
 	dobin "References/Linux/_out_bin/ivpn"
 
-	# the below can be handled by a .service file in the 'files' dir of the ebuild
-	# cd "$srcdir"
-	# install -D "ivpn-service.service" "$pkgdir/usr/lib/systemd/system/ivpn-service.service"
+	if  use systemd;  then
+		systemd_dounit "${FILESDIR}/ivpn-service.service"
+	else
+		newinitd "${FILESDIR}/ivpn.initd" ivpn
+	fi
 }
