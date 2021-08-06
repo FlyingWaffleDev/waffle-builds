@@ -67,7 +67,7 @@ pkg_postrm() {
 	rm /var/log/auto-cpufreq.log
 
 	# Remove auto-cpufreq's cpufreqctl binary
-	# it copies cpufreqctl.sh over (do NOT like this behaviour)
+	# it copies cpufreqctl.sh over (I do NOT like this behavior)
 	rm /usr/bin/cpufreqctl
 
 	# Restore original cpufreqctl binary if backup was made
