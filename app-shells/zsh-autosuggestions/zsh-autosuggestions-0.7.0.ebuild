@@ -13,22 +13,28 @@ else
 	KEYWORDS="~amd64 ~x86"
 fi
 
-DESCRIPTION="ZSH port of Fish history search (up arrow)"
-HOMEPAGE="https://github.com/zsh-users/zsh-history-substring-search"
-LICENSE="BSD"
+DESCRIPTION="Fish shell-like autosuggestions for zsh"
+HOMEPAGE="https://github.com/zsh-users/zsh-autosuggestions"
+LICENSE="MIT"
 SLOT="0"
 RESTRICT="primaryuri"
 
-RDEPEND=">=app-shells/zsh-4.3.0"
+RDEPEND=">=app-shells/zsh-4.3.11"
+
+DOCS=(
+	CHANGELOG.md
+	README.md
+)
 
 DISABLE_AUTOFORMATTING="true"
 DOC_CONTENTS="In order to use ${CATEGORY}/${PN} add
-${EROOT}/usr/share/zsh/plugins/${PN}/${PN}.zsh
-at the end of your ~/.zshrc
-If you want to use zsh-syntax-highlighting along with this script,
-then make sure that you load it before you load this script.
-For further information,  please read the README.md file installed
-in ${EROOT}/usr/share/doc/${PF}."
+. /usr/share/zsh/plugins/${PN}/${PN}.zsh
+at the end of your ~/.zshrc"
+
+src_prepare() {
+	default
+	emake clean
+}
 
 src_install() {
 	einstalldocs
