@@ -1,10 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PLOCALES="ar bn ca cs da de es et eu fi fr he hi_IN hu ie is it ja kk ko lt lv nb nl nn oc pl pt_BR pt_PT ro ru sk sr sr@ijekavian sr@ijekavianlatin sr@latin sv tr uk zh_CN zh_TW"
-inherit cmake l10n systemd user
+PLOCALES="ar bn ca cs da de es et fi fr hi_IN hu is it ja kk ko lt lv nb nl nn pl pt_BR pt_PT ro ru sk sr sr@ijekavian sr@ijekavianlatin sr@latin sv tr uk zh_CN zh_TW"
+inherit cmake plocale systemd user
 
 DESCRIPTION="Simple Desktop Display Manager"
 HOMEPAGE="https://github.com/sddm/sddm"
@@ -12,9 +12,9 @@ SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.xz"
 
 LICENSE="GPL-2+ MIT CC-BY-3.0 CC-BY-SA-3.0 public-domain"
 SLOT="0"
-KEYWORDS="amd64 ~arm arm64 ~ppc64 x86"
+KEYWORDS="amd64 ~arm arm64 ~ppc64 ~riscv x86"
 IUSE="elogind +pam systemd test"
-RESTRICT="mirror
+RESTRICT="primaryuri
 	!test? ( test )"
 
 REQUIRED_USE="?? ( elogind systemd )"
@@ -35,6 +35,7 @@ RDEPEND="
 	x11-libs/libxcb[xkb]
 	elogind? ( sys-auth/elogind )
 	pam? ( sys-libs/pam )
+	!pam? ( virtual/libcrypt:= )
 	systemd? ( sys-apps/systemd:= )
 	!systemd? ( sys-power/upower )
 "
@@ -47,8 +48,10 @@ PATCHES=(
 	"${FILESDIR}/${PN}-0.18.0-Xsession.patch" # bug 611210
 	"${FILESDIR}/${PN}-0.18.0-sddmconfdir.patch"
 	# fix for groups: https://github.com/sddm/sddm/issues/1159
-	"${FILESDIR}/${PN}-0.18.1-revert-honor-PAM-supplemental-groups.patch"
-	"${FILESDIR}/${PN}-0.18.1-honor-PAM-supplemental-groups-v2.patch"
+	"${FILESDIR}/${P}-revert-honor-PAM-supplemental-groups.patch"
+	"${FILESDIR}/${P}-honor-PAM-supplemental-groups-v2.patch"
+	# fix for ReuseSession=true
+	"${FILESDIR}/${P}-only-reuse-online-sessions.patch"
 	# TODO: fix properly
 	"${FILESDIR}/${PN}-0.16.0-ck2-revert.patch" # bug 633920
 	"${FILESDIR}/pam-1.4-substack.patch"
@@ -60,8 +63,8 @@ src_prepare() {
 	disable_locale() {
 		sed -e "/${1}\.ts/d" -i data/translations/CMakeLists.txt || die
 	}
-	l10n_find_plocales_changes "data/translations" "" ".ts"
-	l10n_for_each_disabled_locale_do disable_locale
+	plocale_find_changes "data/translations" "" ".ts"
+	plocale_for_each_disabled_locale disable_locale
 
 	if ! use test; then
 		sed -e "/^find_package/s/ Test//" -i CMakeLists.txt || die
