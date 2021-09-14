@@ -57,7 +57,8 @@ DESCRIPTION="Linux kernel manager and activity monitor"
 # Double check the homepage as the cargo_metadata crate
 # does not provide this value so instead repository is used
 HOMEPAGE="https://github.com/orhun/kmon"
-SRC_URI="$(cargo_crate_uris)"
+SRC_URI="https://github.com/orhun/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
+	$(cargo_crate_uris)"
 # License set may be more restrictive as OR is not respected
 # use cargo-license for a more accurate license picture
 LICENSE="0BSD Apache-2.0 GPL-3 MIT"
