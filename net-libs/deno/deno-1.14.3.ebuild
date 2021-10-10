@@ -452,10 +452,8 @@ RDEPEND=""
 
 src_unpack() {
 	if ! use build-v8; then
-		# convert SRC_URI string to array, remove last element (v8 bin), then go back
-		A=($A)
-		A=("${A[@]::${#A[@]}-1}");
-		A="${A[*]}"
+		# trim last element (v8 bin) from SRC_URI string
+		A="${A% *}"
 
 		mkdir -p "${T}/v0.31.0" || die
 		ln -s "${DISTDIR}/librusty_v8_release_x86_64-unknown-linux-gnu.a" "${T}/v0.31.0/librusty_v8_release_x86_64-unknown-linux-gnu.a" || die
