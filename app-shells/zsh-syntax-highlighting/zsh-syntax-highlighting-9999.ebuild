@@ -25,7 +25,7 @@ RDEPEND=">=app-shells/zsh-4.3.11"
 
 DISABLE_AUTOFORMATTING="true"
 DOC_CONTENTS="In order to use ${CATEGORY}/${PN} add
-. /usr/share/zsh/plugins/${PN}/${PN}.zsh
+'source /usr/share/zsh/site-functions/zsh-syntax-highlighting.zsh'
 at the end of your ~/.zshrc"
 
 src_prepare() {
@@ -35,7 +35,7 @@ src_prepare() {
 
 src_install() {
 	emake \
-		SHARE_DIR="${ED}/usr/share/zsh/site-functions" \
+		SHARE_DIR="${ED}/usr/share/zsh/site-functions/" \
 		DOC_DIR="${ED}/usr/share/doc/${PF}" \
 		install
 	readme.gentoo_create_doc
