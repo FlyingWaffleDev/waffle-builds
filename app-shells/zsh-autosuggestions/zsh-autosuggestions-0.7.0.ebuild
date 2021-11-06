@@ -29,7 +29,7 @@ at the end of your ~/.zshrc"
 src_install() {
 	readme.gentoo_create_doc
 	insinto "/usr/share/zsh/site-functions/"
-	doins "${WORKDIR}/all/${P}/${PN}.zsh"
+	doins "${PN}.zsh"
 }
 
 pkg_postinst() {
