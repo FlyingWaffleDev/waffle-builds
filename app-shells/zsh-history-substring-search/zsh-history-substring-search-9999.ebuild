@@ -21,9 +21,8 @@ RESTRICT="primaryuri"
 
 RDEPEND=">=app-shells/zsh-4.3.0"
 
-DISABLE_AUTOFORMATTING="true"
 DOC_CONTENTS="In order to use ${CATEGORY}/${PN} add
-${EROOT}/usr/share/zsh/plugins/${PN}/${PN}.zsh
+'source /usr/share/zsh/site-functions/${PN}/${PN}.zsh'
 at the end of your ~/.zshrc
 If you want to use zsh-syntax-highlighting along with this script,
 then make sure that you load it before you load this script.
@@ -33,7 +32,7 @@ in ${EROOT}/usr/share/doc/${PF}."
 src_install() {
 	einstalldocs
 	readme.gentoo_create_doc
-	insinto "/usr/share/zsh/plugins/${PN}"
+	insinto "/usr/share/zsh/site-functions/"
 	doins "${PN}.zsh"
 }
 
