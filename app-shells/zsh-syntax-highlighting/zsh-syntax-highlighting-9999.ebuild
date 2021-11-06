@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -28,9 +28,14 @@ DOC_CONTENTS="In order to use ${CATEGORY}/${PN} add
 . /usr/share/zsh/plugins/${PN}/${PN}.zsh
 at the end of your ~/.zshrc"
 
+src_prepare() {
+	sed -i -e 's/COPYING.md//' Makefile || die
+	default
+}
+
 src_install() {
 	emake \
-		SHARE_DIR="${ED}/usr/share/zsh/plugins/${PN}" \
+		SHARE_DIR="${ED}/usr/share/zsh/site-functions" \
 		DOC_DIR="${ED}/usr/share/doc/${PF}" \
 		install
 	readme.gentoo_create_doc
