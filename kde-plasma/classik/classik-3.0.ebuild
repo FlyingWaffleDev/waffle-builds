@@ -13,7 +13,7 @@ DESCRIPTION="Breeze visual style for the Plasma desktop"
 HOMEPAGE="https://github.com/paulmcauley/classik"
 SRC_URI="https://github.com/paulmcauley/${PN}/archive/refs/tags/${PV}.breeze5.23.80.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-2" # TODO: CHECK
+LICENSE="GPL-2"
 SLOT="5"
 KEYWORDS="amd64 ~arm ~arm64 ~ppc64 ~riscv ~x86"
 IUSE="X"
@@ -48,8 +48,6 @@ PDEPEND="
 "
 
 S="${WORKDIR}/${P}.breeze5.23.80"
-
-# PATCHES=( "${FILESDIR}"/${P}-fix-kstyle-crash.patch )
 
 src_configure() {
 	local mycmakeargs=(
