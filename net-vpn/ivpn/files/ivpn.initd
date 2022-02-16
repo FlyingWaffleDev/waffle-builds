@@ -1,15 +1,19 @@
 #!/sbin/openrc-run
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-name="IVPN-Service Daemon"
-pidfile="${RC_PREFIX}/run/ivpn.pid"
+description="IVPN-Service Daemon"
 
 command="/usr/bin/ivpn-service"
+command_background=true
 command_user="root:root"
 
-reload() {
-	ebegin "Reloading ${RC_SVCNAME}"
-	start-stop-daemon --signal HUP --pidfile "${pidfile}"
-	eend $?
+supervisor="supervise-daemon"
+supervise_daemon_args=" -d /"
+
+depend() {
+    need localmount net
+    use dns
+    after bootmisc
+    provide vpn
 }
