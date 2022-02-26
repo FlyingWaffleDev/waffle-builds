@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -32,8 +32,10 @@ RDEPEND="
 		dev-python/pydbus[${PYTHON_USEDEP}]
 		dev-python/python-evdev[${PYTHON_USEDEP}]
 		dev-python/setuptools[${PYTHON_USEDEP}]
+		dev-python/pydantic[${PYTHON_USEDEP}]
 	')
 	x11-libs/gtk+:3
+	x11-libs/gtksourceview:4
 "
 
 DEPEND="${RDEPEND}"
