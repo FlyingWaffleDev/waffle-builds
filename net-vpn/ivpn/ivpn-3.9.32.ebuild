@@ -70,6 +70,14 @@ S="${WORKDIR}/desktop-app-${PV}"
 
 DOCS=( readme.md CHANGELOG.md )
 
+pkg_pretend() {
+	local CONFIG_CHECK="NETFILTER_XT_SET NETFILTER_XT_MATCH_CGROUP
+		NETFILTER_XT_MATCH_MARK NETFILTER_XT_MATCH_CONNMARK
+		NETFILTER_XT_TARGET_MARK NETFILTER_XT_TARGET_CONNMARK"
+
+	check_extra_config
+}
+
 src_compile() {
 	# version info variables
 	VERSION="${PV}"
