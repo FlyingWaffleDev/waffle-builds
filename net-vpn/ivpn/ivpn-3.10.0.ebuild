@@ -124,11 +124,11 @@ src_install() {
 	doins "References/Linux/etc/firewall.sh"
 	doins "References/Linux/etc/splittun.sh"
 	insopts -m600
-	doins "References/Linux/etc/servers.json"
+	doins "References/common/etc/servers.json"
 	insopts -m400
-	doins "References/Linux/etc/ca.crt"
-	doins "References/Linux/etc/ta.key"
-	doins "References/Linux/etc/dnscrypt-proxy-template.toml"
+	doins "References/common/etc/ca.crt"
+	doins "References/common/etc/ta.key"
+	doins "References/common/etc/dnscrypt-proxy-template.toml"
 
 	dosym "$(which wg-quick)" "opt/ivpn/wireguard-tools/wg-quick"
 	dosym "$(which wg)" "opt/ivpn/wireguard-tools/wg"
