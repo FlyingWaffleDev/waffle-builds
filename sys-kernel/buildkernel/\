@@ -3,6 +3,8 @@
 
 EAPI=8
 
+#inherit eutils
+
 DESCRIPTION="Build secure boot EFI kernel with LUKS, LVM and plymouth"
 BASE_SERVER_URI="https://github.com/sakaki-"
 HOMEPAGE="${BASE_SERVER_URI}/${PN}"
@@ -95,7 +97,7 @@ set_luks_partuuid_if_exactly_one_found() {
 		fi
 	done
 	shopt -u nullglob
-	if [ -n "${CANDIDATE}" ]; then
+	if [ ! -z "${CANDIDATE}" ]; then
 		elog " Found exactly one candidate: $(basename "${CANDIDATE}")"
 		elog " (which is $(readlink --canonicalize "${CANDIDATE}"))"
 		elog " Setting this for CRYPTPARTUUID in ${REALBKCONFPATH}"
@@ -150,7 +152,7 @@ set_efi_partuuid_if_exactly_one_found_on_usb() {
 		fi
 	done
 	shopt -u nullglob
-	if [ -n "${CANDIDATE}" ]; then
+	if [ ! -z "${CANDIDATE}" ]; then
 		elog " Found exactly one candidate: $(basename "${CANDIDATE}")"
 		elog " (which is $(readlink --canonicalize "${CANDIDATE}"))"
 		elog " Setting this for EFIPARTUUID in ${REALBKCONFPATH}"

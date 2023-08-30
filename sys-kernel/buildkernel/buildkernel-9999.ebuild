@@ -1,9 +1,7 @@
 # Copyright 1999-2020 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-
-inherit eutils
+EAPI=8
 
 DESCRIPTION="Build secure boot EFI kernel with LUKS, LVM and plymouth"
 HOMEPAGE="https://github.com/sakaki- https://github.com/FlyingWaffleDev/buildkernel"
@@ -101,7 +99,7 @@ set_luks_partuuid_if_exactly_one_found() {
 		fi
 	done
 	shopt -u nullglob
-	if [ ! -z "${CANDIDATE}" ]; then
+	if [ -n "${CANDIDATE}" ]; then
 		elog " Found exactly one candidate: $(basename "${CANDIDATE}")"
 		elog " (which is $(readlink --canonicalize "${CANDIDATE}"))"
 		elog " Setting this for CRYPTPARTUUID in ${REALBKCONFPATH}"
@@ -156,7 +154,7 @@ set_efi_partuuid_if_exactly_one_found_on_usb() {
 		fi
 	done
 	shopt -u nullglob
-	if [ ! -z "${CANDIDATE}" ]; then
+	if [ -n "${CANDIDATE}" ]; then
 		elog " Found exactly one candidate: $(basename "${CANDIDATE}")"
 		elog " (which is $(readlink --canonicalize "${CANDIDATE}"))"
 		elog " Setting this for EFIPARTUUID in ${REALBKCONFPATH}"
