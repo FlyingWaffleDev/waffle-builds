@@ -28,6 +28,15 @@ src_install() {
 	insinto "opt/ivpn/ui"
 	doins -r "${S}/opt/ivpn/ui/bin"
 	dobin "${S}/opt/ivpn/ui/bin/ivpn-ui"
+	dobin "${S}/opt/ivpn/ui/bin/chrome-sandbox"
+	dobin "${S}/opt/ivpn/ui/bin/chrome_crashpad_handler"
+	dolib.so "${S}/opt/ivpn/ui/bin/libEGL.so"
+	dolib.so "${S}/opt/ivpn/ui/bin/libGLESv2.so"
+	dolib.so "${S}/opt/ivpn/ui/bin/libffmpeg.so"
+	dolib.so "${S}/opt/ivpn/ui/bin/libvulkan.so.1"
+	dolib.so "${S}/opt/ivpn/ui/bin/libvk_swiftshader.so"
+
+	fperms 0777 "/opt/ivpn/ui/bin/resources/public.pem"
 
 	doins "${S}/opt/ivpn/ui/IVPN.desktop"
 	doins "${S}/opt/ivpn/ui/ivpnicon.svg"
