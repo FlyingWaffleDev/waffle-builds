@@ -21,8 +21,7 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 
-DEPEND=">=kde-frameworks/plasma-5.12
-	>=kde-frameworks/frameworkintegration-5.38
+DEPEND=">=kde-frameworks/frameworkintegration-5.38
 	>=kde-plasma/kdecoration-5.12
 	kde-frameworks/kcoreaddons
 	kde-frameworks/kdeclarative"
