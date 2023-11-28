@@ -202,6 +202,5 @@ pkg_postinst() {
 	einfo "You can get it from the nerd-font project."
 	einfo "https://github.com/ryanoasis/nerd-fonts"
 
-	elog "You may have to enable 50-user.conf and 10-nerd-font-symbols.conf using"
-	elog "eselect fontconfig"
+	font_pkg_postinst
 }
