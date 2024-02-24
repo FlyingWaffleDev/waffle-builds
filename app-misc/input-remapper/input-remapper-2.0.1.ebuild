@@ -30,7 +30,7 @@ RDEPEND="
 	$(python_gen_cond_dep '
 		dev-python/pygobject[${PYTHON_USEDEP}]
 		dev-python/pydbus[${PYTHON_USEDEP}]
-		>=dev-python/python-evdev-1.3.0[${PYTHON_USEDEP}]
+		dev-python/evdev[${PYTHON_USEDEP}]
 		dev-python/setuptools[${PYTHON_USEDEP}]
 		dev-python/pydantic[${PYTHON_USEDEP}]
 	')
