@@ -79,6 +79,7 @@ DIRNAME=(
 	Overpass
 	ProFont
 	ProggyClean
+	Recursive
 	RobotoMono
 	ShareTechMono
 	SourceCodePro
@@ -87,7 +88,9 @@ DIRNAME=(
 	Tinos
 	Ubuntu
 	UbuntuMono
+	UbuntuSans
 	VictorMono
+	ZedMono
 )
 
 IUSE_FLAGS=(${DIRNAME[*],,})
@@ -152,6 +155,7 @@ SRC_URI="
 	overpass?               ( "${MY_URI}/Overpass.tar.xz" )
 	profont?                ( "${MY_URI}/ProFont.tar.xz" )
 	proggyclean?            ( "${MY_URI}/ProggyClean.tar.xz" )
+	recursive?              ( "${MY_URI}/Recursive.tar.xz" )
 	robotomono?             ( "${MY_URI}/RobotoMono.tar.xz" )
 	sharetechmono?          ( "${MY_URI}/ShareTechMono.tar.xz" )
 	sourcecodepro?          ( "${MY_URI}/SourceCodePro.tar.xz" )
@@ -160,7 +164,9 @@ SRC_URI="
 	tinos?                  ( "${MY_URI}/Tinos.tar.xz" )
 	ubuntu?                 ( "${MY_URI}/Ubuntu.tar.xz" )
 	ubuntumono?             ( "${MY_URI}/UbuntuMono.tar.xz" )
+	ubuntusans?             ( "${MY_URI}/UbuntuSans.tar.xz" )
 	victormono?             ( "${MY_URI}/VictorMono.tar.xz" )
+	zedmono?                ( "${MY_URI}/ZedMono.tar.xz" )
 "
 
 DEPEND="app-arch/xz-utils"
