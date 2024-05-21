@@ -30,7 +30,7 @@ RDEPEND="${DEPEND}
 	=app-crypt/staticgpg-1.4.16-r1
 	>=sys-boot/efibootmgr-0.5.4-r1
 	>=sys-apps/debianutils-4.9.1[installkernel(+)]
-	>=sys-kernel/genkernel-9999"
+	>=sys-kernel/genkernel-4.3.10"
 
 src_prepare() {
 	# if the plymouth use flag not set, set script variable accordingly
