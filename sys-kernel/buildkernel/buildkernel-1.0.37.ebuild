@@ -13,8 +13,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+plymouth"
 
-RESTRICT="mirror"
-
 DEPEND=">=sys-apps/gptfdisk-0.8.8
 	>=sys-fs/cryptsetup-1.6.2
 	>=app-shells/bash-4.2:*"

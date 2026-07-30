@@ -1,4 +1,4 @@
-# Copyright 1999-2026 Gentoo Foundation
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,8 +12,6 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+plymouth"
-
-RESTRICT="mirror"
 
 RDEPEND=">=sys-apps/gptfdisk-0.8.8
 	>=sys-fs/cryptsetup-1.6.2
@@ -135,9 +133,17 @@ set_efi_partuuid_if_exactly_one_found_on_usb() {
 	shopt -s nullglob
 	for NEXTPART in "${PARTUUIDDEVDIR}"/*; do
 		if [ -e "${NEXTPART}" ]; then
-			local PARTNAME="$(readlink --canonicalize "${NEXTPART}")" # e.g. /dev/sda3
+			local PARTNAME
+			PARTNAME="$(readlink --canonicalize "${NEXTPART}")" # e.g. /dev/sda3
 			if [[ "${ISUSBPART[${PARTNAME}]-0}" == "1" ]]; then
-				local DEVNAME="${PARTNAME%%[[:digit:]]*}"			   # e.g. /dev/sda
+				local DEVNAME
+				# NVMe and MMC partitions use a separating "p" before
+				# the partition number (for example, nvme0n1p1).
+				if [[ "${PARTNAME}" =~ ^/dev/.*[[:digit:]]p[[:digit:]]+$ ]]; then
+					DEVNAME="${PARTNAME%%p[[:digit:]]*}" # e.g. /dev/nvme0n1
+				else
+					DEVNAME="${PARTNAME%%[[:digit:]]*}"  # e.g. /dev/sda
+				fi
 				local PARTNUM="${PARTNAME##*[^[:digit:]]}"			  # e.g. 3
 				# stat returns device type in hex only
 				if (sgdisk --info "${PARTNUM}" "${DEVNAME}" | grep -qi 'EFI System'); then

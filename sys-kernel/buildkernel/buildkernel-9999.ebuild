@@ -1,4 +1,4 @@
-# Copyright 1999-2026 Gentoo Foundation
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,29 +18,29 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+plymouth"
 
-RESTRICT="mirror"
-
 RDEPEND=">=sys-apps/gptfdisk-0.8.8
 	>=sys-fs/cryptsetup-1.6.2
 	>=app-shells/bash-4.2:*
 	>=sys-libs/ncurses-5.9-r2
 	>=virtual/linux-sources-3
 	>=app-crypt/sbsigntools-0.6-r1
-	plymouth? ( >=sys-boot/plymouth-0.8.8-r4[gdm(+),drm,pango] )
+	plymouth? ( >=sys-boot/plymouth-22.02.122-r4[drm,pango] )
 	=app-crypt/staticgpg-1.4.16-r1
 	>=sys-boot/efibootmgr-0.5.4-r1
 	>=sys-kernel/installkernel-68
-	>=sys-kernel/genkernel-4.3.10"
+	>=sys-kernel/genkernel-4.3.0"
 
+# ebuild function overrides
 src_prepare() {
+	default
 	# if the plymouth use flag not set, set script variable accordingly
 	if ! use plymouth; then
 		elog "plymouth USE flag not selected - patching script accordingly."
 		sed -i -e 's@USE_PLYMOUTH=true@USE_PLYMOUTH=false@g' "${S}/${PN}" || \
 			die "Failed to patch script to reflect omitted plymouth USE flag."
 	fi
-	eapply_user
 }
+
 src_install() {
 	dosbin "${PN}"
 	insinto "/etc"
@@ -48,6 +48,7 @@ src_install() {
 	doman "${PN}.8"
 	doman "${PN}.conf.5"
 }
+
 pkg_preinst() {
 	if [ -e "${ROOT}/etc/${PN}.conf" ]; then
 		# don't overwrite buildkernel.conf, user already has one,
@@ -63,6 +64,7 @@ pkg_preinst() {
 		set_efi_partuuid_if_exactly_one_found_on_usb
 	fi
 }
+
 pkg_postinst() {
 	elog "Be sure to check the CRYPTPARTUUID and EFIPARTUUID variables are"
 	elog "set correctly in /etc/buildkernel.conf, and also ensure that you have an"
@@ -109,6 +111,7 @@ set_luks_partuuid_if_exactly_one_found() {
 		ewarn " Please set CRYPTPARTUUID manually in ${REALBKCONFPATH}"
 	fi
 }
+
 set_efi_partuuid_if_exactly_one_found_on_usb() {
 	# checks all partitions on USB devices only; if exactly one EFI system
 	# partition is found, will set that for EFIPARTUUID in buildkernel.conf
@@ -135,9 +138,17 @@ set_efi_partuuid_if_exactly_one_found_on_usb() {
 	shopt -s nullglob
 	for NEXTPART in "${PARTUUIDDEVDIR}"/*; do
 		if [ -e "${NEXTPART}" ]; then
-			local PARTNAME="$(readlink --canonicalize "${NEXTPART}")" # e.g. /dev/sda3
+			local PARTNAME
+			PARTNAME="$(readlink --canonicalize "${NEXTPART}")" # e.g. /dev/sda3
 			if [[ "${ISUSBPART[${PARTNAME}]-0}" == "1" ]]; then
-				local DEVNAME="${PARTNAME%%[[:digit:]]*}"			   # e.g. /dev/sda
+				local DEVNAME
+				# NVMe and MMC partitions use a separating "p" before
+				# the partition number (for example, nvme0n1p1).
+				if [[ "${PARTNAME}" =~ ^/dev/.*[[:digit:]]p[[:digit:]]+$ ]]; then
+					DEVNAME="${PARTNAME%%p[[:digit:]]*}" # e.g. /dev/nvme0n1
+				else
+					DEVNAME="${PARTNAME%%[[:digit:]]*}"  # e.g. /dev/sda
+				fi
 				local PARTNUM="${PARTNAME##*[^[:digit:]]}"			  # e.g. 3
 				# stat returns device type in hex only
 				if (sgdisk --info "${PARTNUM}" "${DEVNAME}" | grep -qi 'EFI System'); then
