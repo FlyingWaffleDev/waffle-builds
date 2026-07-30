@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer status="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
+<maintainer type="person">
+		<email>flyingwaffle@pm.me</email>
+		<name>FlyingWaffle</name>
+		<bugs-to>mailto:flyingwaffle@pm.me</bugs-to>
 </maintainer>
 <upstream>
 		<maintainer type="person">
 				<email>sakaki@deciban.com</email>
 				<name>sakaki</name>
 		</maintainer>
-		<bugs-to>mailto:sakaki@deciban.com</bugs-to>
 </upstream>
 <longdescription>
 		This is a script that builds a Gentoo Linux EFI stub kernel which is
 		suitable for booting from a USB key using UEFI (no additional
 		bootloader required). It makes use of the initramfs creation tools
-		(and early userspace init) provided by sys-kernel/genkernel-next.
+		(and early userspace init) provided by sys-kernel/genkernel.
 
 		LVM-over-(dual-factor)LUKS, secure boot and plymouth are supported.
 </longdescription>

@@ -1,15 +1,16 @@
-# Copyright 1999-2020 Gentoo Foundation
+# Copyright 1999-2026 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 DESCRIPTION="Build secure boot EFI kernel with LUKS, LVM and plymouth"
 HOMEPAGE="https://github.com/sakaki- https://github.com/FlyingWaffleDev/buildkernel"
+BASE_SERVER_URI="https://github.com/FlyingWaffleDev"
 if [[ "${PV}" = 9999 ]] ; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/FlyingWaffleDev/buildkernel.git"
+	EGIT_REPO_URI="${BASE_SERVER_URI}/${PN}.git"
 else
-	SRC_URI="https://github.com/sakaki-/${PN}/releases/download/${PV}/${P}.tar.gz"
+	SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/${PV}/${P}.tar.gz"
 fi
 
 LICENSE="GPL-3+"
@@ -19,17 +20,16 @@ IUSE="+plymouth"
 
 RESTRICT="mirror"
 
-DEPEND=">=sys-apps/gptfdisk-0.8.8
+RDEPEND=">=sys-apps/gptfdisk-0.8.8
 	>=sys-fs/cryptsetup-1.6.2
-	>=app-shells/bash-4.2:*"
-RDEPEND="${DEPEND}
+	>=app-shells/bash-4.2:*
 	>=sys-libs/ncurses-5.9-r2
 	>=virtual/linux-sources-3
 	>=app-crypt/sbsigntools-0.6-r1
 	plymouth? ( >=sys-boot/plymouth-0.8.8-r4[gdm(+),drm,pango] )
 	=app-crypt/staticgpg-1.4.16-r1
 	>=sys-boot/efibootmgr-0.5.4-r1
-	>=sys-apps/debianutils-4.9.1[installkernel(+)]
+	>=sys-kernel/installkernel-68
 	>=sys-kernel/genkernel-4.3.10"
 
 src_prepare() {
