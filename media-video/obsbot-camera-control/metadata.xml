@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>flyingwaffle@pm.me</email>
+		<name>FlyingWaffle</name>
+	</maintainer>
+	<use>
+		<flag name="lsof">Detect processes that are using the camera</flag>
+		<flag name="virtual-camera">Install v4l2loopback configuration and a systemd service</flag>
+	</use>
+	<upstream>
+		<bugs-to>https://github.com/aaronsb/obsbot-camera-control/issues</bugs-to>
+		<remote-id type="github">aaronsb/obsbot-camera-control</remote-id>
+	</upstream>
+</pkgmetadata>
