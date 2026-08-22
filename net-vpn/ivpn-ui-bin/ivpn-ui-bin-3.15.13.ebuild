@@ -3,6 +3,7 @@
 
 EAPI=8
 
+RPM_COMPRESS_TYPE=none
 inherit desktop rpm
 
 DESCRIPTION="Official IVPN desktop GUI binary"
