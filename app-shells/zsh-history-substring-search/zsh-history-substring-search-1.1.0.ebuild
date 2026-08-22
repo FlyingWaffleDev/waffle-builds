@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -32,7 +32,7 @@ in ${EROOT}/usr/share/doc/${PF}."
 src_install() {
 	einstalldocs
 	readme.gentoo_create_doc
-y	insinto "/usr/share/zsh/site-functions/"
+	insinto "/usr/share/zsh/site-functions/"
 	doins "${PN}.zsh"
 }
 

@@ -8,6 +8,6 @@ LICENSE=BSD
 RDEPEND=>=app-shells/zsh-4.3.0
 RESTRICT=primaryuri
 SLOT=0
-SRC_URI=https://github.com/zsh-users/zsh-history-substring-search/archive/v1.0.2.tar.gz -> zsh-history-substring-search-1.0.2.tar.gz
+SRC_URI=https://github.com/zsh-users/zsh-history-substring-search/archive/v1.1.0.tar.gz -> zsh-history-substring-search-1.1.0.tar.gz
 _eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	readme.gentoo-r1	9ca94b2d607e7454ca6cfb44ab8ce327
-_md5_=76a4691fcbf1f0e2b337b2e73b1759b4
+_md5_=1b906380591a6b9f8bf3fa0eb790bf19
