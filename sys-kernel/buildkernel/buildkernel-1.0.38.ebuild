@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="Build secure boot EFI kernel with LUKS, LVM and plymouth"
 BASE_SERVER_URI="https://github.com/FlyingWaffleDev"
-HOMEPAGE="${BASE_SERVER_URI}/${PN}"
+HOMEPAGE="https://github.com/FlyingWaffleDev/buildkernel"
 SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3+"

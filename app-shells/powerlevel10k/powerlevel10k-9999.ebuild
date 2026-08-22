@@ -16,7 +16,7 @@ IUSE="nerd-fonts"
 
 RDEPEND="
 	app-shells/zsh
-	nerd-fonts? ( media-fonts/meslo-nerd )"
+	nerd-fonts? ( media-fonts/nerd-fonts[meslo] )"
 BDEPEND="dev-build/cmake"
 
 DOCS=(

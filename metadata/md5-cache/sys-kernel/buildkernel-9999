@@ -2,13 +2,12 @@ BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=install postinst preinst prepare unpack
 DESCRIPTION=Build secure boot EFI kernel with LUKS, LVM and plymouth
 EAPI=8
-HOMEPAGE=https://github.com/sakaki- https://github.com/FlyingWaffleDev/buildkernel
+HOMEPAGE=https://github.com/FlyingWaffleDev/buildkernel
 INHERIT=git-r3
 IUSE=+plymouth
-KEYWORDS=~amd64
 LICENSE=GPL-3+
 PROPERTIES=live
 RDEPEND=>=sys-apps/gptfdisk-0.8.8 >=sys-fs/cryptsetup-1.6.2 >=app-shells/bash-4.2:* >=sys-libs/ncurses-5.9-r2 >=virtual/linux-sources-3 >=app-crypt/sbsigntools-0.6-r1 plymouth? ( >=sys-boot/plymouth-22.02.122-r4[drm,pango] ) =app-crypt/staticgpg-1.4.16-r1 >=sys-boot/efibootmgr-0.5.4-r1 >=sys-kernel/installkernel-68 >=sys-kernel/genkernel-4.3.0
 SLOT=0
 _eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
-_md5_=31d91854bb257b4aa2bfd21bc2be189e
+_md5_=7bdf160d02b72760a4ea36a4bd9e848d

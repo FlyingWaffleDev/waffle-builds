@@ -4,18 +4,18 @@
 EAPI=8
 
 DESCRIPTION="Build secure boot EFI kernel with LUKS, LVM and plymouth"
-HOMEPAGE="https://github.com/sakaki- https://github.com/FlyingWaffleDev/buildkernel"
+HOMEPAGE="https://github.com/FlyingWaffleDev/buildkernel"
 BASE_SERVER_URI="https://github.com/FlyingWaffleDev"
 if [[ "${PV}" = 9999 ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="${BASE_SERVER_URI}/${PN}.git"
 else
 	SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/${PV}/${P}.tar.gz"
+	KEYWORDS="~amd64"
 fi
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE="+plymouth"
 
 RDEPEND=">=sys-apps/gptfdisk-0.8.8

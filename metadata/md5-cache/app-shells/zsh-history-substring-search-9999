@@ -7,7 +7,6 @@ INHERIT=readme.gentoo-r1 git-r3
 LICENSE=BSD
 PROPERTIES=live
 RDEPEND=>=app-shells/zsh-4.3.0
-RESTRICT=primaryuri
 SLOT=0
 _eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	readme.gentoo-r1	9ca94b2d607e7454ca6cfb44ab8ce327	git-r3	2f8cdb10b033f92c3136aa6488a31c98
-_md5_=eee2e19b4b80fd1490f82bab987753be
+_md5_=35ecabcc606627f315af7d9f2b3ab2e3

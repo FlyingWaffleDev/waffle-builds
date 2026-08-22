@@ -18,17 +18,15 @@ else
 	KEYWORDS="~amd64 ~x86"
 fi
 
-DESCRIPTION="A theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience."
+DESCRIPTION="A theme for Zsh emphasizing speed, flexibility and out-of-the-box experience"
 HOMEPAGE="https://github.com/romkatv/powerlevel10k"
 
 LICENSE="MIT GPL-3"
 SLOT="0"
 IUSE="nerd-fonts"
-RESTRICT="primaryuri"
-
 RDEPEND="
 	app-shells/zsh
-	nerd-fonts? ( media-fonts/meslo-nerd )"
+	nerd-fonts? ( media-fonts/nerd-fonts[meslo] )"
 
 DOCS=(
 	README.md
