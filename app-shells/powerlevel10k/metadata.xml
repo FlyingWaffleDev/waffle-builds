@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<use>
+		<flag name="nerd-fonts">Install the recommended Meslo Nerd Font</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">romkatv/powerlevel10k</remote-id>
+	</upstream>
+</pkgmetadata>
