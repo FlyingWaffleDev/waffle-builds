@@ -1,0 +1,16 @@
+BDEPEND=net-misc/curl >=dev-lang/go-1.18 >=dev-lang/go-1.24.11:= app-arch/unzip virtual/pkgconfig
+DEFINED_PHASES=compile install pretend unpack
+DEPEND=sys-libs/glibc sys-process/lsof net-vpn/openvpn net-vpn/wireguard-tools net-wireless/wireless-tools net-proxy/lyrebird net-dns/dnscrypt-proxy
+DESCRIPTION=Official IVPN Desktop app
+EAPI=8
+HOMEPAGE=https://www.ivpn.net/ https://github.com/ivpn
+INHERIT=go-module systemd
+IUSE=systemd
+KEYWORDS=~amd64
+LICENSE=GPL-3
+RDEPEND=sys-libs/glibc sys-process/lsof net-vpn/openvpn net-vpn/wireguard-tools net-wireless/wireless-tools net-proxy/lyrebird net-dns/dnscrypt-proxy
+RESTRICT=primaryuri
+SLOT=0
+SRC_URI=https://github.com/ivpn/desktop-app/archive/v3.10.23.tar.gz -> ivpn-3.10.23.tar.gz https://github.com/FlyingWaffleDev/gentoo-ivpn-deps/releases/download/ivpn-3.10.23/ivpn-3.10.23-deps.tar.xz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	sysroot	4c36abaf94ebd3ab32f8abea9a444121	go-env	fca4e820393c2eac25a944be8bdf6a3a	go-module	3d4b6f3f29b3ebdeb708785b3cb1743b	systemd	a964c0cbe818b5729da1dbfcee5be861
+_md5_=de0c1248cc58704c7051b9831d2a7e7f

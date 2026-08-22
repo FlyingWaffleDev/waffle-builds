@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Fish-like autosuggestions for zsh
+EAPI=8
+HOMEPAGE=https://github.com/zsh-users/zsh-autosuggestions
+INHERIT=readme.gentoo-r1
+IUSE=primaryuri
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+RDEPEND=>=app-shells/zsh-4.3.11
+SLOT=0
+SRC_URI=https://github.com/zsh-users/zsh-autosuggestions/archive/v0.7.0.tar.gz -> zsh-autosuggestions-0.7.0.tar.gz
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	readme.gentoo-r1	9ca94b2d607e7454ca6cfb44ab8ce327
+_md5_=10c8554ab204d35c9e0e4eb5aee03115

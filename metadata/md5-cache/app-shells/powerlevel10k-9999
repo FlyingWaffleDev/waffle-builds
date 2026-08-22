@@ -1,0 +1,13 @@
+BDEPEND=dev-build/cmake >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=configure install postinst prepare unpack
+DESCRIPTION=A theme for Zsh emphasizing speed, flexibility and out-of-the-box experience
+EAPI=8
+HOMEPAGE=https://github.com/romkatv/powerlevel10k
+INHERIT=git-r3
+IUSE=nerd-fonts
+LICENSE=MIT GPL-3
+PROPERTIES=live
+RDEPEND=app-shells/zsh nerd-fonts? ( media-fonts/meslo-nerd )
+SLOT=0
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_md5_=3d5770f6c3e1a77a811f122b00c37341
