@@ -21,6 +21,8 @@ ignore = true
 notes = "Frozen static 1.4 series for initramfs"
 
 ["app-misc/logiops"]
+ignore = true
+notes = "Version releases tracked by Gentoo"
 source = "github"
 repo = "PixlOne/logiops"
 tag_prefix = "v"
@@ -54,6 +56,8 @@ source = "github"
 repo = "microsoft/pyright"
 
 ["games-emulation/desmume"]
+ignore = true
+notes = "Version releases tracked by Gentoo"
 source = "github"
 repo = "TASEmulators/desmume"
 check = "tags"
@@ -101,12 +105,16 @@ source = "github"
 repo = "FlyingWaffleDev/dbus-broker-dispatch"
 
 ["sys-auth/fprintd"]
+ignore = true
+notes = "Version releases tracked by Gentoo"
 source = "gitlab"
 host = "gitlab.freedesktop.org"
 project = "libfprint/fprintd"
 tag_prefix = "v"
 
 ["sys-auth/libfprint"]
+ignore = true
+notes = "Version releases tracked by Gentoo"
 source = "gitlab"
 host = "gitlab.freedesktop.org"
 project = "libfprint/libfprint"
