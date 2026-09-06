@@ -1,0 +1,122 @@
+# Upstream version tracking configuration for waffle-builds
+
+[defaults]
+# Default check mode for GitHub: "release" checks /releases, falling back to /tags
+# when the request succeeds but no eligible release is found.
+# "tags" checks git tags directly
+github_check = "release"
+# Filter out pre-releases/RCs by default
+ignore_prereleases = true
+
+["app-accessibility/at-spi2-core"]
+source = "gitlab"
+host = "gitlab.gnome.org"
+project = "GNOME/at-spi2-core"
+# Match stable GNOME releases (even minor numbers and patch < 90)
+tag_filter = "^[0-9]+\\.(?:[0-9]*[02468])\\.(?:[0-8]?[0-9])$"
+
+["app-crypt/staticgpg"]
+# Static legacy GnuPG 1.4 series (frozen for initramfs)
+ignore = true
+notes = "Frozen static 1.4 series for initramfs"
+
+["app-misc/logiops"]
+source = "github"
+repo = "PixlOne/logiops"
+tag_prefix = "v"
+
+["app-portage/showem"]
+source = "github"
+repo = "FlyingWaffleDev/showem"
+
+["app-shells/powerlevel10k"]
+source = "github"
+repo = "romkatv/powerlevel10k"
+tag_prefix = "v"
+
+["app-shells/zsh-autosuggestions"]
+source = "github"
+repo = "zsh-users/zsh-autosuggestions"
+check = "tags"
+tag_prefix = "v"
+
+["app-shells/zsh-history-substring-search"]
+source = "github"
+repo = "zsh-users/zsh-history-substring-search"
+tag_prefix = "v"
+
+["dev-libs/liboqs"]
+source = "github"
+repo = "open-quantum-safe/liboqs"
+
+["dev-python/pyright"]
+source = "github"
+repo = "microsoft/pyright"
+
+["games-emulation/desmume"]
+source = "github"
+repo = "TASEmulators/desmume"
+check = "tags"
+version_pattern = "^release_(\\d+)_(\\d+)_(\\d+.*)$"
+version_replace = "\\1.\\2.\\3"
+
+["media-fonts/nerd-fonts"]
+source = "github"
+repo = "ryanoasis/nerd-fonts"
+tag_prefix = "v"
+
+["media-video/obsbot-camera-control"]
+source = "github"
+repo = "aaronsb/obsbot-camera-control"
+check = "tags"
+tag_prefix = "v"
+
+["net-misc/omnissa-horizon-client"]
+# Proprietary VMware/Omnissa client behind portal
+ignore = true
+notes = "Proprietary download portal"
+
+["net-proxy/v2ray-bin"]
+source = "github"
+repo = "v2fly/v2ray-core"
+tag_prefix = "v"
+
+["net-vpn/ivpn"]
+source = "github"
+repo = "ivpn/desktop-app"
+tag_prefix = "v"
+
+["net-vpn/ivpn-ui"]
+source = "github"
+repo = "ivpn/desktop-app"
+tag_prefix = "v"
+
+["net-vpn/ivpn-ui-bin"]
+source = "github"
+repo = "ivpn/desktop-app"
+tag_prefix = "v"
+
+["sys-apps/dbus-broker-dispatch"]
+source = "github"
+repo = "FlyingWaffleDev/dbus-broker-dispatch"
+
+["sys-auth/fprintd"]
+source = "gitlab"
+host = "gitlab.freedesktop.org"
+project = "libfprint/fprintd"
+tag_prefix = "v"
+
+["sys-auth/libfprint"]
+source = "gitlab"
+host = "gitlab.freedesktop.org"
+project = "libfprint/libfprint"
+tag_prefix = "v"
+
+["sys-kernel/buildkernel"]
+source = "github"
+repo = "FlyingWaffleDev/buildkernel"
+
+["www-client/floorp-bin"]
+source = "github"
+repo = "Floorp-Projects/Floorp"
+tag_prefix = "v"
