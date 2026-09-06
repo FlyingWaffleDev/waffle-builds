@@ -1,0 +1,321 @@
+From: dbus-broker-dispatch maintainers
+Subject: [PATCH] bus: support init-agnostic dbus-broker-dispatch
+
+dbus-broker-launch relies on systemd for service activation. Add a separate
+backend for dbus-broker-dispatch, retaining broker-launch and dbus-daemon.
+
+Pass a private readiness socket with --ready-fd=3 and publish the bus address
+only after the new dispatcher reports readiness. Bound startup and failed
+child cleanup, escalating to SIGKILL and asynchronous reaping when needed.
+Let fallback choose its own address so it cannot replace an occupied socket
+or race a failed child's socket cleanup.
+
+Requires a dispatcher implementing the --ready-fd protocol. Older dispatchers
+reject the option and safely fall back to the standard backend.
+
+---
+diff --git a/bus/at-spi-bus-launcher.c b/bus/at-spi-bus-launcher.c
+--- a/bus/at-spi-bus-launcher.c
++++ b/bus/at-spi-bus-launcher.c
+@@ -23,6 +23,7 @@
+ #include "config.h"
+ 
+ #include <signal.h>
++#include <poll.h>
+ #include <string.h>
+ #include <unistd.h>
+ #ifdef __linux__
+@@ -424,6 +425,181 @@
+ }
+ #endif
+ 
++#ifdef DBUS_BROKER_DISPATCH
++static void
++on_failed_dispatcher_exited (GPid pid, gint status, gpointer data)
++{
++  (void) status;
++  (void) data;
++
++  g_spawn_close_pid (pid);
++}
++
++static void
++stop_failed_dispatcher (GPid pid)
++{
++  gint64 deadline = g_get_monotonic_time () + 250 * G_TIME_SPAN_MILLISECOND;
++
++  kill (pid, SIGTERM);
++  do
++    {
++      pid_t result = waitpid (pid, NULL, WNOHANG);
++      if (result == pid || (result < 0 && errno == ECHILD))
++        {
++          g_spawn_close_pid (pid);
++          return;
++        }
++      g_usleep (10000);
++    }
++  while (g_get_monotonic_time () < deadline);
++
++  /* A stopped or unresponsive child must not block fallback. Reap it through
++   * the main loop, using a callback that cannot quit the fallback bus. */
++  kill (pid, SIGKILL);
++  g_child_watch_add (pid, on_failed_dispatcher_exited, NULL);
++}
++
++static gboolean
++wait_for_dispatcher (A11yBusLauncher *app, GPid pid, int ready_fd)
++{
++  gint64 deadline = g_get_monotonic_time () + 5 * G_TIME_SPAN_SECOND;
++
++  while (g_get_monotonic_time () < deadline)
++    {
++      int status;
++      pid_t result = waitpid (pid, &status, WNOHANG);
++      struct pollfd pollfd = { .fd = ready_fd, .events = POLLIN };
++      char notification;
++      ssize_t n;
++
++      if (result == pid)
++        {
++          if (WIFEXITED (status))
++            app->a11y_launch_error_message = g_strdup_printf ("Dispatcher exited with code %d", WEXITSTATUS (status));
++          else
++            app->a11y_launch_error_message = g_strdup ("Dispatcher exited before reporting readiness");
++          g_spawn_close_pid (pid);
++          return FALSE;
++        }
++      if (result < 0 && errno != EINTR)
++        {
++          int saved_errno = errno;
++          app->a11y_launch_error_message = g_strdup_printf ("Cannot wait for dispatcher: %s", g_strerror (saved_errno));
++          if (saved_errno != ECHILD)
++            stop_failed_dispatcher (pid);
++          else
++            g_spawn_close_pid (pid);
++          return FALSE;
++        }
++
++      /* Poll only the private readiness channel, never the public socket.
++       * In particular, an older live bus cannot report this child ready. */
++      result = poll (&pollfd, 1, 50);
++      if (result < 0 && errno == EINTR)
++        continue;
++      if (result < 0)
++        {
++          app->a11y_launch_error_message = g_strdup_printf ("Cannot read dispatcher readiness: %s", g_strerror (errno));
++          break;
++        }
++      if (result == 0)
++        continue;
++      n = recv (ready_fd, &notification, 1, MSG_DONTWAIT);
++      if (n < 0 && (errno == EINTR || errno == EAGAIN))
++        continue;
++      if (n == 1 && notification == 'R')
++        return TRUE;
++      app->a11y_launch_error_message = g_strdup ("Dispatcher failed before reporting readiness");
++      break;
++    }
++
++  if (app->a11y_launch_error_message == NULL)
++    app->a11y_launch_error_message = g_strdup ("Timed out waiting for dispatcher readiness");
++  stop_failed_dispatcher (pid);
++  return FALSE;
++}
++
++static gboolean
++ensure_a11y_bus_dispatch (A11yBusLauncher *app,
++                          char *config_path)
++{
++  gchar *escaped_address;
++  gchar *address_param;
++  const char *argv[] = { DBUS_BROKER_DISPATCH, "--scope=user", "--foreground",
++                        "--ready-fd=3", config_path, NULL, NULL };
++  int ready_pair[2];
++  gint target_fd = 3;
++  GPid pid;
++  GError *error = NULL;
++  gboolean ready;
++
++  /* dbus-broker-dispatch accepts filesystem sockets. Keep the daemon
++   * backend available for platforms where at-spi2 must use an abstract one. */
++  if (!app->socket_name)
++    return FALSE;
++
++  g_clear_pointer (&app->a11y_launch_error_message, g_free);
++  if (socketpair (AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC | SOCK_NONBLOCK, 0, ready_pair) < 0)
++    {
++      app->a11y_launch_error_message = g_strdup_printf ("Cannot create dispatcher readiness socket: %s", g_strerror (errno));
++      app->a11y_bus_pid = -1;
++      app->state = A11Y_BUS_STATE_ERROR;
++      return FALSE;
++    }
++
++  escaped_address = g_dbus_address_escape_value (app->socket_name);
++  address_param = g_strconcat ("--address=unix:path=", escaped_address, NULL);
++  g_free (escaped_address);
++  argv[5] = address_param;
++
++  /* Map only the readiness writer into the child. Do not leave unrelated
++   * descriptors open or leak the writer into subsequent execs. */
++  if (!g_spawn_async_with_pipes_and_fds (NULL, argv, NULL,
++                                        G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
++                                        NULL, NULL, -1, -1, -1,
++                                        &ready_pair[1], &target_fd, 1,
++                                        &pid, NULL, NULL, NULL, &error))
++    {
++      app->a11y_bus_pid = -1;
++      app->a11y_launch_error_message = g_strdup (error->message);
++      g_clear_error (&error);
++      g_free (address_param);
++      close (ready_pair[0]);
++      close (ready_pair[1]);
++      app->state = A11Y_BUS_STATE_ERROR;
++      return FALSE;
++    }
++  g_free (address_param);
++  close (ready_pair[1]);
++  ready = wait_for_dispatcher (app, pid, ready_pair[0]);
++  close (ready_pair[0]);
++
++  if (!ready)
++    {
++      app->a11y_bus_pid = -1;
++      app->state = A11Y_BUS_STATE_ERROR;
++      return FALSE;
++    }
++
++  g_child_watch_add (pid, on_bus_exited, app);
++  app->a11y_bus_pid = pid;
++  app->state = A11Y_BUS_STATE_RUNNING;
++  escaped_address = g_dbus_address_escape_value (app->socket_name);
++  app->a11y_bus_address = g_strconcat ("unix:path=", escaped_address, NULL);
++  g_free (escaped_address);
++  g_debug ("Launched a11y bus through dbus-broker-dispatch, child is %ld", (long) pid);
++  g_debug ("a11y bus address: %s", app->a11y_bus_address);
++  return TRUE;
++}
++#else
++static gboolean
++ensure_a11y_bus_dispatch (A11yBusLauncher *app,
++                          char *config_path)
++{
++  return FALSE;
++}
++#endif
++
+ #ifdef DBUS_BROKER
+ static void
+ setup_bus_child_broker (gpointer data)
+@@ -442,7 +618,7 @@
+ }
+ 
+ static gboolean
+-ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
++ensure_a11y_bus_broker_launch (A11yBusLauncher *app, char *config_path)
+ {
+   char *argv[] = { DBUS_BROKER, config_path, "--scope", "user", NULL };
+   char *unit;
+@@ -525,12 +701,27 @@
+ }
+ #else
+ static gboolean
+-ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
++ensure_a11y_bus_broker_launch (A11yBusLauncher *app, char *config_path)
+ {
+   return FALSE;
+ }
+ #endif
+ 
++static gboolean
++ensure_a11y_bus_broker (A11yBusLauncher *app, char *config_path)
++{
++  if (ensure_a11y_bus_dispatch (app, config_path))
++    return TRUE;
++
++#ifdef DBUS_BROKER_DISPATCH
++  /* The dispatcher may have rejected an occupied socket, or a failed child
++   * may still be cleaning up its listener. Let fallback choose another
++   * address instead of replacing that path or racing the child's cleanup. */
++  g_clear_pointer (&app->socket_name, g_free);
++#endif
++  return ensure_a11y_bus_broker_launch (app, config_path);
++}
++
+ static gboolean
+ ensure_a11y_bus (A11yBusLauncher *app)
+ {
+diff --git a/bus/meson.build b/bus/meson.build
+--- a/bus/meson.build
++++ b/bus/meson.build
+@@ -65,7 +65,21 @@
+ endif
+ 
+ dbus_broker_arg = ''
++dbus_broker_dispatch_arg = ''
+ needs_systemd = false
++
++if get_option('dbus_broker_dispatch') == 'disabled'
++  # The packager explicitly selected the standard systemd backend.
++elif get_option('dbus_broker_dispatch') != 'default'
++  dbus_broker_dispatch_arg = '-DDBUS_BROKER_DISPATCH="@0@"'.format(get_option('dbus_broker_dispatch'))
++else
++  dbus_broker_dispatch = find_program('dbus-broker-dispatch',
++                                      required: false)
++  if dbus_broker_dispatch.found()
++    dbus_broker_dispatch_arg = '-DDBUS_BROKER_DISPATCH="@0@"'.format(dbus_broker_dispatch.full_path())
++  endif
++endif
++
+ if get_option('dbus_broker') != 'default'
+   dbus_broker_arg = '-DDBUS_BROKER="@0@"'.format(get_option('dbus_broker'))
+   needs_systemd = true
+@@ -81,8 +95,8 @@
+ endif
+ 
+ if not get_option('use_systemd')
+-  if needs_systemd
+-    error('Systemd is required for dbus-broker, but use_systemd is set to false.')
++  if needs_systemd and dbus_broker_dispatch_arg == ''
++    error('dbus-broker-launch requires systemd, and no dbus-broker dispatcher was found.')
+   endif
+   dbus_broker_arg = ''
+ endif
+@@ -105,9 +119,12 @@
+ endif
+ if dbus_broker_arg != ''
+   launcher_args += dbus_broker_arg
+-  if get_option('default_bus') == 'dbus-broker'
+-    launcher_args += '-DWANT_DBUS_BROKER'
+-  endif
++endif
++if dbus_broker_dispatch_arg != ''
++  launcher_args += dbus_broker_dispatch_arg
++endif
++if (dbus_broker_arg != '' or dbus_broker_dispatch_arg != '') and get_option('default_bus') == 'dbus-broker'
++  launcher_args += '-DWANT_DBUS_BROKER'
+ endif
+ 
+ executable('at-spi-bus-launcher', 'at-spi-bus-launcher.c',
+diff --git a/meson_options.txt b/meson_options.txt
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -10,13 +10,17 @@
+        description: 'The path of the DBus broker',
+        type: 'string',
+        value: 'default')
++option('dbus_broker_dispatch',
++       description: 'The path of the init-agnostic dbus-broker dispatcher, or disabled',
++       type: 'string',
++       value: 'default')
+ option('default_bus',
+        description: 'The default DBus implementation to use',
+        type: 'combo',
+        choices: ['dbus-daemon', 'dbus-broker'],
+        value: 'dbus-broker')
+ option('use_systemd',
+-       description: 'Use systemd if available (needed for dbus-broker)',
++       description: 'Use systemd if available (needed for dbus-broker-launch)',
+        type: 'boolean',
+        value: true)
+ option('gtk2_atk_adaptor',

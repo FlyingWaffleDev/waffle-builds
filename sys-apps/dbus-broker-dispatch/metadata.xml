@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>flyingwaffle@pm.me</email>
+		<name>FlyingWaffle</name>
+	</maintainer>
+	<use>
+		<flag name="openrc">Install OpenRC system and user service definitions.</flag>
+		<flag name="runit">Install the runit system service and a user service template.</flag>
+		<flag name="dinit">Install Dinit system and user service definitions.</flag>
+		<flag name="s6">Install the s6 system service and a user service template.</flag>
+		<flag name="elogind">Enable elogind-backed D-Bus at_console policy detection.</flag>
+		<flag name="pam">Install the PAM session module instead of init-specific login-shell profile fallbacks.</flag>
+		<flag name="selinux">Enable SELinux-aware D-Bus configuration includes and policy support.</flag>
+	</use>
+</pkgmetadata>
