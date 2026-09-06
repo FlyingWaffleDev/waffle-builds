@@ -89,7 +89,8 @@ pkg_postinst() {
 	if use pam; then
 		einfo "The PAM user-bus module is installed but is not inserted into login"
 		einfo "stacks automatically. Add the following after pam_elogind.so in each"
-		einfo "session stack that should inherit a user bus:"
+		einfo "session stack that should inherit a user bus (e.g. system-login,"
+		einfo "sddm-greeter; directly after pam_elogind.so):"
 		einfo "  -session optional pam_dbus_broker_dispatch.so"
 		einfo "See the installed README for display manager and regular-login details."
 	elif use openrc || use runit || use dinit || use s6; then
