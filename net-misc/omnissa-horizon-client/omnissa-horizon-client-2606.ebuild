@@ -23,6 +23,7 @@ RESTRICT="bindist mirror strip"
 
 RDEPEND="
 	app-accessibility/at-spi2-core:2
+	app-misc/ca-certificates
 	app-shells/bash
 	dev-libs/expat
 	dev-libs/glib:2
@@ -74,8 +75,9 @@ src_unpack() {
 src_prepare() {
 	default
 
-	local component_dir file
+	local client_dir component_dir file
 	local libdir
+	client_dir="${WORKDIR}/Omnissa-Horizon-Client-${PV}-${MY_BUILD}.x64"
 	libdir=$(get_libdir)
 
 	for component_dir in \
@@ -87,10 +89,22 @@ src_prepare() {
 		done < <(grep -IlRZ '/usr/lib' "${component_dir}")
 	done
 
+	# The bundled OpenSSL and curl libraries use build-time CA paths that do not
+	# exist on Gentoo.  Default both clients to Gentoo's generated trust store,
+	# while retaining any site-specific environment overrides.
+	sed -i \
+		-e '/^# Input argument from stdin$/i\
+export SSL_CERT_DIR="${SSL_CERT_DIR:-/etc/ssl/certs}"\
+export SSL_CERT_FILE="${SSL_CERT_FILE:-/etc/ssl/certs/ca-certificates.crt}"\
+export CURL_CA_BUNDLE="${CURL_CA_BUNDLE:-${SSL_CERT_FILE}}"\
+' \
+		"${client_dir}"/usr/bin/horizon-client \
+		"${client_dir}"/usr/bin/horizon-client-next || die
+
 	sed -i \
 		-e 's/^Categories=Application;Network;$/Categories=Network;RemoteAccess;/' \
 		-e '/^Encoding=UTF-8$/d' \
-		"${WORKDIR}/Omnissa-Horizon-Client-${PV}-${MY_BUILD}.x64"/usr/share/applications/*.desktop || die
+		"${client_dir}"/usr/share/applications/*.desktop || die
 }
 
 src_install() {
