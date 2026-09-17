@@ -61,7 +61,7 @@ src_install() {
 	#create desktop file
 	make_desktop_entry "/usr/bin/floorp" "Floorp" floorp "Network;WebBrowser"
 	#handle permissions of destdir files
-	fperms 0755 "${destdir}"/{floorp-bin,updater,glxtest,vaapitest}
+	fperms 0755 "${destdir}"/{floorp-bin,updater,gfxtest}
 	fperms 0750 "${destdir}"/pingsender
 	# Disable auto-updates
 	insinto ${destdir}/distribution
