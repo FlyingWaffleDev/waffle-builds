@@ -59,7 +59,7 @@ src_install() {
 		newicon -s ${size} "browser/chrome/icons/default/default${size}.png" floorp.png
 	done
 	#create desktop file
-	make_desktop_entry "/usr/bin/floorp" "Floorp" floorp "Network;WebBrowser" "StartupWMClass=floorp"
+	make_desktop_entry --eapi9 "/usr/bin/floorp" -d floorp -n "Floorp" -i floorp -c "Network;WebBrowser" -e "StartupWMClass=floorp"
 	#handle permissions of destdir files
 	fperms 0755 "${destdir}"/{floorp-bin,updater,gfxtest}
 	fperms 0750 "${destdir}"/pingsender
