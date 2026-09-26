@@ -30,7 +30,7 @@ BDEPEND="
 
 src_configure() {
 	local emesonargs=(
-		-Delogind=$(usex elogind true false)
+		-Delogind=$(usex elogind enabled disabled)
 		-Dpam=$(usex pam enabled disabled)
 		-Dselinux=$(usex selinux enabled disabled)
 	)
