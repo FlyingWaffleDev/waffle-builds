@@ -47,6 +47,11 @@ source = "github"
 repo = "zsh-users/zsh-history-substring-search"
 tag_prefix = "v"
 
+["app-text/printcraft"]
+source = "github"
+repo = "storytold/pdfcraft"
+tag_prefix = "v"
+
 ["dev-libs/liboqs"]
 source = "github"
 repo = "open-quantum-safe/liboqs"
@@ -67,6 +72,36 @@ version_replace = "\\1.\\2.\\3"
 ["media-fonts/nerd-fonts"]
 source = "github"
 repo = "ryanoasis/nerd-fonts"
+tag_prefix = "v"
+
+["media-gfx/designcraft"]
+source = "github"
+repo = "storytold/designcraft"
+tag_prefix = "v"
+
+["media-gfx/lightcraft"]
+source = "github"
+repo = "storytold/lightcraft"
+tag_prefix = "v"
+
+["media-gfx/photocraft"]
+source = "github"
+repo = "storytold/photocraft"
+tag_prefix = "v"
+
+["media-gfx/vectorcraft"]
+source = "github"
+repo = "storytold/vectorcraft"
+tag_prefix = "v"
+
+["media-video/effectcraft"]
+source = "github"
+repo = "storytold/effectcraft"
+tag_prefix = "v"
+
+["media-video/filmcraft"]
+source = "github"
+repo = "storytold/filmcraft"
 tag_prefix = "v"
 
 ["media-video/obsbot-camera-control"]
