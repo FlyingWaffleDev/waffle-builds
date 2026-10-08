@@ -14,17 +14,14 @@ CRATES="
 	accesskit_windows@0.32.1
 	accesskit_winit@0.32.2
 	adler2@2.0.1
+	aes@0.8.4
 	ahash@0.8.12
-	aho-corasick@1.1.5
-	aliasable@0.1.3
 	alloc-no-stdlib@2.0.4
 	alloc-stdlib@0.2.4
 	allocator-api2@0.2.21
 	android-activity@0.6.1
 	android-properties@0.2.2
 	android_system_properties@0.1.6
-	anyhow@1.0.104
-	arbitrary@1.4.2
 	arboard@3.6.1
 	arrayref@0.3.9
 	arrayvec@0.7.8
@@ -46,12 +43,14 @@ CRATES="
 	atspi@0.29.0
 	autocfg@1.5.1
 	base64@0.22.1
+	base64@0.23.1
 	bit-set@0.10.0
 	bit-set@0.8.0
 	bit-vec@0.8.0
 	bit-vec@0.9.1
 	bitflags@1.3.2
 	bitflags@2.13.2
+	block-buffer@0.10.4
 	block2@0.5.1
 	block2@0.6.2
 	blocking@1.7.0
@@ -70,11 +69,11 @@ CRATES="
 	cfg-if@1.0.5
 	cfg_aliases@0.2.2
 	cgl@0.3.2
+	cipher@0.4.4
 	clipboard-win@5.4.1
 	codespan-reporting@0.13.1
 	color@0.3.3
 	color_quant@1.1.0
-	colored@2.2.0
 	combine@4.6.8
 	concurrent-queue@2.5.0
 	core-foundation-sys@0.8.7
@@ -82,16 +81,17 @@ CRATES="
 	core-graphics-types@0.1.3
 	core-graphics@0.23.2
 	core_maths@0.1.1
+	cpufeatures@0.2.17
 	crc32fast@1.5.2
 	crossbeam-channel@0.5.17
 	crossbeam-deque@0.8.8
 	crossbeam-epoch@0.9.21
 	crossbeam-utils@0.8.23
 	crunchy@0.2.4
+	crypto-common@0.1.7
 	cursor-icon@1.2.0
 	data-url@0.3.2
-	derive_arbitrary@1.4.2
-	dify@0.8.0
+	digest@0.10.7
 	dispatch2@0.3.1
 	dispatch@0.2.0
 	displaydoc@0.2.7
@@ -104,11 +104,13 @@ CRATES="
 	egui-wgpu@0.36.2
 	egui-winit@0.36.2
 	egui@0.36.2
+	egui_extras@0.36.2
 	egui_glow@0.36.2
-	egui_kittest@0.36.2
 	either@1.18.0
 	emath@0.36.2
 	endi@1.1.1
+	enum-map-derive@0.17.0
+	enum-map@2.7.3
 	enumflags2@0.7.12
 	enumflags2_derive@0.7.12
 	epaint@0.36.2
@@ -124,15 +126,16 @@ CRATES="
 	fdeflate@0.3.7
 	fearless_simd@0.4.1
 	find-msvc-tools@0.1.14
+	fixedbitset@0.5.7
 	flate2@1.1.10
-	flo_curves@0.8.1
 	float-cmp@0.9.0
 	fnv@1.0.7
+	foldhash@0.1.5
 	foldhash@0.2.0
 	font-types@0.11.3
 	font-types@0.12.5
 	fontconfig-parser@0.5.8
-	fontdb@0.23.0
+	fontdb@0.24.0
 	foreign-types-macros@0.2.4
 	foreign-types-shared@0.3.1
 	foreign-types@0.5.0
@@ -143,13 +146,12 @@ CRATES="
 	futures-macro@0.3.34
 	futures-task@0.3.34
 	futures-util@0.3.34
+	generic-array@0.14.7
 	gethostname@1.1.0
-	getopts@0.2.24
 	getrandom@0.3.4
 	getrandom@0.4.3
 	gif@0.14.2
 	gl_generator@0.14.0
-	glifo@0.1.1
 	glifo@0.2.0
 	glifo@0.3.0
 	glow@0.17.0
@@ -163,6 +165,7 @@ CRATES="
 	half@2.7.1
 	harfrust@0.12.0
 	harfrust@0.13.3
+	hashbrown@0.15.5
 	hashbrown@0.16.1
 	hashbrown@0.17.1
 	hayro-ccitt@0.3.0
@@ -172,9 +175,6 @@ CRATES="
 	hayro-jpeg2000@0.3.5
 	hayro-postscript@0.1.0
 	hayro-syntax@0.7.2
-	hayro-write@0.7.0
-	hayro@0.7.1
-	heck@0.4.1
 	hermit-abi@0.5.3
 	hex@0.4.3
 	icu_collections@2.3.0
@@ -188,11 +188,11 @@ CRATES="
 	idna_adapter@1.2.2
 	image-webp@0.2.4
 	image@0.25.10
+	imagesize@0.13.0
 	imagesize@0.14.0
+	imagesize@0.15.0
 	indexmap@2.14.2
-	is-docker@0.2.0
-	is-wsl@0.4.0
-	itertools@0.14.0
+	inout@0.1.4
 	itertools@0.15.0
 	itoa@1.0.18
 	jni-macros@0.22.4
@@ -201,26 +201,28 @@ CRATES="
 	jni-sys@0.4.1
 	jni@0.22.4
 	jobserver@0.1.35
+	jpeg-encoder@0.6.1
 	js-sys@0.3.106
 	keyboard-types@0.8.3
 	khronos-egl@6.0.0
 	khronos_api@3.1.0
-	kittest@0.4.0
-	krilla-svg@0.8.1
 	krilla@0.8.2
+	kurbo@0.11.3
 	kurbo@0.13.1
-	lazy_static@1.5.1
+	leb128fmt@0.1.0
 	libc@0.2.189
 	libloading@0.8.9
 	libm@0.2.16
 	libredox@0.1.25
 	linebender_resource_handle@0.1.1
+	linesweeper@0.4.0
 	linux-raw-sys@0.12.1
 	linux-raw-sys@0.4.15
 	litemap@0.8.3
 	litrs@1.0.0
 	lock_api@0.4.14
 	log@0.4.34
+	md-5@0.10.6
 	memchr@2.8.3
 	memmap2@0.9.11
 	memoffset@0.9.1
@@ -234,6 +236,7 @@ CRATES="
 	ndk-sys@0.6.0+11769913
 	ndk@0.9.0
 	nohash-hasher@0.2.0
+	nom@8.0.0
 	num-traits@0.2.19
 	num_enum@0.7.6
 	num_enum_derive@0.7.6
@@ -264,24 +267,22 @@ CRATES="
 	objc2@0.5.2
 	objc2@0.6.4
 	once_cell@1.21.4
-	open@5.4.4
 	orbclient@0.3.55
 	ordered-channel@1.2.0
 	ordered-float@5.5.0
 	ordered-stream@0.2.0
-	ouroboros@0.18.5
-	ouroboros_macro@0.18.5
+	os_pipe@1.2.3
 	parking@2.2.1
 	parking_lot@0.12.5
 	parking_lot_core@0.9.12
 	pdf-writer@0.15.0
 	peniko@0.6.1
 	percent-encoding@2.3.2
+	petgraph@0.8.3
 	phf@0.13.1
 	phf_generator@0.13.1
 	phf_macros@0.13.1
 	phf_shared@0.13.1
-	pic-scale@0.7.12
 	pico-args@0.5.0
 	pin-project-internal@1.1.13
 	pin-project-lite@0.2.17
@@ -289,6 +290,7 @@ CRATES="
 	piper@0.2.5
 	pkg-config@0.3.34
 	plain@0.2.3
+	png@0.17.16
 	png@0.18.1
 	polling@3.11.0
 	pollster@0.4.0
@@ -300,16 +302,13 @@ CRATES="
 	ppv-lite86@0.2.21
 	presser@0.3.1
 	proc-macro-crate@3.5.0
-	proc-macro2-diagnostics@0.10.1
 	proc-macro2@1.0.107
 	profiling@1.0.18
 	proptest@1.11.0
 	psd@0.3.5
 	pxfm@0.1.30
-	qrcodegen@1.8.0
 	quick-error@1.2.3
 	quick-error@2.0.1
-	quick-xml@0.38.4
 	quick-xml@0.41.0
 	quote@1.0.47
 	r-efi@5.3.0
@@ -330,14 +329,11 @@ CRATES="
 	redox_syscall@0.4.1
 	redox_syscall@0.5.18
 	redox_syscall@0.9.4
-	regex-automata@0.4.18
 	regex-syntax@0.8.11
-	regex@1.13.1
 	renderdoc-sys@1.1.0
-	resvg@0.47.0
+	resvg@0.45.1
 	rfd@0.17.2
 	rgb@0.8.53
-	roots@0.0.8
 	roxmltree@0.20.0
 	roxmltree@0.21.1
 	rustc-hash@1.1.0
@@ -360,6 +356,7 @@ CRATES="
 	serde_json@1.0.151
 	serde_repr@0.1.21
 	serde_spanned@1.1.1
+	sha2@0.10.9
 	shlex@2.0.1
 	signal-hook-registry@1.4.8
 	simd-adler32@0.3.10
@@ -377,11 +374,15 @@ CRATES="
 	smithay-client-toolkit@0.20.0
 	smithay-clipboard@0.7.3
 	smol_str@0.2.2
+	socket2@0.6.5
+	spin@0.9.9
 	spirv@0.4.0+sdk-1.4.341.0
 	stable_deref_trait@1.2.1
 	static_assertions@1.1.0
 	strict-num@0.1.1
+	string-interner@0.19.0
 	subsetter@0.2.6
+	svgtypes@0.15.3
 	svgtypes@0.16.1
 	syn@2.0.119
 	syn@3.0.6
@@ -394,8 +395,9 @@ CRATES="
 	thiserror@2.0.21
 	thread_local@1.1.10
 	tiff@0.11.3
+	tiny-skia-path@0.11.4
 	tiny-skia-path@0.12.0
-	tiny-skia@0.12.0
+	tiny-skia@0.11.4
 	tinystr@0.8.4
 	tinyvec@1.13.3
 	tokio@1.53.1
@@ -407,8 +409,10 @@ CRATES="
 	tracing-attributes@0.1.31
 	tracing-core@0.1.36
 	tracing@0.1.44
+	tree_magic_mini@3.2.2
 	ttf-parser@0.25.1
 	type-map@0.5.1
+	typenum@1.20.1
 	uds_windows@1.2.1
 	unarray@0.1.4
 	unicode-bidi-mirroring@0.4.0
@@ -422,14 +426,12 @@ CRATES="
 	unicode-vo@0.1.0
 	unicode-width@0.2.2
 	url@2.5.8
-	usvg@0.47.0
+	usvg@0.45.1
+	usvg@0.48.1
 	utf8_iter@1.0.4
 	uuid@1.26.1
-	vello_common@0.0.8
-	vello_common@0.0.9
 	vello_common@0.1.0
 	vello_common@0.2.0
-	vello_cpu@0.0.8
 	vello_cpu@0.1.0
 	vello_cpu@0.2.0
 	version_check@0.9.5
@@ -441,6 +443,15 @@ CRATES="
 	wasm-bindgen-macro@0.2.129
 	wasm-bindgen-shared@0.2.129
 	wasm-bindgen@0.2.129
+	wasm-encoder@0.261.0
+	wasmi@2.0.0
+	wasmi_collections@2.0.0
+	wasmi_core@2.0.0
+	wasmi_ir@2.0.0
+	wasmparser@0.228.0
+	wasmparser@0.261.0
+	wast@261.0.0
+	wat@1.261.0
 	wayland-backend@0.3.17
 	wayland-client@0.31.15
 	wayland-csd-frame@0.3.0
@@ -473,6 +484,7 @@ CRATES="
 	windows-interface@0.59.3
 	windows-link@0.2.1
 	windows-numerics@0.3.1
+	windows-registry@0.6.1
 	windows-result@0.4.1
 	windows-strings@0.5.1
 	windows-sys@0.52.0
@@ -503,6 +515,7 @@ CRATES="
 	winnow@1.0.4
 	winresource@0.1.31
 	wit-bindgen@0.57.1
+	wl-clipboard-rs@0.9.4
 	write-fonts@0.48.1
 	writeable@0.6.4
 	x11-dl@2.21.0
@@ -514,8 +527,7 @@ CRATES="
 	xml-rs@0.8.29
 	xmlwriter@0.1.0
 	xmp-writer@0.3.3
-	yansi@1.0.1
-	yoke-derive@0.8.4
+	yoke-derive@0.8.3
 	yoke@0.8.3
 	zbus-lockstep-macros@0.5.2
 	zbus-lockstep@0.5.2
@@ -531,10 +543,8 @@ CRATES="
 	zerotrie@0.2.5
 	zerovec-derive@0.11.6
 	zerovec@0.11.8
-	zip@3.0.0
 	zlib-rs@0.6.8
 	zmij@1.0.23
-	zopfli@0.8.3
 	zune-core@0.5.3
 	zune-jpeg@0.5.15
 	zvariant@5.15.0
@@ -546,8 +556,8 @@ RUST_MIN_VER="1.95.0"
 
 inherit cargo desktop xdg
 
-DESCRIPTION="Open-source native page layout and desktop publishing app (InDesign alternative)"
-HOMEPAGE="https://getartcraft.com/apps/designcraft https://github.com/storytold/designcraft"
+DESCRIPTION="Open-source native vector illustration app (Illustrator alternative)"
+HOMEPAGE="https://getartcraft.com/apps/vectorcraft https://github.com/storytold/vectorcraft"
 SRC_URI="
 	https://github.com/storytold/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	${CARGO_CRATE_URIS}
@@ -556,7 +566,7 @@ SRC_URI="
 LICENSE="|| ( Apache-2.0 MIT )"
 # Dependent crate licenses
 LICENSE+="
-	Apache-2.0 BSD-2 BSD Boost-1.0 ISC MIT MPL-2.0 OFL-1.1
+	Apache-2.0 BSD-2 BSD Boost-1.0 IJG ISC MIT OFL-1.1
 	UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
 "
 SLOT="0"

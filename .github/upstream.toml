@@ -47,7 +47,7 @@ source = "github"
 repo = "zsh-users/zsh-history-substring-search"
 tag_prefix = "v"
 
-["app-text/printcraft"]
+["app-text/pdfcraft"]
 source = "github"
 repo = "storytold/pdfcraft"
 tag_prefix = "v"
