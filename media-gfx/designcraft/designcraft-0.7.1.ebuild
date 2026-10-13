@@ -551,6 +551,11 @@ CRATES="
 	zvariant_utils@4.2.0
 "
 
+declare -A GIT_CRATES=(
+	[craft-print]='https://github.com/storytold/craft-libs;d991bf6792f8ade99c51358bf3c1d902c8cd96b5;craft-libs-%commit%/crates/print'
+	[craft-ui]='https://github.com/storytold/craft-libs;5c874d51eeb3de70e735c8ce87a59a7dedd47675;craft-libs-%commit%/crates/ui'
+)
+
 RUST_MIN_VER="1.95.0"
 
 inherit cargo desktop xdg
