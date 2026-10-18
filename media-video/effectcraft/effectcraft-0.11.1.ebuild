@@ -68,6 +68,7 @@ CRATES="
 	calloop-wayland-source@0.4.1
 	calloop@0.13.0
 	calloop@0.14.4
+	cast@0.3.0
 	cc@1.5.1
 	cesu8@1.1.0
 	cfg-if@1.0.5
@@ -178,6 +179,9 @@ CRATES="
 	hashbrown@0.15.5
 	hashbrown@0.16.1
 	hashbrown@0.17.1
+	hayro-ccitt@0.3.0
+	hayro-jbig2@0.3.0
+	hayro-jpeg2000@0.3.5
 	heck@0.5.0
 	hermit-abi@0.5.3
 	hex@0.4.3
@@ -230,6 +234,7 @@ CRATES="
 	memchr@2.8.3
 	memmap2@0.9.11
 	memoffset@0.9.1
+	minicov@0.3.8
 	miniz_oxide@0.8.9
 	miniz_oxide@0.9.1
 	moxcms@0.8.1
@@ -242,6 +247,7 @@ CRATES="
 	ndk-sys@0.6.0+11769913
 	ndk@0.9.0
 	nohash-hasher@0.2.0
+	nu-ansi-term@0.50.3
 	num-bigint@0.5.1
 	num-complex@0.4.6
 	num-conv@0.2.2
@@ -282,6 +288,7 @@ CRATES="
 	objc2@0.6.4
 	once_cell@1.21.4
 	oneshot@0.2.1
+	oorandom@11.1.5
 	orbclient@0.3.55
 	ordered-float@5.5.0
 	ordered-stream@0.2.0
@@ -393,6 +400,7 @@ CRATES="
 	static_assertions@1.1.0
 	strict-num@0.1.1
 	string-interner@0.19.0
+	stringprep@0.1.5
 	strum@0.28.0
 	strum_macros@0.28.0
 	symphonia-bundle-flac@0.5.5
@@ -428,6 +436,7 @@ CRATES="
 	tiny-skia-path@0.12.0
 	tiny-skia@0.12.0
 	tinystr@0.8.4
+	tinyvec@1.13.3
 	tokio@1.53.1
 	toml@1.1.6+spec-1.1.0
 	toml_datetime@1.1.1+spec-1.1.0
@@ -444,6 +453,8 @@ CRATES="
 	unicode-general-category@1.1.0
 	unicode-ident@1.0.26
 	unicode-linebreak@0.1.5
+	unicode-normalization@0.1.25
+	unicode-properties@0.1.4
 	unicode-segmentation@1.13.3
 	unicode-width@0.2.2
 	url@2.5.8
@@ -460,6 +471,9 @@ CRATES="
 	wasm-bindgen-macro-support@0.2.129
 	wasm-bindgen-macro@0.2.129
 	wasm-bindgen-shared@0.2.129
+	wasm-bindgen-test-macro@0.3.79
+	wasm-bindgen-test-shared@0.2.129
+	wasm-bindgen-test@0.3.79
 	wasm-bindgen@0.2.129
 	wasm-encoder@0.261.0
 	wasmi@2.0.0
@@ -583,6 +597,8 @@ CRATES="
 "
 
 declare -A GIT_CRATES=(
+	[craft-docpath]='https://github.com/storytold/craft-libs;82a24b006eefa036b43c09a67fb9a3fbd17ffe63;craft-libs-%commit%/crates/docpath'
+	[craft-pdf]='https://github.com/storytold/craft-libs;ca50d63b773c99f96e75c77ce5a1d21e7c9cda0d;craft-libs-%commit%/crates/pdf'
 	[craft-ui]='https://github.com/storytold/craft-libs;5c874d51eeb3de70e735c8ce87a59a7dedd47675;craft-libs-%commit%/crates/ui'
 	[filmcraft-aac]='https://github.com/storytold/filmcraft;2c5ba7a72619935f0481f99d59409e0d1844b234;filmcraft-%commit%/crates/aac'
 	[filmcraft-ac3]='https://github.com/storytold/filmcraft;2c5ba7a72619935f0481f99d59409e0d1844b234;filmcraft-%commit%/crates/ac3'
@@ -610,6 +626,7 @@ declare -A GIT_CRATES=(
 	[filmcraft-prores]='https://github.com/storytold/filmcraft;2c5ba7a72619935f0481f99d59409e0d1844b234;filmcraft-%commit%/crates/prores'
 	[filmcraft-time]='https://github.com/storytold/filmcraft;2c5ba7a72619935f0481f99d59409e0d1844b234;filmcraft-%commit%/crates/time'
 	[filmcraft-vp9]='https://github.com/storytold/filmcraft;2c5ba7a72619935f0481f99d59409e0d1844b234;filmcraft-%commit%/crates/vp9'
+	[hayro-syntax]='https://github.com/storytold/craft-libs;ca50d63b773c99f96e75c77ce5a1d21e7c9cda0d;craft-libs-%commit%/vendor/hayro-syntax'
 )
 
 RUST_MIN_VER="1.95.0"
@@ -648,6 +665,18 @@ BDEPEND="
 "
 
 QA_FLAGS_IGNORED="usr/bin/${PN} usr/bin/${PN}-cli"
+
+src_prepare() {
+	default
+
+	# Use local sources for upstream's crates.io patches in offline builds.
+	local crate crate_uri commit crate_dir
+	for crate in hayro-syntax; do
+		IFS=';' read -r crate_uri commit crate_dir <<< "${GIT_CRATES[${crate}]}"
+		sed -i -e "s|^${crate} = { git = .*|${crate} = { path = \"${WORKDIR}/${crate_dir//%commit%/${commit}}\" }|" \
+			Cargo.toml || die
+	done
+}
 
 src_compile() {
 	cargo_src_compile --package ${PN} --package ${PN}-cli
