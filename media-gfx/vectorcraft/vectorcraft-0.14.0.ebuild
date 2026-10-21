@@ -359,6 +359,7 @@ CRATES="
 	same-file@1.0.6
 	scoped-tls@1.0.1
 	scopeguard@1.2.0
+	sctk-adwaita@0.10.1
 	self_cell@1.3.0
 	semver@1.0.28
 	serde@1.0.229

@@ -187,6 +187,7 @@ CRATES="
 	euclid@0.22.14
 	event-listener-strategy@0.5.4
 	event-listener@5.4.2
+	exacl@0.13.0
 	exr@1.74.2
 	fastrand@2.5.0
 	fax@0.2.6
