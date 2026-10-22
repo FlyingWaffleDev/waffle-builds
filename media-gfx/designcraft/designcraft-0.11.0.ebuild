@@ -553,16 +553,16 @@ declare -A GIT_CRATES=(
 	[craft-atomic]='https://github.com/storytold/craft-libs;e9546e191dd62f2bc1d61eca45dbdc2f1b3c1d8e;craft-libs-%commit%/crates/atomic'
 	[craft-cms]='https://github.com/storytold/craft-libs;e9546e191dd62f2bc1d61eca45dbdc2f1b3c1d8e;craft-libs-%commit%/crates/cms'
 	[craft-docpath]='https://github.com/storytold/craft-libs;82a24b006eefa036b43c09a67fb9a3fbd17ffe63;craft-libs-%commit%/crates/docpath'
-	[craft-pdf]='https://github.com/storytold/craft-libs;c3487320b2d1de657b860b3c8abb44e1f2b32bd8;craft-libs-%commit%/crates/pdf'
+	[craft-pdf]='https://github.com/storytold/craft-libs;89dcbb3060377a26c99a6d80caa16084366704c4;craft-libs-%commit%/crates/pdf'
 	[craft-print]='https://github.com/storytold/craft-libs;d991bf6792f8ade99c51358bf3c1d902c8cd96b5;craft-libs-%commit%/crates/print'
 	[craft-ui]='https://github.com/storytold/craft-libs;5c874d51eeb3de70e735c8ce87a59a7dedd47675;craft-libs-%commit%/crates/ui'
-	[hayro]='https://github.com/storytold/pdfcraft;b5467d93a0ffaa5e5e6658bccdf8655a3ba689c9;pdfcraft-%commit%/vendor/hayro'
-	[hayro-interpret]='https://github.com/storytold/pdfcraft;b5467d93a0ffaa5e5e6658bccdf8655a3ba689c9;pdfcraft-%commit%/vendor/hayro-interpret'
-	[hayro-jbig2]='https://github.com/storytold/pdfcraft;b5467d93a0ffaa5e5e6658bccdf8655a3ba689c9;pdfcraft-%commit%/vendor/hayro-jbig2'
-	[hayro-syntax]='https://github.com/storytold/pdfcraft;b5467d93a0ffaa5e5e6658bccdf8655a3ba689c9;pdfcraft-%commit%/vendor/hayro-syntax'
+	[hayro]='https://github.com/storytold/craft-libs;89dcbb3060377a26c99a6d80caa16084366704c4;craft-libs-%commit%/vendor/hayro'
+	[hayro-interpret]='https://github.com/storytold/craft-libs;89dcbb3060377a26c99a6d80caa16084366704c4;craft-libs-%commit%/vendor/hayro-interpret'
+	[hayro-jbig2]='https://github.com/storytold/craft-libs;89dcbb3060377a26c99a6d80caa16084366704c4;craft-libs-%commit%/vendor/hayro-jbig2'
+	[hayro-syntax]='https://github.com/storytold/craft-libs;89dcbb3060377a26c99a6d80caa16084366704c4;craft-libs-%commit%/vendor/hayro-syntax'
 	[indd]='https://github.com/storytold/indd-utils;7f3060e5bce78d21ea70e0d5eacb96edce15dfbe;indd-utils-%commit%'
-	[krilla]='https://github.com/storytold/craft-libs;c3487320b2d1de657b860b3c8abb44e1f2b32bd8;craft-libs-%commit%/vendor/krilla'
-	[winit]='https://github.com/skylartaylor/winit;3d51077fd1a966f84df9ef287839dc84fd5b4ca7;winit-%commit%'
+	[krilla]='https://github.com/storytold/craft-libs;89dcbb3060377a26c99a6d80caa16084366704c4;craft-libs-%commit%/vendor/krilla'
+	[winit]='https://github.com/storytold/winit;3d51077fd1a966f84df9ef287839dc84fd5b4ca7;winit-%commit%'
 )
 
 RUST_MIN_VER="1.95.0"
