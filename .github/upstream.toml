@@ -27,6 +27,21 @@ source = "github"
 repo = "PixlOne/logiops"
 tag_prefix = "v"
 
+["app-office/deckcraft"]
+source = "github"
+repo = "storytold/deckcraft"
+tag_prefix = "v"
+
+["app-office/gridcraft"]
+source = "github"
+repo = "storytold/gridcraft"
+tag_prefix = "v"
+
+["app-office/wordcraft"]
+source = "github"
+repo = "storytold/wordcraft"
+tag_prefix = "v"
+
 ["app-portage/showem"]
 source = "github"
 repo = "FlyingWaffleDev/showem"
@@ -74,9 +89,19 @@ source = "github"
 repo = "ryanoasis/nerd-fonts"
 tag_prefix = "v"
 
+["media-gfx/cadcraft"]
+source = "github"
+repo = "storytold/cadcraft"
+tag_prefix = "v"
+
 ["media-gfx/designcraft"]
 source = "github"
 repo = "storytold/designcraft"
+tag_prefix = "v"
+
+["media-gfx/figcraft"]
+source = "github"
+repo = "storytold/figcraft"
 tag_prefix = "v"
 
 ["media-gfx/lightcraft"]
@@ -92,6 +117,11 @@ tag_prefix = "v"
 ["media-gfx/vectorcraft"]
 source = "github"
 repo = "storytold/vectorcraft"
+tag_prefix = "v"
+
+["media-sound/soundcraft"]
+source = "github"
+repo = "storytold/soundcraft"
 tag_prefix = "v"
 
 ["media-video/effectcraft"]
