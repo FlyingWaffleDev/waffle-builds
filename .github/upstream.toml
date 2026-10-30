@@ -37,6 +37,11 @@ source = "github"
 repo = "storytold/gridcraft"
 tag_prefix = "v"
 
+["app-office/pdfcraft"]
+source = "github"
+repo = "storytold/pdfcraft"
+tag_prefix = "v"
+
 ["app-office/wordcraft"]
 source = "github"
 repo = "storytold/wordcraft"
@@ -60,11 +65,6 @@ tag_prefix = "v"
 ["app-shells/zsh-history-substring-search"]
 source = "github"
 repo = "zsh-users/zsh-history-substring-search"
-tag_prefix = "v"
-
-["app-text/pdfcraft"]
-source = "github"
-repo = "storytold/pdfcraft"
 tag_prefix = "v"
 
 ["dev-libs/liboqs"]
