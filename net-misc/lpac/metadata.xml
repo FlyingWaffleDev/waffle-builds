@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>flyingwaffle@pm.me</email>
+		<name>FlyingWaffle</name>
+	</maintainer>
+	<use>
+		<flag name="mbim">Enable the MBIM modem APDU backend</flag>
+		<flag name="pcsc">Enable the PC/SC smart card reader APDU backend</flag>
+		<flag name="qmi">Enable the Qualcomm QMI modem APDU backend</flag>
+		<flag name="qrtr">Enable QMI over Qualcomm QRTR</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">estkme-group/lpac</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,16 @@
+BDEPEND=virtual/pkgconfig app-alternatives/ninja >=dev-build/cmake-3.28.5
+DEFINED_PHASES=compile configure install postinst prepare test
+DEPEND=net-misc/curl[ssl] mbim? ( net-libs/libmbim:= ) pcsc? ( sys-apps/pcsc-lite ) qmi? ( >=net-libs/libqmi-1.35.5:= ) qrtr? ( net-libs/libqrtr-glib:= )
+DESCRIPTION=Local profile agent for managing eSIMs on eUICC cards
+EAPI=8
+HOMEPAGE=https://github.com/estkme-group/lpac
+INHERIT=cmake
+IUSE=mbim +pcsc qmi qrtr
+KEYWORDS=~amd64
+LICENSE=AGPL-3 LGPL-2.1 MIT
+RDEPEND=net-misc/curl[ssl] mbim? ( net-libs/libmbim:= ) pcsc? ( sys-apps/pcsc-lite ) qmi? ( >=net-libs/libqmi-1.35.5:= ) qrtr? ( net-libs/libqrtr-glib:= )
+REQUIRED_USE=qrtr? ( qmi )
+SLOT=0
+SRC_URI=https://github.com/estkme-group/lpac/archive/refs/tags/v2.3.0.tar.gz -> lpac-2.3.0.tar.gz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3530055400d05e64deaba3042af30af6
+_md5_=bb4c093b5b1f1f7521ab5ee10fd719f4

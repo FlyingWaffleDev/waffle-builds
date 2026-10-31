@@ -1,0 +1,25 @@
+Use the release version when building without Git metadata.
+EasyLPAC queries this version to determine the supported lpac features.
+Also include the generated header instead of including applet/version.h itself.
+
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -19,6 +19,7 @@
+ add_custom_target(version
+     ${CMAKE_COMMAND}
+     -D SRC=${CMAKE_CURRENT_SOURCE_DIR}/version.h.in
++    -D LPAC_VERSION=v${PROJECT_VERSION}
+     -D DST=${CMAKE_CURRENT_SOURCE_DIR}/version.h
+     -D GIT_EXECUTABLE=${GIT_EXECUTABLE}
+     -P ${LPAC_CMAKE_MODULE_PATH}/git-version.cmake
+--- a/src/applet/version.h
++++ b/src/applet/version.h
+@@ -1,7 +1,7 @@
+ #pragma once
+ 
+-#include "version.h"
++#include "../version.h"
+ 
+ #include <applet.h>
+ 
+ extern struct applet_entry applet_version;

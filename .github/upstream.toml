@@ -140,6 +140,15 @@ repo = "aaronsb/obsbot-camera-control"
 check = "tags"
 tag_prefix = "v"
 
+["net-misc/easylpac"]
+source = "github"
+repo = "creamlike1024/EasyLPAC"
+
+["net-misc/lpac"]
+source = "github"
+repo = "estkme-group/lpac"
+tag_prefix = "v"
+
 ["net-misc/omnissa-horizon-client"]
 # Proprietary VMware/Omnissa client behind portal
 ignore = true
