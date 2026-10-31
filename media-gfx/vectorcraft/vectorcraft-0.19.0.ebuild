@@ -77,7 +77,7 @@ CRATES="
 	chacha20@0.10.2
 	chrono@0.4.45
 	cipher@0.4.4
-	clipboard-win@5.4.1
+	clipboard-win@5.4.3
 	cmake@0.1.58
 	cmpv2@0.2.0
 	cms@0.2.3
@@ -401,12 +401,12 @@ CRATES="
 	rgb@0.8.53
 	ring@0.17.14
 	roxmltree@0.20.0
-	roxmltree@0.21.1
+	roxmltree@0.21.2
 	rustc-hash@1.1.0
 	rustc-hash@2.1.3
 	rustc_version@0.4.1
 	rustix@0.38.44
-	rustix@1.1.5
+	rustix@1.1.6
 	rustls-native-certs@0.8.5
 	rustls-pki-types@1.15.1
 	rustls-platform-verifier-android@0.2.0
@@ -460,7 +460,7 @@ CRATES="
 	skrifa@0.47.0
 	slab@0.4.12
 	slotmap@1.1.1
-	smallvec@1.16.3
+	smallvec@1.16.4
 	smithay-client-toolkit@0.19.2
 	smithay-client-toolkit@0.20.0
 	smithay-clipboard@0.7.3
@@ -667,7 +667,7 @@ CRATES="
 	zerotrie@0.2.5
 	zerovec-derive@0.11.6
 	zerovec@0.11.8
-	zip@9.1.0
+	zip@9.1.3
 	zlib-rs@0.6.8
 	zmij@1.0.23
 	zopfli@0.8.4
@@ -686,7 +686,7 @@ declare -A GIT_CRATES=(
 	[craft-pdf]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/pdf'
 	[craft-print]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/print'
 	[craft-ui]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/ui'
-	[craft-update]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/update'
+	[craft-update]='https://github.com/storytold/craft-libs;04aa1703b32d299e54f78fcde4182f2b393a9116;craft-libs-%commit%/crates/update'
 	[craft-window]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/window'
 	[craft-winprint-gdi]='https://github.com/storytold/winprint.rs;417ac3c4d14d3da5485a99c7d5ce8f05664ec312;winprint.rs-%commit%/crates/gdi'
 	[ecolor]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/ecolor'
