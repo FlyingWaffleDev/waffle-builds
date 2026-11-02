@@ -4,39 +4,32 @@
 EAPI=8
 
 CRATES="
-	ab_glyph@0.2.32
-	ab_glyph_rasterizer@0.1.10
-	accesskit@0.25.1
-	accesskit_atspi_common@0.21.0
-	accesskit_consumer@0.39.1
-	accesskit_ios@0.2.1
-	accesskit_macos@0.27.1
-	accesskit_unix@0.24.0
-	accesskit_windows@0.35.1
-	accesskit_winit@0.34.1
-	addr2line@0.25.1
+	accesskit@0.25.2
+	accesskit_atspi_common@0.21.1
+	accesskit_consumer@0.39.2
+	accesskit_ios@0.2.2
+	accesskit_macos@0.27.2
+	accesskit_unix@0.24.1
+	accesskit_windows@0.35.2
+	accesskit_winit@0.34.2
 	adler2@2.0.1
-	aead@0.5.2
-	aes-gcm@0.10.3
-	aes@0.8.4
 	ahash@0.8.12
-	aligned-vec@0.6.4
-	aligned@0.4.3
-	alloc-no-stdlib@2.0.4
-	alloc-no-stdlib@3.0.0
-	alloc-stdlib@0.2.4
-	alloc-stdlib@0.3.0
+	aho-corasick@1.1.5
 	allocator-api2@0.2.21
 	android-activity@0.6.1
 	android-properties@0.2.2
 	android_system_properties@0.1.6
-	anyhow@1.0.104
-	arbitrary@1.4.2
-	arboard@3.6.1
-	arg_enum_proc_macro@0.3.4
+	anstream@1.0.0
+	anstyle-parse@1.0.0
+	anstyle-query@1.1.5
+	anstyle-wincon@3.0.11
+	anstyle@1.0.14
+	arbitrary@1.5.0
+	arboard@3.7.0
+	archery@1.2.3
+	arrayref@0.3.9
 	arrayvec@0.7.8
 	as-raw-xcb-connection@1.0.1
-	as-slice@0.2.1
 	ash@0.38.0+1.3.281
 	async-broadcast@0.7.2
 	async-channel@2.5.0
@@ -44,7 +37,7 @@ CRATES="
 	async-io@2.6.0
 	async-lock@3.4.2
 	async-process@2.5.0
-	async-recursion@1.1.1
+	async-recursion@1.2.0
 	async-signal@0.2.14
 	async-task@4.7.1
 	async-trait@0.1.92
@@ -53,70 +46,61 @@ CRATES="
 	atspi-proxies@0.13.0
 	atspi@0.29.0
 	autocfg@1.5.1
-	av-scenechange@0.14.1
-	av1-grain@0.2.5
-	avif-serialize@0.8.9
-	backtrace@0.3.76
-	base16ct@0.2.0
+	base64@0.22.1
 	base64@0.23.1
-	base64ct@1.8.3
 	bit-set@0.10.0
 	bit-set@0.11.1
 	bit-vec@0.10.1
 	bit-vec@0.9.1
 	bitflags@1.3.2
 	bitflags@2.13.2
-	bitstream-io@4.10.0
 	block-buffer@0.10.4
+	block-buffer@0.12.1
 	block2@0.5.1
 	block2@0.6.2
-	block@0.1.6
 	blocking@1.7.0
 	borsh-derive@1.8.1
 	borsh@1.8.1
-	brotli-decompressor@5.0.3
-	brotli-decompressor@6.0.1
-	brotli@9.0.0
-	built@0.8.1
 	bumpalo@3.20.3
 	bytemuck@1.25.2
 	bytemuck_derive@1.12.1
 	byteorder-lite@0.1.0
-	byteorder@1.5.0
 	bytes@1.12.1
 	calloop-wayland-source@0.3.0
 	calloop-wayland-source@0.4.1
 	calloop@0.13.0
-	calloop@0.14.4
-	candle-core@0.9.2
-	candle-metal-kernels@0.9.2
-	candle-nn@0.9.2
-	candle-ug@0.9.2
-	cc@1.5.1
+	calloop@0.14.5
+	cc@1.10.0
 	cfg-if@1.0.5
 	cfg_aliases@0.2.2
 	cgl@0.3.2
 	chacha20@0.10.2
-	chacha20@0.9.1
-	chacha20poly1305@0.10.1
 	chrono@0.4.45
-	cipher@0.4.4
-	clipboard-win@5.4.1
+	clap@4.6.7
+	clap_builder@4.6.7
+	clap_complete@4.5.67
+	clap_derive@4.6.7
+	clap_lex@1.1.1
+	clap_mangen@0.3.3
+	clipboard-win@5.4.3
 	cobs@0.3.0
 	codespan-reporting@0.13.1
-	coe-rs@0.1.2
 	color@0.3.3
 	color_quant@1.1.0
-	colored@2.2.0
-	combine@4.6.8
+	colorchoice@1.0.5
+	combine@4.6.9
 	concurrent-queue@2.5.0
-	const-oid@0.9.6
+	const-oid@0.10.2
 	core-foundation-sys@0.8.7
 	core-foundation@0.10.1
 	core-foundation@0.9.4
 	core-graphics-types@0.1.3
+	core-graphics-types@0.2.0
 	core-graphics@0.23.2
+	core-graphics@0.25.0
+	core-text@22.0.0
 	core_detect@1.0.0
+	core_maths@0.1.1
 	cpufeatures@0.2.17
 	cpufeatures@0.3.1
 	crc32fast@1.5.3
@@ -125,17 +109,22 @@ CRATES="
 	crossbeam-epoch@0.9.21
 	crossbeam-utils@0.8.23
 	crunchy@0.2.4
-	crypto-bigint@0.5.5
 	crypto-common@0.1.7
-	ctr@0.9.2
+	crypto-common@0.2.2
+	ctrlc@3.5.2
 	cursor-icon@1.2.0
-	curve25519-dalek-derive@0.1.1
-	curve25519-dalek@4.1.3
-	der@0.7.10
+	data-encoding@2.11.1
+	data-url@0.3.2
+	defmt-macros@1.2.0
+	defmt-parser@1.1.0
+	defmt@1.2.0
 	deranged@0.5.9
-	dhat@0.3.3
-	dify@0.8.0
+	derive_arbitrary@1.5.0
+	deunicode@1.6.2
 	digest@0.10.7
+	digest@0.11.3
+	dirs-sys@0.5.0
+	dirs@7.0.0
 	dispatch2@0.3.1
 	dispatch@0.2.0
 	displaydoc@0.2.7
@@ -144,85 +133,57 @@ CRATES="
 	downcast-rs@1.2.1
 	dpi@0.1.2
 	dunce@1.0.5
-	dyn-stack-macros@0.1.3
-	dyn-stack@0.10.0
-	dyn-stack@0.13.2
-	ecdsa@0.16.9
-	ed25519-dalek@2.2.0
-	ed25519@2.2.3
-	either@1.18.0
-	elliptic-curve@0.13.8
+	either@1.19.0
+	embedded-io@0.4.0
+	embedded-io@0.6.1
 	endi@1.1.1
-	enum-as-inner@0.6.1
+	enum-map-derive@1.0.1
+	enum-map@3.1.0
 	enumflags2@0.7.12
 	enumflags2_derive@0.7.12
-	equator-macro@0.1.9
-	equator-macro@0.4.2
-	equator@0.1.10
-	equator@0.4.2
-	equivalent@1.0.2
+	env_filter@2.0.0
+	env_logger@0.11.11
+	equivalent@1.0.3
 	errno@0.3.14
 	error-code@3.4.0
 	euclid@0.22.14
 	event-listener-strategy@0.5.4
 	event-listener@5.4.2
-	faer-core@0.17.1
-	faer-entity@0.17.0
 	fastrand@2.5.0
 	fax@0.2.7
 	fdeflate@0.3.7
 	fearless_simd@0.4.1
-	ff@0.13.1
-	fiat-crypto@0.2.9
 	filetime@0.2.29
-	find-msvc-tools@0.1.14
+	find-msvc-tools@0.1.15
 	fixed_decimal@0.7.3
 	fixedbitset@0.5.7
 	flate2@1.1.10
-	float8@0.6.1
+	float-cmp@0.9.0
+	fmv-macos-events@0.1.0
 	fnv@1.0.7
 	foldhash@0.1.5
 	foldhash@0.2.0
-	font-types@0.12.5
+	font-types@0.11.3
+	font-types@0.12.7
+	fontconfig-parser@0.5.8
+	fontdb@0.24.0
+	fontique@0.11.1
 	foreign-types-macros@0.2.4
 	foreign-types-shared@0.3.1
 	foreign-types@0.5.0
+	form_urlencoded@1.2.2
 	futures-core@0.3.34
 	futures-io@0.3.34
 	futures-lite@2.6.1
 	futures-macro@0.3.34
 	futures-task@0.3.34
 	futures-util@0.3.34
-	gemm-c32@0.17.1
-	gemm-c32@0.18.2
-	gemm-c32@0.19.0
-	gemm-c64@0.17.1
-	gemm-c64@0.18.2
-	gemm-c64@0.19.0
-	gemm-common@0.17.1
-	gemm-common@0.18.2
-	gemm-common@0.19.0
-	gemm-f16@0.17.1
-	gemm-f16@0.18.2
-	gemm-f16@0.19.0
-	gemm-f32@0.17.1
-	gemm-f32@0.18.2
-	gemm-f32@0.19.0
-	gemm-f64@0.17.1
-	gemm-f64@0.18.2
-	gemm-f64@0.19.0
-	gemm@0.17.1
-	gemm@0.18.2
-	gemm@0.19.0
 	generic-array@0.14.7
 	gethostname@1.1.0
-	getopts@0.2.24
 	getrandom@0.2.17
 	getrandom@0.3.4
 	getrandom@0.4.3
-	ghash@0.5.1
 	gif@0.14.2
-	gimli@0.32.3
 	gl_generator@0.14.0
 	glifo@0.3.0
 	glow@0.17.0
@@ -232,7 +193,6 @@ CRATES="
 	glutin_glx_sys@0.6.1
 	glutin_wgl_sys@0.6.1
 	gpu-allocator@0.28.0
-	group@0.13.0
 	guillotiere@0.7.0
 	half@2.7.1
 	harfrust@0.12.0
@@ -241,13 +201,11 @@ CRATES="
 	hashbrown@0.16.1
 	hashbrown@0.17.1
 	heck@0.5.0
-	heic-rs@0.1.4
 	hermit-abi@0.5.3
 	hex@0.4.3
-	hkdf@0.12.4
-	hmac@0.12.1
 	http@1.5.0
 	httparse@1.10.1
+	hybrid-array@0.4.15
 	icu_collections@2.3.0
 	icu_decimal@2.3.0
 	icu_locale_core@2.3.0
@@ -255,103 +213,71 @@ CRATES="
 	icu_locale_fallback_data@2.3.0
 	icu_normalizer@2.3.0
 	icu_normalizer_data@2.3.0
-	icu_pattern@0.5.0
+	icu_pattern@0.5.1
 	icu_plurals@2.3.0
 	icu_properties@2.3.0
 	icu_properties_data@2.3.0
 	icu_provider@2.3.1
 	icu_provider_adapters@2.3.0
 	icu_provider_blob@2.3.0
+	icu_segmenter@2.3.0
+	icu_segmenter_data@2.3.0
+	idna@1.1.0
+	idna_adapter@1.2.2
 	image-webp@0.2.4
 	image@0.25.10
-	imgref@1.12.3
+	imagesize@0.14.0
+	imagesize@0.15.0
+	imbl-sized-chunks@0.2.0
+	imbl@7.0.2
 	indexmap@2.14.2
-	inout@0.1.4
-	interpolate_name@0.2.4
-	is-docker@0.2.0
-	is-wsl@0.4.0
-	itertools@0.14.0
+	is_terminal_polyfill@1.70.2
 	itertools@0.15.0
 	itoa@1.0.18
-	jixel@0.3.4
+	jiff-core@0.1.1
+	jiff-static@0.2.38
+	jiff@0.2.38
 	jni-macros@0.22.4
 	jni-sys-macros@0.4.1
 	jni-sys@0.3.1
 	jni-sys@0.4.1
 	jni@0.22.4
 	jobserver@0.1.35
-	jpeg-decoder@0.3.2
-	jpeg-encoder@0.7.1
 	js-sys@0.3.106
-	jxl-bitstream@1.1.0
-	jxl-coding@1.0.1
-	jxl-color@0.11.0
-	jxl-frame@0.13.3
-	jxl-grid@0.6.2
-	jxl-image@0.13.0
-	jxl-jbr@0.2.1
-	jxl-modular@0.11.3
-	jxl-oxide-common@1.0.0
-	jxl-oxide@0.12.6
-	jxl-render@0.12.4
-	jxl-threadpool@1.0.0
-	jxl-vardct@0.11.1
 	keyboard-types@0.8.3
 	khronos-egl@6.0.0
 	khronos_api@3.1.0
-	kittest@0.5.0
 	kurbo@0.13.1
-	lazy_static@1.5.1
+	leb128fmt@0.1.0
 	libc@0.2.191
-	libfuzzer-sys@0.4.13
 	libloading@0.8.9
 	libm@0.2.16
 	libredox@0.1.25
 	linebender_resource_handle@0.1.1
+	linesweeper@0.4.0
 	linux-raw-sys@0.12.1
 	linux-raw-sys@0.4.15
 	litemap@0.8.3
-	litrs@1.0.0
+	litrs@1.0.1
 	lock_api@0.4.14
 	log@0.4.34
-	loop9@0.1.5
-	malloc_buf@0.0.6
-	matrixcompare-core@0.1.0
-	matrixmultiply@0.3.11
-	maybe-rayon@0.1.1
 	memchr@2.8.3
-	memmap2@0.9.11
+	memmap2@0.9.12
 	memoffset@0.9.1
-	metal@0.29.0
 	miniz_oxide@0.8.9
 	miniz_oxide@0.9.1
-	mintex@0.1.4
 	moxcms@0.8.1
-	moxcms@0.9.1
 	muda@0.21.2
 	naga-types@30.0.1
 	naga@30.0.1
-	ndarray@0.17.2
 	ndk-context@0.1.1
 	ndk-sys@0.6.0+11769913
 	ndk@0.9.0
-	new_debug_unreachable@1.0.6
 	nix@0.31.3
-	no_std_io2@0.9.4
 	nohash-hasher@0.2.0
 	nom@8.0.0
-	noop_proc_macro@0.3.0
-	num-bigint-dig@0.8.6
-	num-bigint@0.4.8
-	num-complex@0.4.6
 	num-conv@0.2.2
-	num-derive@0.4.2
-	num-integer@0.1.47
-	num-iter@0.1.46
-	num-rational@0.4.2
 	num-traits@0.2.19
-	num@0.4.3
-	num_cpus@1.17.0
 	num_enum@0.7.6
 	num_enum_derive@0.7.6
 	objc-sys@0.3.5
@@ -364,6 +290,7 @@ CRATES="
 	objc2-core-graphics@0.3.2
 	objc2-core-image@0.2.2
 	objc2-core-location@0.2.2
+	objc2-core-text@0.3.2
 	objc2-encode@4.1.0
 	objc2-foundation@0.2.2
 	objc2-foundation@0.3.2
@@ -378,27 +305,21 @@ CRATES="
 	objc2-ui-kit@0.3.2
 	objc2-uniform-type-identifiers@0.2.2
 	objc2-user-notifications@0.2.2
-	objc2@0.5.2
+	objc2@0.5.3
 	objc2@0.6.5
-	objc@0.2.7
-	object@0.37.3
 	once_cell@1.21.4
-	opaque-debug@0.3.1
-	open@5.4.4
+	once_cell_polyfill@1.70.2
 	openssl-probe@0.2.1
+	option-ext@0.2.0
 	orbclient@0.3.55
-	ordered-float@5.5.0
+	ordered-float@5.5.1
 	ordered-stream@0.2.0
 	os_pipe@1.2.3
-	owned_ttf_parser@0.25.1
-	p256@0.13.2
-	p384@0.13.1
 	parking@2.2.1
 	parking_lot@0.12.5
 	parking_lot_core@0.9.12
-	paste@1.0.15
-	pastey@0.1.1
-	pem-rfc7468@0.7.0
+	parlance@0.1.1
+	pdf-writer@0.15.0
 	peniko@0.6.1
 	percent-encoding@2.3.2
 	petgraph@0.8.3
@@ -406,13 +327,11 @@ CRATES="
 	phf_generator@0.14.0
 	phf_macros@0.14.0
 	phf_shared@0.14.0
+	pico-args@0.5.0
 	pin-project-internal@1.1.13
 	pin-project-lite@0.2.17
 	pin-project@1.1.13
 	piper@0.2.5
-	pkcs1@0.7.5
-	pkcs5@0.7.1
-	pkcs8@0.10.2
 	pkg-config@0.3.34
 	plain@0.2.3
 	plist@1.10.3
@@ -420,26 +339,17 @@ CRATES="
 	polling@3.11.0
 	pollster@0.4.0
 	pollster@1.0.1
-	poly1305@0.8.0
 	polycool@0.4.0
-	polyval@0.6.2
 	portable-atomic-util@0.2.8
 	portable-atomic@1.15.0
 	postcard@1.1.3
 	potential_utf@0.1.6
 	powerfmt@0.2.1
-	ppv-lite86@0.2.21
 	presser@0.3.1
-	primeorder@0.13.6
 	proc-macro-crate@3.5.0
 	proc-macro2@1.0.107
-	profiling-procmacros@1.0.18
 	profiling@1.0.18
 	proptest@1.12.0
-	pulp-wasm-simd-flag@0.1.1
-	pulp@0.18.22
-	pulp@0.21.5
-	pulp@0.22.3
 	pxfm@0.1.30
 	quick-error@1.2.3
 	quick-error@2.0.1
@@ -449,39 +359,32 @@ CRATES="
 	r-efi@5.3.0
 	r-efi@6.0.0
 	rand@0.10.3
-	rand@0.8.8
-	rand@0.9.5
-	rand_chacha@0.3.1
-	rand_chacha@0.9.0
 	rand_core@0.10.1
-	rand_core@0.6.4
 	rand_core@0.9.5
-	rand_distr@0.5.1
 	rand_xorshift@0.5.0
+	rand_xoshiro@0.7.0
 	range-alloc@0.1.5
-	rav1e@0.8.1
-	ravif@0.13.0
-	raw-cpuid@10.7.0
-	raw-cpuid@11.6.0
 	raw-window-handle@0.6.2
 	raw-window-metal@1.1.0
-	rawpointer@0.2.1
 	rayon-core@1.13.0
 	rayon@1.12.0
+	read-fonts@0.39.2
 	read-fonts@0.41.0
 	read-fonts@0.43.3
-	reborrow@0.5.5
+	read-fonts@0.44.0
 	redox_syscall@0.4.1
 	redox_syscall@0.5.18
-	redox_syscall@0.9.4
+	redox_syscall@0.9.5
+	redox_users@0.5.3
+	regex-automata@0.4.18
 	regex-syntax@0.8.11
+	regex@1.13.1
 	renderdoc-sys@1.1.0
-	rfc6979@0.4.0
 	rfd@0.17.2
-	rgb@0.8.53
 	ring@0.17.14
-	rsa@0.9.10
-	rustc-demangle@0.1.28
+	roff@1.1.1
+	roxmltree@0.20.0
+	roxmltree@0.21.2
 	rustc-hash@1.1.0
 	rustc-hash@2.1.3
 	rustc_version@0.4.1
@@ -491,61 +394,63 @@ CRATES="
 	rustls-pki-types@1.15.1
 	rustls-platform-verifier-android@0.2.0
 	rustls-platform-verifier@0.7.1
-	rustls-rustcrypto@0.0.2-alpha
-	rustls-webpki@0.102.8
 	rustls-webpki@0.103.16
 	rustls@0.23.46
 	rustversion@1.0.23
 	rusty-fork@0.3.1
-	safetensors@0.4.5
-	safetensors@0.7.0
+	rustybuzz@0.20.1
+	ruzstd@0.9.1
+	ryu@1.0.23
+	safe_arch@0.7.4
 	same-file@1.0.6
 	schannel@0.1.30
 	scoped-tls@1.0.1
 	scopeguard@1.2.0
-	sec1@0.7.3
+	sctk-adwaita@0.10.1
 	security-framework-sys@2.17.0
 	security-framework@3.7.0
 	self_cell@1.3.0
 	semver@1.0.28
 	send_wrapper@0.6.0
-	seq-macro@0.3.6
 	serde@1.0.229
 	serde_core@1.0.229
 	serde_derive@1.0.229
 	serde_json@1.0.154
 	serde_repr@0.1.21
-	serde_spanned@1.1.1
+	serde_spanned@1.1.2
+	sha1@0.11.0
 	sha2@0.10.9
 	shlex@2.0.1
 	signal-hook-registry@1.4.8
-	signature@2.2.0
 	simd-adler32@0.3.10
 	simd_cesu8@1.2.0
-	simd_helpers@0.1.0
 	simdutf8@0.1.5
+	simplecss@0.2.2
 	siphasher@1.0.4
+	skrifa@0.42.1
 	skrifa@0.44.0
+	skrifa@0.47.0
 	slab@0.4.12
 	slotmap@1.1.1
-	smallvec@1.16.2
+	smallvec@1.16.4
 	smithay-client-toolkit@0.19.2
 	smithay-client-toolkit@0.20.0
 	smithay-clipboard@0.7.3
 	smol_str@0.2.2
 	spin@0.9.9
 	spirv@0.4.0+sdk-1.4.341.0
-	spki@0.7.3
 	stable_deref_trait@1.2.1
 	static_assertions@1.1.0
+	strict-num@0.1.1
+	string-interner@0.19.0
+	strsim@0.11.1
+	subsetter@0.2.6
 	subtle@2.6.1
+	svgtypes@0.16.1
 	syn@2.0.119
-	syn@3.0.6
-	synstructure@0.13.2
+	syn@3.0.9
 	synstructure@0.14.0
 	sys-locale@0.3.2
-	sysctl@0.5.5
-	sysctl@0.6.0
 	tar@0.4.46
 	tempfile@3.27.0
 	termcolor@1.4.1
@@ -553,46 +458,53 @@ CRATES="
 	thiserror-impl@2.0.21
 	thiserror@1.0.69
 	thiserror@2.0.21
-	thousands@0.2.0
 	tiff@0.11.3
 	time-core@0.1.9
 	time-macros@0.2.32
 	time@0.3.55
-	tinystr@0.8.4
-	tokio@1.53.1
-	toml@1.1.6+spec-1.1.0
-	toml_datetime@1.1.1+spec-1.1.0
-	toml_edit@0.25.15+spec-1.1.0
-	toml_parser@1.1.3+spec-1.1.0
-	toml_writer@1.1.2+spec-1.1.0
+	tiny-skia-path@0.11.4
+	tiny-skia-path@0.12.0
+	tiny-skia@0.11.4
+	tiny-skia@0.12.0
+	tinystr@0.8.5
+	tinyvec@1.13.3
+	tokio@1.54.1
+	toml@1.1.8+spec-1.1.0
+	toml_datetime@1.1.2+spec-1.1.0
+	toml_edit@0.25.17+spec-1.1.0
+	toml_parser@1.1.5+spec-1.1.0
+	toml_writer@1.1.3+spec-1.1.0
 	tracing-attributes@0.1.31
 	tracing-core@0.1.36
 	tracing@0.1.44
 	tree_magic_mini@3.2.2
 	ttf-parser@0.25.1
+	tungstenite@0.30.0
 	type-map@0.5.1
-	typed-path@0.12.3
 	typed-path@0.13.0
 	typenum@1.20.1
 	uds_windows@1.2.1
-	ug-metal@0.5.0
-	ug@0.5.0
 	unarray@0.1.4
+	unicode-bidi-mirroring@0.4.0
 	unicode-bidi@0.3.18
+	unicode-ccc@0.4.0
 	unicode-general-category@1.1.0
-	unicode-ident@1.0.26
+	unicode-ident@1.0.27
 	unicode-properties@0.1.4
+	unicode-script@0.5.8
 	unicode-segmentation@1.13.3
+	unicode-vo@0.1.0
 	unicode-width@0.2.2
-	universal-hash@0.5.1
 	untrusted@0.9.0
 	ureq-proto@0.6.5
-	ureq@3.4.2
+	ureq@3.5.0
+	url@2.5.8
+	usvg@0.48.1
 	utf16_iter@1.0.5
 	utf8-zero@0.8.1
 	utf8_iter@1.0.4
-	uuid@1.26.1
-	v_frame@0.3.9
+	utf8parse@0.2.2
+	uuid@1.29.0
 	vello_common@0.2.0
 	vello_cpu@0.2.0
 	verifysign@1.0.1
@@ -606,6 +518,15 @@ CRATES="
 	wasm-bindgen-macro@0.2.129
 	wasm-bindgen-shared@0.2.129
 	wasm-bindgen@0.2.129
+	wasm-encoder@0.262.0
+	wasmi@2.0.0
+	wasmi_collections@2.0.0
+	wasmi_core@2.0.0
+	wasmi_ir@2.0.0
+	wasmparser@0.228.0
+	wasmparser@0.262.0
+	wast@262.0.0
+	wat@1.262.0
 	wayland-backend@0.3.17
 	wayland-client@0.31.15
 	wayland-csd-frame@0.3.0
@@ -619,8 +540,9 @@ CRATES="
 	wayland-sys@0.31.11
 	web-sys@0.3.106
 	web-time@1.1.0
+	webbrowser@1.2.5
 	webpki-root-certs@1.0.11
-	webpki-roots@1.0.10
+	webpki-roots@1.0.11
 	weezl@0.1.12
 	wgpu-core-deps-apple@30.0.1
 	wgpu-core-deps-emscripten@30.0.1
@@ -631,6 +553,7 @@ CRATES="
 	wgpu-naga-bridge@30.0.1
 	wgpu-types@30.0.1
 	wgpu@30.0.1
+	wide@0.7.33
 	winapi-util@0.1.11
 	windows-collections@0.3.2
 	windows-core@0.62.2
@@ -662,57 +585,62 @@ CRATES="
 	winsafe@0.0.29
 	wit-bindgen@0.57.1
 	wl-clipboard-rs@0.9.4
+	write-fonts@0.48.1
 	write16@1.0.0
 	writeable@0.6.4
 	x11-dl@2.21.0
 	x11rb-protocol@0.13.2
 	x11rb@0.13.2
-	x25519-dalek@2.0.1
 	xcursor@0.3.11
 	xkbcommon-dl@0.4.2
 	xkeysym@0.2.1
 	xml-rs@0.8.29
-	y4m@0.8.0
-	yoke-derive@0.7.5
+	xmlwriter@0.1.0
+	xmp-writer@0.3.3
+	yeslogic-fontconfig-sys@6.0.1
 	yoke-derive@0.8.4
-	yoke@0.7.5
-	yoke@0.8.3
+	yoke@0.8.4
 	zbus-lockstep-macros@0.5.2
 	zbus-lockstep@0.5.2
 	zbus@5.19.0
 	zbus_macros@5.19.0
-	zbus_names@4.3.4
+	zbus_names@4.3.5
 	zbus_xml@5.2.1
 	zcheapstr@1.1.0
-	zerocopy-derive@0.8.59
-	zerocopy@0.8.59
+	zerocopy-derive@0.8.63
+	zerocopy@0.8.63
 	zerofrom-derive@0.1.8
 	zerofrom@0.1.8
 	zeroize@1.9.1
-	zeroize_derive@1.5.0
 	zerotrie@0.2.5
 	zerovec-derive@0.11.7
-	zerovec@0.11.8
-	zip@7.4.0
-	zip@9.1.3
+	zerovec@0.11.9
+	zip@2.6.1
+	zip@9.1.1
 	zlib-rs@0.6.8
 	zmij@1.0.23
 	zopfli@0.8.4
 	zune-core@0.5.3
 	zune-jpeg@0.5.15
-	zune-jpegxl@0.5.2
-	zvariant@5.15.0
-	zvariant_derive@5.15.0
+	zvariant@5.15.1
+	zvariant_derive@5.15.1
 	zvariant_utils@4.2.0
 "
 
 declare -A GIT_CRATES=(
-	[craft-docpath]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/docpath'
-	[craft-fonts-build]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/fonts-build'
-	[craft-i18n]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/i18n'
-	[craft-ui]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/ui'
-	[craft-update]='https://github.com/storytold/craft-libs;04aa1703b32d299e54f78fcde4182f2b393a9116;craft-libs-%commit%/crates/update'
-	[craft-window]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/window'
+	[craft-atomic]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/atomic'
+	[craft-docpath]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/docpath'
+	[craft-font-catalog]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/font-catalog'
+	[craft-font-store]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/font-store'
+	[craft-fonts-build]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/fonts-build'
+	[craft-i18n]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/i18n'
+	[craft-keymap]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/keymap'
+	[craft-menu]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/menu'
+	[craft-quit]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/quit'
+	[craft-settings]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/settings'
+	[craft-ui]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/ui'
+	[craft-update]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/update'
+	[craft-window]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/window'
 	[ecolor]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/ecolor'
 	[eframe]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/eframe'
 	[egui]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui'
@@ -727,6 +655,7 @@ declare -A GIT_CRATES=(
 	[emath]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/emath'
 	[epaint]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint'
 	[epaint_default_fonts]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint_default_fonts'
+	[krilla]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/vendor/krilla'
 	[winit]='https://github.com/storytold/winit;a517b3846ee8457d84ee4975110bfda6797c44dc;winit-%commit%'
 )
 
@@ -734,8 +663,8 @@ RUST_MIN_VER="1.95.0"
 
 inherit cargo desktop xdg
 
-DESCRIPTION="Open-source native photo library and raw developer (Lightroom alternative)"
-HOMEPAGE="https://getartcraft.com/apps/lightcraft https://github.com/storytold/lightcraft"
+DESCRIPTION="Open-source native interface design and prototyping app"
+HOMEPAGE="https://getartcraft.com/apps/figcraft https://github.com/storytold/figcraft"
 SRC_URI="
 	https://github.com/storytold/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	${CARGO_CRATE_URIS}
@@ -744,25 +673,34 @@ SRC_URI="
 LICENSE="|| ( Apache-2.0 MIT )"
 # Dependent crate licenses
 LICENSE+="
-	Apache-2.0 BSD-2 BSD Boost-1.0 CDLA-Permissive-2.0 IJG ISC MIT
-	MPL-2.0 UoI-NCSA OFL-1.1 UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
+	Apache-2.0 BSD-2 BSD Boost-1.0 CDLA-Permissive-2.0 ISC MIT MPL-2.0 OFL-1.1
+	UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
 "
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-libs/wayland
+	media-libs/fontconfig
 	media-libs/vulkan-loader
+	sys-apps/xdg-desktop-portal
 	x11-libs/libX11
 	x11-libs/libXcursor
 	x11-libs/libXi
 	x11-libs/libXrandr
+	x11-libs/libxcb
 	x11-libs/libxkbcommon[X]
+	x11-misc/xdg-utils
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
 	virtual/pkgconfig
 "
+
+DOCS=(
+	README.md
+	ATTRIBUTION.md
+)
 
 QA_FLAGS_IGNORED="usr/bin/${PN} usr/bin/${PN}-cli"
 
@@ -774,7 +712,7 @@ src_prepare() {
 	local -a crates=(
 		ecolor eframe egui egui-wgpu egui-winit egui_demo_lib egui_extras egui_glow
 		egui_inspection egui_kittest egui_system_font_provider emath epaint
-		epaint_default_fonts winit
+		epaint_default_fonts krilla winit
 	)
 	for crate in "${crates[@]}"; do
 		IFS=';' read -r crate_uri commit crate_dir <<< "${GIT_CRATES[${crate}]}"
