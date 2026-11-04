@@ -16,14 +16,12 @@ CRATES="
 	aes@0.9.3
 	ahash@0.8.12
 	aho-corasick@1.1.5
-	alloc-no-stdlib@2.0.4
-	alloc-stdlib@0.2.4
 	allocator-api2@0.2.21
 	android-activity@0.6.1
 	android-properties@0.2.2
 	android_system_properties@0.1.6
 	anyhow@1.0.104
-	arbitrary@1.4.2
+	arbitrary@1.5.0
 	arboard@3.7.0
 	arrayref@0.3.9
 	arrayvec@0.7.8
@@ -50,8 +48,8 @@ CRATES="
 	base64@0.23.1
 	base64ct@1.8.3
 	bit-set@0.10.0
-	bit-set@0.11.1
-	bit-vec@0.10.1
+	bit-set@0.8.0
+	bit-vec@0.8.0
 	bit-vec@0.9.1
 	bitflags@1.3.2
 	bitflags@2.13.2
@@ -60,10 +58,6 @@ CRATES="
 	block2@0.5.1
 	block2@0.6.2
 	blocking@1.7.0
-	borsh-derive@1.8.1
-	borsh@1.8.1
-	brotli-decompressor@5.0.3
-	brotli@8.0.4
 	bumpalo@3.20.3
 	bytemuck@1.25.2
 	bytemuck_derive@1.12.1
@@ -74,27 +68,22 @@ CRATES="
 	calloop@0.13.0
 	calloop@0.14.5
 	cc@1.6.0
-	cfb@0.15.0
 	cfg-if@1.0.5
 	cfg_aliases@0.2.2
 	cgl@0.3.2
 	chacha20@0.10.2
-	chardetng@1.0.0
 	chrono@0.4.45
 	cipher@0.5.2
-	clipboard-win@5.4.3
+	clipboard-win@5.4.1
 	cmake@0.1.58
-	cmov@0.5.4
 	cmpv2@0.2.0
 	cms@0.2.3
 	cobs@0.3.0
 	codespan-reporting@0.13.1
 	color@0.3.3
-	color_quant@1.1.0
 	colored@2.2.0
 	combine@4.6.8
 	concurrent-queue@2.5.0
-	const-oid@0.10.2
 	const-oid@0.9.6
 	core-foundation-sys@0.8.7
 	core-foundation@0.10.1
@@ -114,12 +103,11 @@ CRATES="
 	crunchy@0.2.4
 	crypto-common@0.1.7
 	crypto-common@0.2.2
-	ctutils@0.4.7
 	cursor-icon@1.2.0
 	der@0.7.10
 	der_derive@0.7.3
 	deranged@0.5.9
-	derive_arbitrary@1.4.2
+	derive_arbitrary@1.5.0
 	dify@0.8.0
 	digest@0.10.7
 	digest@0.11.3
@@ -142,25 +130,23 @@ CRATES="
 	euclid@0.22.14
 	event-listener-strategy@0.5.4
 	event-listener@5.4.2
+	fancy-regex@0.14.0
 	fastrand@2.5.0
 	fax@0.2.7
 	fdeflate@0.3.7
 	fearless_simd@0.4.1
-	fearless_simd@1.1.0
 	filetime@0.2.29
 	find-msvc-tools@0.1.14
 	fixed_decimal@0.7.3
 	fixedbitset@0.5.7
 	flagset@0.4.7
 	flate2@1.1.10
-	float-cmp@0.9.0
 	fmt-derive-proc@0.1.2
 	fmt-derive@0.1.2
 	fmv-macos-events@0.1.0
 	fnv@1.0.7
 	foldhash@0.1.5
 	foldhash@0.2.0
-	font-types@0.11.3
 	font-types@0.12.6
 	foreign-types-macros@0.2.4
 	foreign-types-shared@0.3.1
@@ -181,7 +167,6 @@ CRATES="
 	getrandom@0.2.17
 	getrandom@0.3.4
 	getrandom@0.4.3
-	gif@0.14.2
 	gl_generator@0.14.0
 	glifo@0.3.0
 	glow@0.17.0
@@ -195,22 +180,12 @@ CRATES="
 	h2@0.4.20
 	half@2.7.1
 	harfrust@0.12.0
-	harfrust@0.13.3
 	hashbrown@0.15.5
 	hashbrown@0.16.1
 	hashbrown@0.17.1
-	hayro-ccitt@0.3.0
-	hayro-ccitt@0.4.0
-	hayro-cmap@0.1.0
-	hayro-interpret@0.7.0
-	hayro-jbig2@0.3.1
-	hayro-jpeg2000@0.3.5
-	hayro-postscript@0.1.0
-	hayro-syntax@0.7.2
 	heck@0.5.0
 	hermit-abi@0.5.3
 	hex@0.4.3
-	hmac@0.13.0
 	http-body-util@0.1.5
 	http-body@1.1.0
 	http@1.5.0
@@ -237,9 +212,7 @@ CRATES="
 	icu_provider_blob@2.3.0
 	idna@1.1.0
 	idna_adapter@1.2.2
-	image-webp@0.2.4
 	image@0.25.10
-	imagesize@0.14.0
 	indexmap@2.14.2
 	inout@0.2.2
 	ipnet@2.12.2
@@ -254,12 +227,13 @@ CRATES="
 	jni@0.22.4
 	jobserver@0.1.35
 	js-sys@0.3.106
+	keyboard-types@0.8.3
 	khronos-egl@6.0.0
 	khronos_api@3.1.0
 	kittest@0.5.0
 	kurbo@0.13.1
 	lazy_static@1.5.1
-	libc@0.2.191
+	libc@0.2.190
 	libloading@0.8.9
 	libm@0.2.16
 	libredox@0.1.25
@@ -279,6 +253,7 @@ CRATES="
 	miniz_oxide@0.9.1
 	mio@1.2.4
 	moxcms@0.8.1
+	muda@0.21.2
 	multiversion_no_op@1.0.0
 	naga-types@30.0.1
 	naga@30.0.1
@@ -319,29 +294,27 @@ CRATES="
 	objc2@0.5.3
 	objc2@0.6.5
 	once_cell@1.21.4
-	open@5.4.5
+	open@5.4.4
 	openssl-probe@0.2.1
 	orbclient@0.3.55
-	ordered-channel@1.2.0
 	ordered-float@5.5.0
 	ordered-stream@0.2.0
 	os_pipe@1.2.3
 	parking@2.2.1
 	parking_lot@0.12.5
 	parking_lot_core@0.9.12
-	pdf-writer@0.15.0
 	pem-rfc7468@0.7.0
 	pem@3.0.6
 	peniko@0.6.1
 	percent-encoding@2.3.2
 	petgraph@0.8.3
-	phf@0.13.1
+	phf@0.11.3
 	phf@0.14.0
-	phf_generator@0.13.1
+	phf_generator@0.11.3
 	phf_generator@0.14.0
-	phf_macros@0.13.1
+	phf_macros@0.11.3
 	phf_macros@0.14.0
-	phf_shared@0.13.1
+	phf_shared@0.11.3
 	phf_shared@0.14.0
 	pin-project-internal@1.1.13
 	pin-project-lite@0.2.17
@@ -366,9 +339,7 @@ CRATES="
 	proc-macro-error@1.0.4
 	proc-macro2@1.0.107
 	profiling@1.0.18
-	proptest@1.12.0
 	pxfm@0.1.30
-	quick-error@1.2.3
 	quick-error@2.0.1
 	quick-xml@0.41.0
 	quick-xml@0.42.0
@@ -379,23 +350,26 @@ CRATES="
 	r-efi@5.3.0
 	r-efi@6.0.0
 	rand@0.10.3
+	rand@0.8.8
 	rand_core@0.10.1
 	rand_core@0.6.4
 	rand_pcg@0.10.2
-	rand_xorshift@0.5.0
 	range-alloc@0.1.5
+	ratex-font@0.1.14
+	ratex-layout@0.1.14
+	ratex-lexer@0.1.14
+	ratex-parser@0.1.14
+	ratex-types@0.1.14
 	raw-window-handle@0.6.2
 	raw-window-metal@1.1.0
 	rayon-core@1.13.0
 	rayon@1.12.0
-	read-fonts@0.39.2
 	read-fonts@0.41.0
-	read-fonts@0.43.3
-	read-fonts@0.44.0
 	redox_syscall@0.4.1
 	redox_syscall@0.5.18
 	redox_syscall@0.9.4
 	regex-automata@0.4.18
+	regex-lite@0.1.9
 	regex-syntax@0.8.11
 	regex@1.13.1
 	renderdoc-sys@1.1.0
@@ -408,20 +382,20 @@ CRATES="
 	rustc_version@0.4.1
 	rustix@0.38.44
 	rustix@1.1.5
-	rustls-native-certs@0.8.5
+	rustls-native-certs@0.8.4
 	rustls-pki-types@1.15.1
 	rustls-platform-verifier-android@0.2.0
 	rustls-platform-verifier@0.7.1
 	rustls-webpki@0.103.16
 	rustls@0.23.46
 	rustversion@1.0.23
-	rusty-fork@0.3.1
 	ryu-js@1.0.3
 	ryu@1.0.23
 	same-file@1.0.6
-	schannel@0.1.30
+	schannel@0.1.29
 	scoped-tls@1.0.1
 	scopeguard@1.2.0
+	sctk-adwaita@0.10.1
 	security-framework-sys@2.17.0
 	security-framework@3.7.0
 	self_cell@1.3.0
@@ -454,9 +428,7 @@ CRATES="
 	simd_cesu8@1.2.0
 	simdutf8@0.1.5
 	siphasher@1.0.4
-	skrifa@0.42.1
 	skrifa@0.44.0
-	skrifa@0.47.0
 	slab@0.4.12
 	slotmap@1.1.1
 	smallvec@1.16.2
@@ -472,7 +444,6 @@ CRATES="
 	strict-num@0.1.1
 	strum@0.28.0
 	strum_macros@0.28.0
-	subsetter@0.2.6
 	subtle@2.6.1
 	syn@1.0.109
 	syn@2.0.119
@@ -489,12 +460,12 @@ CRATES="
 	thiserror-impl@2.0.21
 	thiserror@1.0.69
 	thiserror@2.0.21
-	thread_local@1.1.10
 	tiff@0.11.3
 	time-core@0.1.9
 	time-macros@0.2.32
 	time@0.3.55
-	tiny-skia-path@0.12.0
+	tiny-skia-path@0.11.4
+	tiny-skia@0.11.4
 	tinystr@0.8.4
 	tinyvec@1.13.3
 	tls_codec@0.4.2
@@ -520,14 +491,11 @@ CRATES="
 	typed-path@0.13.0
 	typenum@1.20.1
 	uds_windows@1.2.1
-	unarray@0.1.4
 	unicode-bidi@0.3.18
 	unicode-general-category@1.1.0
 	unicode-ident@1.0.26
-	unicode-linebreak@0.1.5
 	unicode-normalization@0.1.26
 	unicode-properties@0.1.4
-	unicode-script@0.5.8
 	unicode-segmentation@1.13.3
 	unicode-width@0.2.2
 	untrusted@0.7.1
@@ -543,7 +511,6 @@ CRATES="
 	vello_cpu@0.2.0
 	verifysign@1.0.1
 	version_check@0.9.5
-	wait-timeout@0.2.1
 	walkdir@2.5.0
 	want@0.3.2
 	wasi@0.11.1+wasi-snapshot-preview1
@@ -566,8 +533,7 @@ CRATES="
 	wayland-sys@0.31.11
 	web-sys@0.3.106
 	web-time@1.1.0
-	webbrowser@1.2.4
-	webpki-root-certs@1.0.11
+	webpki-root-certs@1.0.9
 	weezl@0.1.12
 	wgpu-core-deps-apple@30.0.1
 	wgpu-core-deps-emscripten@30.0.1
@@ -609,10 +575,8 @@ CRATES="
 	winsafe@0.0.29
 	wit-bindgen@0.57.1
 	wl-clipboard-rs@0.9.4
-	write-fonts@0.48.1
 	write16@1.0.0
 	writeable@0.6.4
-	wuff@0.2.9
 	x11-dl@2.21.0
 	x11rb-protocol@0.13.2
 	x11rb@0.13.2
@@ -624,7 +588,6 @@ CRATES="
 	xkeysym@0.2.1
 	xml-rs@0.8.29
 	xml@1.4.0
-	xmp-writer@0.3.3
 	yoke-derive@0.8.4
 	yoke@0.8.4
 	zbus-lockstep-macros@0.5.2
@@ -656,13 +619,12 @@ CRATES="
 "
 
 declare -A GIT_CRATES=(
-	[craft-fonts-build]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/fonts-build'
-	[craft-i18n]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/i18n'
-	[craft-pdf]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/pdf'
-	[craft-print]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/print'
-	[craft-ui]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/ui'
+	[craft-fonts-build]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/fonts-build'
+	[craft-i18n]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/i18n'
+	[craft-print]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/print'
+	[craft-ui]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/ui'
 	[craft-update]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/update'
-	[craft-window]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/window'
+	[craft-window]='https://github.com/storytold/craft-libs;c5a1cbfb5f9049f9270955caffb5bee5997aebf7;craft-libs-%commit%/crates/window'
 	[craft-winprint-gdi]='https://github.com/storytold/winprint.rs;417ac3c4d14d3da5485a99c7d5ce8f05664ec312;winprint.rs-%commit%/crates/gdi'
 	[ecolor]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/ecolor'
 	[eframe]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/eframe'
@@ -678,7 +640,6 @@ declare -A GIT_CRATES=(
 	[emath]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/emath'
 	[epaint]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint'
 	[epaint_default_fonts]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint_default_fonts'
-	[krilla]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/vendor/krilla'
 	[winit]='https://github.com/storytold/winit;a517b3846ee8457d84ee4975110bfda6797c44dc;winit-%commit%'
 	[winprint]='https://github.com/storytold/winprint.rs;5f80b9baf6b58937c401656634e42d33f00ddf49;winprint.rs-%commit%'
 )
@@ -687,8 +648,8 @@ RUST_MIN_VER="1.95.0"
 
 inherit cargo desktop xdg
 
-DESCRIPTION="Open-source native word processor (Word alternative)"
-HOMEPAGE="https://getartcraft.com/apps/wordcraft https://github.com/storytold/wordcraft"
+DESCRIPTION="Open-source native spreadsheet app (Excel alternative)"
+HOMEPAGE="https://getartcraft.com/apps/gridcraft https://github.com/storytold/gridcraft"
 SRC_URI="
 	https://github.com/storytold/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	${CARGO_CRATE_URIS}
@@ -697,7 +658,7 @@ SRC_URI="
 LICENSE="|| ( Apache-2.0 MIT )"
 # Dependent crate licenses
 LICENSE+="
-	Apache-2.0 BSD-2 BSD Boost-1.0 CDLA-Permissive-2.0 ISC MIT MPL-2.0 OFL-1.1
+	Apache-2.0 BSD BSD-2 Boost-1.0 CDLA-Permissive-2.0 ISC MIT MPL-2.0 OFL-1.1
 	UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
 "
 SLOT="0"
@@ -725,10 +686,6 @@ BDEPEND="
 DOCS=(
 	README.md
 	ATTRIBUTION.md
-	assets/fonts/OFL-Inter.txt
-	assets/fonts/OFL-JetBrainsMono.txt
-	assets/fonts/OFL-SourceSans3.txt
-	assets/fonts/OFL-SourceSerif4.txt
 )
 
 QA_FLAGS_IGNORED="usr/bin/${PN} usr/bin/${PN}-cli"
@@ -741,7 +698,7 @@ src_prepare() {
 	local -a crates=(
 		ecolor eframe egui egui-wgpu egui-winit egui_demo_lib egui_extras egui_glow
 		egui_inspection egui_kittest egui_system_font_provider emath epaint
-		epaint_default_fonts krilla winit
+		epaint_default_fonts winit
 	)
 	for crate in "${crates[@]}"; do
 		IFS=';' read -r crate_uri commit crate_dir <<< "${GIT_CRATES[${crate}]}"

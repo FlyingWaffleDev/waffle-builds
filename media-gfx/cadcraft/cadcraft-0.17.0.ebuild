@@ -92,6 +92,7 @@ CRATES="
 	core-graphics-types@0.1.3
 	core-graphics@0.23.2
 	core_detect@1.0.0
+	core_maths@0.1.1
 	cpufeatures@0.2.17
 	crc32fast@1.5.3
 	crossbeam-channel@0.5.17
@@ -196,6 +197,8 @@ CRATES="
 	icu_provider@2.3.1
 	icu_provider_adapters@2.3.0
 	icu_provider_blob@2.3.0
+	icu_segmenter@2.3.0
+	icu_segmenter_data@2.3.0
 	idna@1.1.0
 	idna_adapter@1.2.2
 	image-webp@0.2.4
