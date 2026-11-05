@@ -4,11 +4,11 @@
 EAPI=8
 
 CRATES="
-	accesskit@0.25.1
+	accesskit@0.25.2
 	accesskit_atspi_common@0.21.0
-	accesskit_consumer@0.39.1
+	accesskit_consumer@0.39.2
 	accesskit_ios@0.2.1
-	accesskit_macos@0.27.1
+	accesskit_macos@0.27.2
 	accesskit_unix@0.24.0
 	accesskit_windows@0.35.1
 	accesskit_winit@0.34.1
