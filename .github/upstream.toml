@@ -71,9 +71,18 @@ tag_prefix = "v"
 source = "github"
 repo = "open-quantum-safe/liboqs"
 
+["dev-python/nvidia-ml-py"]
+ignore = true
+notes = "PyPI releases are not supported by the update checker"
+
 ["dev-python/pyright"]
 source = "github"
 repo = "microsoft/pyright"
+
+["dev-python/textual"]
+source = "github"
+repo = "Textualize/textual"
+tag_prefix = "v"
 
 ["games-emulation/desmume"]
 ignore = true
@@ -197,6 +206,11 @@ tag_prefix = "v"
 ["sys-kernel/buildkernel"]
 source = "github"
 repo = "FlyingWaffleDev/buildkernel"
+
+["sys-process/gputaskman"]
+source = "github"
+repo = "shanselman/gputaskman"
+tag_prefix = "v"
 
 ["www-client/floorp-bin"]
 source = "github"
