@@ -263,6 +263,8 @@ CRATES="
 	icu_provider@2.3.1
 	icu_provider_adapters@2.3.0
 	icu_provider_blob@2.3.0
+	icu_segmenter@2.3.0
+	icu_segmenter_data@2.3.0
 	idna@1.1.0
 	idna_adapter@1.2.2
 	image@0.25.10
@@ -442,7 +444,9 @@ CRATES="
 	redox_syscall@0.4.1
 	redox_syscall@0.5.18
 	redox_syscall@0.9.4
+	regex-automata@0.4.18
 	regex-syntax@0.8.11
+	regex@1.13.1
 	regress@0.12.0
 	renderdoc-sys@1.1.0
 	reqwest@0.13.5
@@ -566,6 +570,7 @@ CRATES="
 	thiserror-impl@2.0.21
 	thiserror@1.0.69
 	thiserror@2.0.21
+	thread-priority@3.1.1
 	tiff@0.11.3
 	time-core@0.1.9
 	time-macros@0.2.32
@@ -724,7 +729,6 @@ CRATES="
 	zip@9.1.3
 	zlib-rs@0.6.8
 	zmij@1.0.23
-	zopfli@0.8.4
 	zune-core@0.5.3
 	zune-jpeg@0.5.15
 	zvariant@5.15.0
@@ -738,12 +742,13 @@ declare -A GIT_CRATES=(
 	[craft-i18n]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/i18n'
 	[craft-keymap]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/keymap'
 	[craft-menu]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/menu'
-	[craft-print]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/print'
+	[craft-print]='https://github.com/storytold/craft-libs;7ee35a9fbd47af572d55fd63dbf0333d1f00da17;craft-libs-%commit%/crates/print'
 	[craft-quit]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/quit'
 	[craft-ui]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/ui'
-	[craft-update]='https://github.com/storytold/craft-libs;787a7a0f972fd1d7a7618fdbeca3a5267a0407ff;craft-libs-%commit%/crates/update'
-	[craft-web-host]='https://github.com/storytold/craft-libs;2e2312ddaf21bc3d85cd3395d0955c7d239306f6;craft-libs-%commit%/crates/web-host'
-	[craft-winprint-gdi]='https://github.com/storytold/winprint.rs;417ac3c4d14d3da5485a99c7d5ce8f05664ec312;winprint.rs-%commit%/crates/gdi'
+	[craft-update]='https://github.com/storytold/craft-libs;1b34eba41e62138fc2438d2734523b302840b45d;craft-libs-%commit%/crates/update'
+	[craft-web-api]='https://github.com/storytold/craft-libs;fd5e2feff6ea25bed371a99cc732b3968d621505;craft-libs-%commit%/crates/web-api'
+	[craft-web-host]='https://github.com/storytold/craft-libs;fd5e2feff6ea25bed371a99cc732b3968d621505;craft-libs-%commit%/crates/web-host'
+	[craft-winprint-gdi]='https://github.com/storytold/winprint.rs;64e7afd4d1483512385012c340ecaaaf0f3beb7f;winprint.rs-%commit%/crates/gdi'
 	[ecolor]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/ecolor'
 	[eframe]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/eframe'
 	[egui]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui'
@@ -759,7 +764,7 @@ declare -A GIT_CRATES=(
 	[epaint]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint'
 	[epaint_default_fonts]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint_default_fonts'
 	[winit]='https://github.com/storytold/winit;a517b3846ee8457d84ee4975110bfda6797c44dc;winit-%commit%'
-	[winprint]='https://github.com/storytold/winprint.rs;5f80b9baf6b58937c401656634e42d33f00ddf49;winprint.rs-%commit%'
+	[winprint]='https://github.com/storytold/winprint.rs;51934db382f225454cf152a8657eb03789be63c4;winprint.rs-%commit%'
 )
 
 RUST_MIN_VER="1.95.0"
