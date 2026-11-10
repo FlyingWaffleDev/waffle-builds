@@ -107,4 +107,15 @@ pkg_postinst() {
 		einfo "Copy the user service directory from /usr/share/dbus-broker-dispatch/"
 		einfo "into the user's writable service directory before enabling it."
 	fi
+	if use openrc; then
+		ewarn "sys-apps/dbus installs its own /etc/init.d/dbus and /etc/user/init.d/dbus,"
+		ewarn "so both packages own those files. Every sys-apps/dbus update then offers"
+		ewarn "to replace them, and accepting that switches the system back to"
+		ewarn "dbus-daemon at the next boot. To stop sys-apps/dbus from installing them,"
+		ewarn "create /etc/portage/env/dbus-no-initd.conf containing"
+		ewarn "  INSTALL_MASK=\"\${INSTALL_MASK} /etc/init.d/dbus /etc/user/init.d/dbus\""
+		ewarn "add this line to /etc/portage/package.env"
+		ewarn "  sys-apps/dbus dbus-no-initd.conf"
+		ewarn "and rebuild it once with: emerge --oneshot sys-apps/dbus"
+	fi
 }
