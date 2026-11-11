@@ -234,6 +234,7 @@ CRATES="
 	khronos_api@3.1.0
 	kittest@0.5.0
 	kurbo@0.13.1
+	landlock@0.4.7
 	lazy_static@1.5.1
 	libc@0.2.190
 	libloading@0.8.9
@@ -398,6 +399,7 @@ CRATES="
 	scoped-tls@1.0.1
 	scopeguard@1.2.0
 	sctk-adwaita@0.10.1
+	seccompiler@0.5.0
 	security-framework-sys@2.17.0
 	security-framework@3.7.0
 	self_cell@1.3.0

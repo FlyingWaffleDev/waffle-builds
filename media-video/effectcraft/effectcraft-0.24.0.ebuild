@@ -277,6 +277,7 @@ CRATES="
 	nix@0.31.3
 	nohash-hasher@0.2.0
 	nom@8.0.0
+	ntapi@0.4.3
 	nu-ansi-term@0.50.3
 	num-bigint@0.5.1
 	num-complex@0.4.6
@@ -304,6 +305,7 @@ CRATES="
 	objc2-encode@4.1.0
 	objc2-foundation@0.2.2
 	objc2-foundation@0.3.2
+	objc2-io-kit@0.3.2
 	objc2-io-surface@0.3.2
 	objc2-link-presentation@0.2.2
 	objc2-metal@0.2.2
@@ -472,6 +474,7 @@ CRATES="
 	synstructure@0.14.0
 	sys-locale@0.3.2
 	sysctl@0.6.0
+	sysinfo@0.37.2
 	tag_ptr@0.1.0
 	tap@1.0.1
 	tar@0.4.46
@@ -578,17 +581,24 @@ CRATES="
 	winapi-util@0.1.11
 	winapi-x86_64-pc-windows-gnu@0.4.0
 	winapi@0.3.9
+	windows-collections@0.2.0
 	windows-collections@0.3.2
 	windows-core@0.54.0
+	windows-core@0.61.2
 	windows-core@0.62.2
+	windows-future@0.2.1
 	windows-future@0.3.2
 	windows-implement@0.60.2
 	windows-interface@0.59.3
+	windows-link@0.1.3
 	windows-link@0.2.1
+	windows-numerics@0.2.0
 	windows-numerics@0.3.1
 	windows-registry@0.6.1
 	windows-result@0.1.2
+	windows-result@0.3.4
 	windows-result@0.4.1
+	windows-strings@0.4.2
 	windows-strings@0.5.1
 	windows-sys@0.45.0
 	windows-sys@0.52.0
@@ -596,8 +606,10 @@ CRATES="
 	windows-sys@0.61.2
 	windows-targets@0.42.2
 	windows-targets@0.52.6
+	windows-threading@0.1.0
 	windows-threading@0.2.1
 	windows@0.54.0
+	windows@0.61.3
 	windows@0.62.2
 	windows_aarch64_gnullvm@0.42.2
 	windows_aarch64_gnullvm@0.52.6
@@ -659,26 +671,23 @@ CRATES="
 "
 
 declare -A GIT_CRATES=(
-	[craft-docpath]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/docpath'
+	[craft-docpath]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/docpath'
 	[craft-ecproj-format]='https://github.com/storytold/craft-libs;ca1b5e2edb8568335c6c14f390307bd5beae8238;craft-libs-%commit%/crates/ecproj-format'
-	[craft-fonts-build]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/fonts-build'
-	[craft-i18n]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/i18n'
+	[craft-fonts-build]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/fonts-build'
+	[craft-i18n]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/i18n'
 	[craft-media]='https://github.com/storytold/craft-libs;f0ad6c1e1d297908915f4be315b0fcfc9be7b5d4;craft-libs-%commit%/crates/media'
-	[craft-pdf]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/pdf'
-	[craft-quit]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/quit'
-	[craft-ui]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/crates/ui'
+	[craft-pdf]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/pdf'
+	[craft-quit]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/quit'
+	[craft-ui]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/crates/ui'
 	[craft-update]='https://github.com/storytold/craft-libs;1b34eba41e62138fc2438d2734523b302840b45d;craft-libs-%commit%/crates/update'
 	[ecolor]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/ecolor'
 	[eframe]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/eframe'
 	[egui]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui'
 	[egui-wgpu]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui-wgpu'
 	[egui-winit]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui-winit'
-	[egui_demo_lib]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui_demo_lib'
 	[egui_extras]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui_extras'
 	[egui_glow]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui_glow'
-	[egui_inspection]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui_inspection'
 	[egui_kittest]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui_kittest'
-	[egui_system_font_provider]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui_system_font_provider'
 	[emath]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/emath'
 	[epaint]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint'
 	[epaint_default_fonts]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint_default_fonts'
@@ -713,8 +722,8 @@ declare -A GIT_CRATES=(
 	[filmcraft-time]='https://github.com/storytold/filmcraft;d5ead4ba1ee2f1cd13cb86a4239aee2730a3d9f5;filmcraft-%commit%/crates/time'
 	[filmcraft-vp8]='https://github.com/storytold/filmcraft;d5ead4ba1ee2f1cd13cb86a4239aee2730a3d9f5;filmcraft-%commit%/crates/vp8'
 	[filmcraft-vp9]='https://github.com/storytold/filmcraft;d5ead4ba1ee2f1cd13cb86a4239aee2730a3d9f5;filmcraft-%commit%/crates/vp9'
-	[hayro-jbig2]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/vendor/hayro-jbig2'
-	[hayro-syntax]='https://github.com/storytold/craft-libs;92d392cff132eaf53e13afff77f38b5c11b73aa0;craft-libs-%commit%/vendor/hayro-syntax'
+	[hayro-jbig2]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/vendor/hayro-jbig2'
+	[hayro-syntax]='https://github.com/storytold/craft-libs;e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545;craft-libs-%commit%/vendor/hayro-syntax'
 	[winit]='https://github.com/storytold/winit;a517b3846ee8457d84ee4975110bfda6797c44dc;winit-%commit%'
 )
 
@@ -761,9 +770,8 @@ src_prepare() {
 	# Use fetched sources for upstream's crates.io patches in offline builds.
 	local crate crate_uri commit crate_dir
 	local -a crates=(
-		ecolor eframe egui egui-wgpu egui-winit egui_demo_lib egui_extras egui_glow
-		egui_inspection egui_kittest egui_system_font_provider emath epaint
-		epaint_default_fonts hayro-jbig2 hayro-syntax winit
+		ecolor eframe egui egui-wgpu egui-winit egui_extras egui_glow egui_kittest
+		emath epaint epaint_default_fonts hayro-jbig2 hayro-syntax winit
 	)
 	for crate in "${crates[@]}"; do
 		IFS=';' read -r crate_uri commit crate_dir <<< "${GIT_CRATES[${crate}]}"
