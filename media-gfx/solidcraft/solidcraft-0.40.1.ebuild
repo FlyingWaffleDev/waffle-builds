@@ -70,7 +70,9 @@ CRATES="
 	cadmpeg-ir@0.6.7
 	cadmpeg-registry@0.6.7
 	calloop-wayland-source@0.3.0
+	calloop-wayland-source@0.4.1
 	calloop@0.13.0
+	calloop@0.14.5
 	cbc@0.1.2
 	cbc@0.2.1
 	cc@1.6.0
@@ -364,7 +366,7 @@ CRATES="
 	rustc-hash@2.1.3
 	rustc_version@0.4.1
 	rustix@0.38.44
-	rustix@1.1.5
+	rustix@1.1.6
 	rustls-native-certs@0.8.5
 	rustls-pki-types@1.15.1
 	rustls-platform-verifier-android@0.2.0
@@ -410,6 +412,8 @@ CRATES="
 	slotmap@1.1.1
 	smallvec@1.16.2
 	smithay-client-toolkit@0.19.2
+	smithay-client-toolkit@0.20.0
+	smithay-clipboard@0.7.3
 	smol_str@0.2.2
 	spade@2.15.1
 	spirv@0.4.0+sdk-1.4.341.0
@@ -483,6 +487,8 @@ CRATES="
 	wayland-client@0.31.15
 	wayland-csd-frame@0.3.0
 	wayland-cursor@0.31.14
+	wayland-protocols-experimental@20250721.0.1
+	wayland-protocols-misc@0.3.12
 	wayland-protocols-plasma@0.3.12
 	wayland-protocols-wlr@0.3.12
 	wayland-protocols@0.32.13
@@ -592,16 +598,12 @@ RUST_MIN_VER="1.95.0"
 
 inherit cargo desktop xdg
 
-MY_PV=${PV/_rc/-rc.}
-
 DESCRIPTION="Parametric 3D CAD application with a headless CLI and MCP server"
 HOMEPAGE="https://solidcraft.io https://github.com/tangency-labs/solidcraft"
 SRC_URI="
-	https://github.com/tangency-labs/${PN}/archive/refs/tags/v${MY_PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/tangency-labs/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	${CARGO_CRATE_URIS}
 "
-
-S="${WORKDIR}/${PN}-${MY_PV}"
 
 LICENSE="|| ( Apache-2.0 MIT ) SolidCraft-Brand"
 # Dependent crate and bundled font licenses
@@ -652,7 +654,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${MY_PV}/g" -e 's/@DATE@/2026-11-11/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-12/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
