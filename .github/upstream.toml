@@ -123,6 +123,15 @@ source = "github"
 repo = "storytold/photocraft"
 tag_prefix = "v"
 
+["media-gfx/solidcraft"]
+source = "github"
+repo = "tangency-labs/solidcraft"
+tag_prefix = "v"
+ignore_prereleases = false
+tag_filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+(?:-rc\\.[0-9]+)?$"
+version_pattern = "-rc\\.([0-9]+)$"
+version_replace = "_rc\\1"
+
 ["media-gfx/vectorcraft"]
 source = "github"
 repo = "storytold/vectorcraft"
