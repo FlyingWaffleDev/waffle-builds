@@ -12,6 +12,7 @@ CRATES="
 	accesskit_unix@0.24.1
 	accesskit_windows@0.35.2
 	accesskit_winit@0.34.2
+	addr2line@0.26.1
 	adler2@2.0.1
 	aes@0.8.4
 	aes@0.9.4
@@ -19,9 +20,12 @@ CRATES="
 	alloc-no-stdlib@2.0.4
 	alloc-stdlib@0.2.4
 	allocator-api2@0.2.21
+	ambient-authority@0.0.2
 	android-activity@0.6.1
 	android-properties@0.2.2
 	android_system_properties@0.1.6
+	anyhow@1.0.104
+	arbitrary@1.5.0
 	arboard@3.6.1
 	arrayref@0.3.9
 	arrayvec@0.7.8
@@ -73,6 +77,8 @@ CRATES="
 	calloop-wayland-source@0.4.1
 	calloop@0.13.0
 	calloop@0.14.5
+	cap-primitives@4.0.3
+	cap-std@4.0.3
 	cbc@0.1.2
 	cbc@0.2.1
 	cc@1.6.0
@@ -84,6 +90,7 @@ CRATES="
 	cipher@0.4.4
 	cipher@0.5.2
 	clipboard-win@5.4.1
+	cobs@0.3.0
 	codespan-reporting@0.13.1
 	color@0.3.3
 	color_quant@1.1.0
@@ -96,9 +103,23 @@ CRATES="
 	core-graphics-types@0.1.3
 	core-graphics@0.23.2
 	core_detect@1.0.0
+	cpp_demangle@0.5.1
 	cpubits@0.1.1
 	cpufeatures@0.2.17
 	cpufeatures@0.3.1
+	cranelift-assembler-x64-meta@0.135.8
+	cranelift-assembler-x64@0.135.8
+	cranelift-bforest@0.135.8
+	cranelift-bitset@0.135.8
+	cranelift-codegen-meta@0.135.8
+	cranelift-codegen-shared@0.135.8
+	cranelift-codegen@0.135.8
+	cranelift-control@0.135.8
+	cranelift-entity@0.135.8
+	cranelift-frontend@0.135.8
+	cranelift-isle@0.135.8
+	cranelift-native@0.135.8
+	cranelift-srcgen@0.135.8
 	crc32fast@1.5.2
 	crossbeam-channel@0.5.17
 	crossbeam-deque@0.8.8
@@ -129,6 +150,8 @@ CRATES="
 	either@1.19.0
 	emath@0.37.0
 	embed-resource@3.0.12
+	embedded-io@0.4.0
+	embedded-io@0.6.1
 	encoding_rs@0.8.42
 	endi@1.1.1
 	enumflags2@0.7.12
@@ -149,6 +172,7 @@ CRATES="
 	find-msvc-tools@0.1.14
 	fixedbitset@0.5.7
 	flate2@1.1.10
+	fnv@1.0.7
 	foldhash@0.1.5
 	foldhash@0.2.0
 	font-types@0.12.6
@@ -156,6 +180,8 @@ CRATES="
 	foreign-types-shared@0.3.1
 	foreign-types@0.5.0
 	form_urlencoded@1.2.2
+	fs-set-times@0.20.3
+	futures-channel@0.3.34
 	futures-core@0.3.34
 	futures-io@0.3.34
 	futures-lite@2.6.1
@@ -163,12 +189,14 @@ CRATES="
 	futures-sink@0.3.34
 	futures-task@0.3.34
 	futures-util@0.3.34
+	futures@0.3.34
 	generic-array@0.14.7
 	gethostname@1.1.0
 	getrandom@0.2.17
 	getrandom@0.3.4
 	getrandom@0.4.3
 	gif@0.14.2
+	gimli@0.33.0
 	gl_generator@0.14.0
 	glifo@0.3.0
 	glow@0.17.0
@@ -187,6 +215,7 @@ CRATES="
 	hashbrown@0.15.5
 	hashbrown@0.16.1
 	hashbrown@0.17.1
+	heck@0.5.0
 	hermit-abi@0.5.3
 	hex@0.4.3
 	hidapi@2.6.7
@@ -202,6 +231,7 @@ CRATES="
 	icu_properties@2.3.0
 	icu_properties_data@2.3.0
 	icu_provider@2.3.1
+	id-arena@2.3.0
 	idna@1.1.0
 	idna_adapter@1.2.2
 	image-webp@0.2.4
@@ -210,6 +240,11 @@ CRATES="
 	inflections@1.1.1
 	inout@0.1.4
 	inout@0.2.6
+	io-extras@0.19.0
+	io-lifetimes@2.0.4
+	io-lifetimes@3.0.1
+	ipnet@2.12.2
+	itertools@0.14.0
 	itertools@0.15.0
 	itoa@1.0.18
 	jni-macros@0.22.4
@@ -225,6 +260,7 @@ CRATES="
 	khronos_api@3.1.0
 	kurbo@0.13.1
 	lazy_static@1.5.1
+	leb128fmt@0.1.0
 	libc@0.2.190
 	libdbus-sys@0.2.7
 	libloading@0.8.9
@@ -238,8 +274,11 @@ CRATES="
 	lock_api@0.4.14
 	log@0.4.34
 	lopdf@0.45.0
+	mach2@0.6.0
+	maybe-owned@0.3.4
 	md-5@0.11.0
 	memchr@2.8.3
+	memfd@0.6.6
 	memmap2@0.9.11
 	memoffset@0.9.1
 	minisign-verify@0.3.0
@@ -294,6 +333,7 @@ CRATES="
 	objc2-user-notifications@0.2.2
 	objc2@0.5.3
 	objc2@0.6.5
+	object@0.39.1
 	once_cell@1.21.4
 	openssl-probe@0.2.1
 	orbclient@0.3.55
@@ -324,6 +364,7 @@ CRATES="
 	polycool@0.4.0
 	portable-atomic-util@0.2.8
 	portable-atomic@1.15.0
+	postcard@1.1.3
 	potential_utf@0.1.6
 	ppv-lite86@0.2.21
 	presser@0.3.1
@@ -331,6 +372,8 @@ CRATES="
 	proc-macro2@1.0.107
 	profiling@1.0.18
 	proptest@1.12.0
+	pulley-interpreter@48.0.8
+	pulley-macros@48.0.8
 	pxfm@0.1.30
 	quick-error@2.0.1
 	quick-xml@0.41.0
@@ -355,6 +398,7 @@ CRATES="
 	redox_syscall@0.9.4
 	ref-cast-impl@1.0.27
 	ref-cast@1.0.27
+	regalloc2@0.15.2
 	regex-syntax@0.8.11
 	renderdoc-sys@1.1.0
 	rfd@0.17.2
@@ -362,9 +406,11 @@ CRATES="
 	robust@1.2.0
 	ron@0.12.2
 	roxmltree@0.21.1
+	rustc-demangle@0.1.28
 	rustc-hash@1.1.0
 	rustc-hash@2.1.3
 	rustc_version@0.4.1
+	rustix-linux-procfs@0.1.1
 	rustix@0.38.44
 	rustix@1.1.6
 	rustls-native-certs@0.8.5
@@ -427,6 +473,7 @@ CRATES="
 	synstructure@0.13.2
 	sys-locale@0.3.2
 	sysinfo@0.40.1
+	target-lexicon@0.13.5
 	tempfile@3.27.0
 	termcolor@1.4.1
 	thiserror-impl@1.0.69
@@ -483,6 +530,26 @@ CRATES="
 	wasm-bindgen-macro@0.2.129
 	wasm-bindgen-shared@0.2.129
 	wasm-bindgen@0.2.129
+	wasm-encoder@0.254.2
+	wasm-encoder@0.263.0
+	wasm-metadata@0.254.2
+	wasmparser@0.254.2
+	wasmparser@0.263.0
+	wasmprinter@0.254.2
+	wasmtime-environ@48.0.8
+	wasmtime-internal-component-macro@48.0.8
+	wasmtime-internal-component-util@48.0.8
+	wasmtime-internal-core@48.0.8
+	wasmtime-internal-cranelift@48.0.8
+	wasmtime-internal-fiber@48.0.8
+	wasmtime-internal-jit-debug@48.0.8
+	wasmtime-internal-jit-icache-coherence@48.0.8
+	wasmtime-internal-unwinder@48.0.8
+	wasmtime-internal-versioned-export-macros@48.0.8
+	wasmtime-internal-wit-bindgen@48.0.8
+	wasmtime@48.0.8
+	wast@263.0.0
+	wat@1.263.0
 	wayland-backend@0.3.17
 	wayland-client@0.31.15
 	wayland-csd-frame@0.3.0
@@ -548,7 +615,10 @@ CRATES="
 	windows_x86_64_msvc@0.53.1
 	winnow@1.0.4
 	winreg@0.56.0
+	winx@0.36.4
 	wit-bindgen@0.57.1
+	wit-component@0.254.2
+	wit-parser@0.254.2
 	wl-clipboard-rs@0.9.5
 	writeable@0.6.4
 	x11-dl@2.21.0
@@ -608,7 +678,8 @@ SRC_URI="
 LICENSE="|| ( Apache-2.0 MIT ) SolidCraft-Brand"
 # Dependent crate and bundled font licenses
 LICENSE+="
-	Apache-2.0 BSD BSD-2 Boost-1.0 CDLA-Permissive-2.0 ISC MIT OFL-1.1
+	Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0
+	CDLA-Permissive-2.0 ISC MIT OFL-1.1
 	UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
 "
 SLOT="0"
@@ -654,7 +725,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-12/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-13/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
