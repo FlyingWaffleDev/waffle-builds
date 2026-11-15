@@ -14,6 +14,9 @@ CRATES="
 	accesskit_winit@0.34.2
 	addr2line@0.26.1
 	adler2@2.0.1
+	aead@0.5.2
+	aes-gcm@0.10.3
+	aes-kw@0.2.1
 	aes@0.8.4
 	aes@0.9.4
 	ahash@0.8.12
@@ -27,6 +30,7 @@ CRATES="
 	anyhow@1.0.104
 	arbitrary@1.5.0
 	arboard@3.6.1
+	argon2@0.5.3
 	arrayref@0.3.9
 	arrayvec@0.7.8
 	as-raw-xcb-connection@1.0.1
@@ -47,11 +51,18 @@ CRATES="
 	atspi-proxies@0.13.0
 	atspi@0.29.0
 	autocfg@1.5.1
+	base16ct@0.2.0
+	base64@0.22.1
 	base64@0.23.1
+	base64ct@1.8.3
 	bit-set@0.10.0
 	bit-vec@0.9.1
+	bitfields-impl@1.0.3
+	bitfields@1.0.3
 	bitflags@1.3.2
 	bitflags@2.13.2
+	bitvec@1.1.1
+	blake2@0.10.6
 	block-buffer@0.10.4
 	block-buffer@0.12.1
 	block-padding@0.3.3
@@ -59,7 +70,9 @@ CRATES="
 	block2@0.5.1
 	block2@0.6.2
 	blocking@1.7.0
+	blowfish@0.9.1
 	brotli-decompressor@5.0.3
+	buffer-redux@1.1.0
 	bumpalo@3.20.3
 	bytemuck@1.25.2
 	bytemuck_derive@1.12.1
@@ -77,19 +90,26 @@ CRATES="
 	calloop-wayland-source@0.4.1
 	calloop@0.13.0
 	calloop@0.14.5
+	camellia@0.1.0
 	cap-primitives@4.0.3
 	cap-std@4.0.3
+	cast5@0.11.1
 	cbc@0.1.2
 	cbc@0.2.1
 	cc@1.6.0
+	cfb-mode@0.8.2
 	cfg-if@1.0.5
 	cfg_aliases@0.2.2
 	cgl@0.3.2
 	chacha20@0.10.2
 	chardetng@0.1.17
+	ciborium-io@0.2.2
+	ciborium-ll@0.2.2
+	ciborium@0.2.2
 	cipher@0.4.4
 	cipher@0.5.2
 	clipboard-win@5.4.1
+	cmac@0.7.2
 	cobs@0.3.0
 	codespan-reporting@0.13.1
 	color@0.3.3
@@ -97,12 +117,15 @@ CRATES="
 	combine@4.6.8
 	concurrent-queue@2.5.0
 	const-oid@0.10.2
+	const-oid@0.9.6
+	convert_case@0.10.0
 	core-foundation-sys@0.8.7
 	core-foundation@0.10.1
 	core-foundation@0.9.4
 	core-graphics-types@0.1.3
 	core-graphics@0.23.2
 	core_detect@1.0.0
+	coset@0.4.2
 	cpp_demangle@0.5.1
 	cpubits@0.1.1
 	cpufeatures@0.2.17
@@ -120,17 +143,34 @@ CRATES="
 	cranelift-isle@0.135.8
 	cranelift-native@0.135.8
 	cranelift-srcgen@0.135.8
+	crc24@0.1.6
 	crc32fast@1.5.2
 	crossbeam-channel@0.5.17
 	crossbeam-deque@0.8.8
 	crossbeam-epoch@0.9.21
 	crossbeam-utils@0.8.23
 	crunchy@0.2.4
+	crypto-bigint@0.5.5
 	crypto-common@0.1.7
 	crypto-common@0.2.2
+	ctr@0.9.2
 	cursor-icon@1.2.0
+	curve25519-dalek-derive@0.1.1
+	curve25519-dalek@4.1.3
+	cx448@0.1.1
+	darling@0.20.11
+	darling_core@0.20.11
+	darling_macro@0.20.11
+	dbl@0.3.2
 	dbus-secret-service@4.1.0
 	dbus@0.9.12
+	der@0.7.10
+	derive_builder@0.20.2
+	derive_builder_core@0.20.2
+	derive_builder_macro@0.20.2
+	derive_more-impl@2.1.1
+	derive_more@2.1.1
+	des@0.8.1
 	digest@0.10.7
 	digest@0.11.3
 	dispatch2@0.3.1
@@ -140,14 +180,20 @@ CRATES="
 	document-features@0.2.12
 	downcast-rs@1.2.1
 	dpi@0.1.2
+	dsa@0.6.3
 	dyn-clone@1.0.20
+	eax@0.5.0
 	ecb@0.2.1
+	ecdsa@0.16.9
 	ecolor@0.37.0
+	ed25519-dalek@2.2.0
+	ed25519@2.2.3
 	eframe@0.37.0
 	egui-winit@0.37.0
 	egui@0.37.0
 	egui_glow@0.37.0
 	either@1.19.0
+	elliptic-curve@0.13.8
 	emath@0.37.0
 	embed-resource@3.0.12
 	embedded-io@0.4.0
@@ -169,6 +215,8 @@ CRATES="
 	fax@0.2.7
 	fdeflate@0.3.7
 	fearless_simd@0.4.1
+	ff@0.13.1
+	fiat-crypto@0.2.9
 	find-msvc-tools@0.1.14
 	fixedbitset@0.5.7
 	flate2@1.1.10
@@ -181,6 +229,7 @@ CRATES="
 	foreign-types@0.5.0
 	form_urlencoded@1.2.2
 	fs-set-times@0.20.3
+	funty@2.0.0
 	futures-channel@0.3.34
 	futures-core@0.3.34
 	futures-io@0.3.34
@@ -195,6 +244,7 @@ CRATES="
 	getrandom@0.2.17
 	getrandom@0.3.4
 	getrandom@0.4.3
+	ghash@0.5.1
 	gif@0.14.2
 	gimli@0.33.0
 	gl_generator@0.14.0
@@ -209,6 +259,7 @@ CRATES="
 	glutin_glx_sys@0.6.1
 	glutin_wgl_sys@0.6.1
 	gpu-allocator@0.28.0
+	group@0.13.0
 	guillotiere@0.7.0
 	half@2.7.1
 	harfrust@0.12.0
@@ -232,6 +283,8 @@ CRATES="
 	icu_properties_data@2.3.0
 	icu_provider@2.3.1
 	id-arena@2.3.0
+	idea@0.5.1
+	ident_case@1.0.1
 	idna@1.1.0
 	idna_adapter@1.2.2
 	image-webp@0.2.4
@@ -254,6 +307,8 @@ CRATES="
 	jni@0.22.4
 	jobserver@0.1.35
 	js-sys@0.3.106
+	k256@0.13.4
+	keccak@0.1.6
 	keyboard-types@0.8.3
 	keyring@3.6.3
 	khronos-egl@6.0.0
@@ -276,6 +331,7 @@ CRATES="
 	lopdf@0.45.0
 	mach2@0.6.0
 	maybe-owned@0.3.4
+	md-5@0.10.6
 	md-5@0.11.0
 	memchr@2.8.3
 	memfd@0.6.6
@@ -297,6 +353,7 @@ CRATES="
 	nohash-hasher@0.2.0
 	nom@8.0.0
 	ntapi@0.4.3
+	num-bigint-dig@0.8.6
 	num-bigint@0.4.8
 	num-complex@0.4.6
 	num-integer@0.1.47
@@ -334,19 +391,27 @@ CRATES="
 	objc2@0.5.3
 	objc2@0.6.5
 	object@0.39.1
+	ocb3@0.1.0
 	once_cell@1.21.4
+	opaque-debug@0.3.1
 	openssl-probe@0.2.1
 	orbclient@0.3.55
 	ordered-float@2.10.1
 	ordered-float@5.5.0
 	ordered-stream@0.2.0
 	os_pipe@1.2.3
+	p256@0.13.2
+	p384@0.13.1
+	p521@0.13.3
 	parking@2.2.1
 	parking_lot@0.12.5
 	parking_lot_core@0.9.12
+	password-hash@0.5.0
+	pem-rfc7468@0.7.0
 	peniko@0.6.1
 	percent-encoding@2.3.2
 	petgraph@0.8.3
+	pgp@0.21.1
 	phf@0.14.0
 	phf_generator@0.14.0
 	phf_macros@0.14.0
@@ -355,6 +420,8 @@ CRATES="
 	pin-project-lite@0.2.17
 	pin-project@1.1.13
 	piper@0.2.5
+	pkcs1@0.7.5
+	pkcs8@0.10.2
 	pkg-config@0.3.34
 	plain@0.2.3
 	png@0.18.1
@@ -362,12 +429,14 @@ CRATES="
 	pollster@0.4.0
 	pollster@1.0.1
 	polycool@0.4.0
+	polyval@0.6.2
 	portable-atomic-util@0.2.8
 	portable-atomic@1.15.0
 	postcard@1.1.3
 	potential_utf@0.1.6
 	ppv-lite86@0.2.21
 	presser@0.3.1
+	primeorder@0.13.6
 	proc-macro-crate@3.5.0
 	proc-macro2@1.0.107
 	profiling@1.0.18
@@ -380,6 +449,7 @@ CRATES="
 	quote@1.0.47
 	r-efi@5.3.0
 	r-efi@6.0.0
+	radium@0.7.0
 	rand@0.10.3
 	rand@0.8.8
 	rand_chacha@0.3.1
@@ -401,11 +471,15 @@ CRATES="
 	regalloc2@0.15.2
 	regex-syntax@0.8.11
 	renderdoc-sys@1.1.0
+	replace_with@0.1.8
+	rfc6979@0.4.0
 	rfd@0.17.2
 	ring@0.17.14
+	ripemd@0.1.3
 	robust@1.2.0
 	ron@0.12.2
 	roxmltree@0.21.1
+	rsa@0.9.10
 	rustc-demangle@0.1.28
 	rustc-hash@1.1.0
 	rustc-hash@2.1.3
@@ -427,6 +501,7 @@ CRATES="
 	schemars_derive@1.2.3
 	scoped-tls@1.0.1
 	scopeguard@1.2.0
+	sec1@0.7.3
 	secret-service@4.0.0
 	security-framework-sys@2.17.0
 	security-framework@2.11.1
@@ -436,6 +511,7 @@ CRATES="
 	send_wrapper@0.6.0
 	serde-value@0.7.0
 	serde@1.0.229
+	serde_bytes@0.11.19
 	serde_core@1.0.229
 	serde_derive@1.0.229
 	serde_derive_internals@0.30.0
@@ -443,12 +519,17 @@ CRATES="
 	serde_path_to_error@0.1.20
 	serde_repr@0.1.21
 	serde_spanned@1.1.2
+	serdect@0.2.0
+	serdect@0.3.0
+	sha1-checked@0.10.0
 	sha1@0.10.7
 	sha1@0.11.0
 	sha2@0.10.9
 	sha2@0.11.1
+	sha3@0.10.9
 	shlex@2.0.1
 	signal-hook-registry@1.4.8
+	signature@2.2.0
 	simd-adler32@0.3.10
 	simd_cesu8@1.2.0
 	simdutf8@0.1.5
@@ -461,18 +542,24 @@ CRATES="
 	smithay-client-toolkit@0.20.0
 	smithay-clipboard@0.7.3
 	smol_str@0.2.2
+	snafu-derive@0.9.2
+	snafu@0.9.2
 	spade@2.15.1
+	spin@0.9.9
 	spirv@0.4.0+sdk-1.4.341.0
+	spki@0.7.3
 	stable_deref_trait@1.2.1
 	static_assertions@1.1.0
 	strict-num@0.1.1
 	stringprep@0.1.5
+	strsim@0.11.1
 	subtle@2.6.1
 	syn@2.0.119
 	syn@3.0.6
 	synstructure@0.13.2
 	sys-locale@0.3.2
 	sysinfo@0.40.1
+	tap@1.0.1
 	target-lexicon@0.13.5
 	tempfile@3.27.0
 	termcolor@1.4.1
@@ -496,6 +583,7 @@ CRATES="
 	tracing@0.1.44
 	tree_magic_mini@3.2.2
 	ttf-parser@0.25.1
+	twofish@0.7.1
 	twox-hash@2.1.5
 	type-map@0.5.1
 	typed-path@0.13.0
@@ -510,6 +598,8 @@ CRATES="
 	unicode-properties@0.1.5
 	unicode-segmentation@1.13.3
 	unicode-width@0.2.2
+	unicode-xid@0.2.6
+	universal-hash@0.5.1
 	untrusted@0.9.0
 	ureq-proto@0.6.4
 	ureq@3.4.2
@@ -621,9 +711,11 @@ CRATES="
 	wit-parser@0.254.2
 	wl-clipboard-rs@0.9.5
 	writeable@0.6.4
+	wyz@0.5.1
 	x11-dl@2.21.0
 	x11rb-protocol@0.13.2
 	x11rb@0.13.2
+	x25519-dalek@2.0.1
 	xcursor@0.3.11
 	xdg-home@1.3.0
 	xkbcommon-dl@0.4.2
@@ -725,7 +817,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-13/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-14/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
