@@ -20,6 +20,7 @@ CRATES="
 	aes@0.8.4
 	aes@0.9.4
 	ahash@0.8.12
+	aho-corasick@1.1.5
 	alloc-no-stdlib@2.0.4
 	alloc-stdlib@0.2.4
 	allocator-api2@0.2.21
@@ -94,6 +95,7 @@ CRATES="
 	cap-primitives@4.0.3
 	cap-std@4.0.3
 	cast5@0.11.1
+	cavalier_contours@0.9.0
 	cbc@0.1.2
 	cbc@0.2.1
 	cc@1.6.0
@@ -103,6 +105,7 @@ CRATES="
 	cgl@0.3.2
 	chacha20@0.10.2
 	chardetng@0.1.17
+	chrono@0.4.45
 	ciborium-io@0.2.2
 	ciborium-ll@0.2.2
 	ciborium@0.2.2
@@ -177,6 +180,7 @@ CRATES="
 	dispatch@0.2.0
 	displaydoc@0.2.7
 	dlib@0.5.3
+	doctest-file@1.1.1
 	document-features@0.2.12
 	downcast-rs@1.2.1
 	dpi@0.1.2
@@ -240,6 +244,8 @@ CRATES="
 	futures-util@0.3.34
 	futures@0.3.34
 	generic-array@0.14.7
+	gerber-types@0.7.0
+	gerber_parser@0.5.0
 	gethostname@1.1.0
 	getrandom@0.2.17
 	getrandom@0.3.4
@@ -275,6 +281,8 @@ CRATES="
 	http@1.5.0
 	httparse@1.10.1
 	hybrid-array@0.4.15
+	iana-time-zone-haiku@0.1.2
+	iana-time-zone@0.1.65
 	icu_collections@2.3.0
 	icu_locale_core@2.3.0
 	icu_normalizer@2.3.0
@@ -293,6 +301,7 @@ CRATES="
 	inflections@1.1.1
 	inout@0.1.4
 	inout@0.2.6
+	interprocess@2.4.8
 	io-extras@0.19.0
 	io-lifetimes@2.0.4
 	io-lifetimes@3.0.1
@@ -314,6 +323,8 @@ CRATES="
 	khronos-egl@6.0.0
 	khronos_api@3.1.0
 	kurbo@0.13.1
+	lazy-regex-proc_macros@3.6.2
+	lazy-regex@3.6.2
 	lazy_static@1.5.1
 	leb128fmt@0.1.0
 	libc@0.2.190
@@ -463,13 +474,16 @@ CRATES="
 	rayon-core@1.13.0
 	rayon@1.12.0
 	read-fonts@0.41.0
+	recvmsg@1.0.0
 	redox_syscall@0.4.1
 	redox_syscall@0.5.18
 	redox_syscall@0.9.4
 	ref-cast-impl@1.0.27
 	ref-cast@1.0.27
 	regalloc2@0.15.2
+	regex-automata@0.4.18
 	regex-syntax@0.8.11
+	regex@1.13.1
 	renderdoc-sys@1.1.0
 	replace_with@0.1.8
 	rfc6979@0.4.0
@@ -549,10 +563,13 @@ CRATES="
 	spirv@0.4.0+sdk-1.4.341.0
 	spki@0.7.3
 	stable_deref_trait@1.2.1
+	static_aabb2d_index@2.1.0
 	static_assertions@1.1.0
 	strict-num@0.1.1
 	stringprep@0.1.5
 	strsim@0.11.1
+	strum@0.27.2
+	strum_macros@0.27.2
 	subtle@2.6.1
 	syn@2.0.119
 	syn@3.0.6
@@ -581,6 +598,7 @@ CRATES="
 	tracing-attributes@0.1.31
 	tracing-core@0.1.36
 	tracing@0.1.44
+	trash@5.2.9
 	tree_magic_mini@3.2.2
 	ttf-parser@0.25.1
 	twofish@0.7.1
@@ -604,6 +622,7 @@ CRATES="
 	ureq-proto@0.6.4
 	ureq@3.4.2
 	url@2.5.8
+	urlencoding@2.1.3
 	utf8-zero@0.8.1
 	utf8_iter@1.0.4
 	uuid@1.27.0
@@ -666,6 +685,7 @@ CRATES="
 	wgpu-naga-bridge@30.0.1
 	wgpu-types@30.0.1
 	wgpu@30.0.1
+	widestring@1.2.1
 	winapi-i686-pc-windows-gnu@0.4.0
 	winapi-util@0.1.11
 	winapi-x86_64-pc-windows-gnu@0.4.0
@@ -770,7 +790,7 @@ SRC_URI="
 LICENSE="|| ( Apache-2.0 MIT ) SolidCraft-Brand"
 # Dependent crate and bundled font licenses
 LICENSE+="
-	Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0
+	0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0
 	CDLA-Permissive-2.0 ISC MIT OFL-1.1
 	UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
 "
@@ -801,15 +821,14 @@ BDEPEND="virtual/pkgconfig"
 
 DOCS=( README.md ATTRIBUTION.md NOTICE THIRD-PARTY-LICENSES.txt LICENSE-BRAND )
 
-QA_FLAGS_IGNORED="usr/bin/${PN} usr/bin/${PN}-cli usr/bin/solvecraft-cli"
+QA_FLAGS_IGNORED="usr/bin/${PN} usr/bin/${PN}-cli"
 
 src_configure() {
 	cargo_src_configure --package ${PN} --package ${PN}-cli --locked
 }
 
 src_install() {
-	dobin "$(cargo_target_dir)/${PN}" "$(cargo_target_dir)/${PN}-cli" \
-		"$(cargo_target_dir)/solvecraft-cli"
+	dobin "$(cargo_target_dir)/${PN}" "$(cargo_target_dir)/${PN}-cli"
 
 	local app_id="io.tangencylabs.${PN}"
 	domenu "assets/platforms/linux/${app_id}.desktop"
@@ -817,7 +836,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-16/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-17/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
