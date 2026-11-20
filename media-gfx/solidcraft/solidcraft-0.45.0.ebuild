@@ -80,13 +80,16 @@ CRATES="
 	byteorder-lite@0.1.0
 	byteorder@1.5.0
 	bytes@1.12.1
-	cadmpeg-codec-freecad@0.6.7
-	cadmpeg-codec-rhino@0.6.7
-	cadmpeg-codec-step@0.6.7
-	cadmpeg-container@0.6.7
-	cadmpeg-core@0.6.7
-	cadmpeg-ir@0.6.7
-	cadmpeg-registry@0.6.7
+	cadmpeg-codec-freecad@0.6.12
+	cadmpeg-codec-rhino@0.6.12
+	cadmpeg-codec-step@0.6.12
+	cadmpeg-codec-usd@0.6.12
+	cadmpeg-container@0.6.12
+	cadmpeg-core@0.6.12
+	cadmpeg-ir@0.6.12
+	cadmpeg-measure@0.6.12
+	cadmpeg-registry@0.6.12
+	cadmpeg-tessellate@0.6.12
 	calloop-wayland-source@0.3.0
 	calloop-wayland-source@0.4.1
 	calloop@0.13.0
@@ -133,19 +136,19 @@ CRATES="
 	cpubits@0.1.1
 	cpufeatures@0.2.17
 	cpufeatures@0.3.1
-	cranelift-assembler-x64-meta@0.135.8
-	cranelift-assembler-x64@0.135.8
-	cranelift-bforest@0.135.8
-	cranelift-bitset@0.135.8
-	cranelift-codegen-meta@0.135.8
-	cranelift-codegen-shared@0.135.8
-	cranelift-codegen@0.135.8
-	cranelift-control@0.135.8
-	cranelift-entity@0.135.8
-	cranelift-frontend@0.135.8
-	cranelift-isle@0.135.8
-	cranelift-native@0.135.8
-	cranelift-srcgen@0.135.8
+	cranelift-assembler-x64-meta@0.135.9
+	cranelift-assembler-x64@0.135.9
+	cranelift-bforest@0.135.9
+	cranelift-bitset@0.135.9
+	cranelift-codegen-meta@0.135.9
+	cranelift-codegen-shared@0.135.9
+	cranelift-codegen@0.135.9
+	cranelift-control@0.135.9
+	cranelift-entity@0.135.9
+	cranelift-frontend@0.135.9
+	cranelift-isle@0.135.9
+	cranelift-native@0.135.9
+	cranelift-srcgen@0.135.9
 	crc24@0.1.6
 	crc32fast@1.5.2
 	crossbeam-channel@0.5.17
@@ -164,6 +167,7 @@ CRATES="
 	darling@0.20.11
 	darling_core@0.20.11
 	darling_macro@0.20.11
+	data-url@0.3.2
 	dbl@0.3.2
 	dbus-secret-service@4.1.0
 	dbus@0.9.12
@@ -189,16 +193,10 @@ CRATES="
 	eax@0.5.0
 	ecb@0.2.1
 	ecdsa@0.16.9
-	ecolor@0.37.0
 	ed25519-dalek@2.2.0
 	ed25519@2.2.3
-	eframe@0.37.0
-	egui-winit@0.37.0
-	egui@0.37.0
-	egui_glow@0.37.0
 	either@1.19.0
 	elliptic-curve@0.13.8
-	emath@0.37.0
 	embed-resource@3.0.12
 	embedded-io@0.4.0
 	embedded-io@0.6.1
@@ -207,8 +205,6 @@ CRATES="
 	enumflags2@0.7.12
 	enumflags2_derive@0.7.12
 	enumn@0.1.14
-	epaint@0.37.0
-	epaint_default_fonts@0.37.0
 	equivalent@1.0.2
 	errno@0.3.14
 	error-code@3.4.0
@@ -224,6 +220,7 @@ CRATES="
 	find-msvc-tools@0.1.14
 	fixedbitset@0.5.7
 	flate2@1.1.10
+	float-cmp@0.9.0
 	fnv@1.0.7
 	foldhash@0.1.5
 	foldhash@0.2.0
@@ -297,6 +294,7 @@ CRATES="
 	idna_adapter@1.2.2
 	image-webp@0.2.4
 	image@0.25.10
+	imagesize@0.15.0
 	indexmap@2.14.2
 	inflections@1.1.1
 	inout@0.1.4
@@ -418,6 +416,7 @@ CRATES="
 	parking_lot@0.12.5
 	parking_lot_core@0.9.12
 	password-hash@0.5.0
+	pdf-writer@0.15.0
 	pem-rfc7468@0.7.0
 	peniko@0.6.1
 	percent-encoding@2.3.2
@@ -427,6 +426,7 @@ CRATES="
 	phf_generator@0.14.0
 	phf_macros@0.14.0
 	phf_shared@0.14.0
+	pico-args@0.5.0
 	pin-project-internal@1.1.13
 	pin-project-lite@0.2.17
 	pin-project@1.1.13
@@ -452,8 +452,8 @@ CRATES="
 	proc-macro2@1.0.107
 	profiling@1.0.18
 	proptest@1.12.0
-	pulley-interpreter@48.0.8
-	pulley-macros@48.0.8
+	pulley-interpreter@48.0.9
+	pulley-macros@48.0.9
 	pxfm@0.1.30
 	quick-error@2.0.1
 	quick-xml@0.41.0
@@ -486,8 +486,10 @@ CRATES="
 	regex@1.13.1
 	renderdoc-sys@1.1.0
 	replace_with@0.1.8
+	resvg@0.50.0
 	rfc6979@0.4.0
 	rfd@0.17.2
+	rgb@0.8.53
 	ring@0.17.14
 	ripemd@0.1.3
 	robust@1.2.0
@@ -509,6 +511,7 @@ CRATES="
 	rustls@0.23.46
 	rustversion@1.0.23
 	ruzstd@0.9.1
+	ryu@1.0.23
 	same-file@1.0.6
 	schannel@0.1.29
 	schemars@1.2.3
@@ -547,6 +550,7 @@ CRATES="
 	simd-adler32@0.3.10
 	simd_cesu8@1.2.0
 	simdutf8@0.1.5
+	simplecss@0.2.2
 	siphasher@1.0.4
 	skrifa@0.44.0
 	slab@0.4.12
@@ -571,6 +575,7 @@ CRATES="
 	strum@0.27.2
 	strum_macros@0.27.2
 	subtle@2.6.1
+	svgtypes@0.16.2
 	syn@2.0.119
 	syn@3.0.6
 	synstructure@0.13.2
@@ -623,6 +628,7 @@ CRATES="
 	ureq@3.4.2
 	url@2.5.8
 	urlencoding@2.1.3
+	usvg@0.50.0
 	utf8-zero@0.8.1
 	utf8_iter@1.0.4
 	uuid@1.27.0
@@ -645,18 +651,18 @@ CRATES="
 	wasmparser@0.254.2
 	wasmparser@0.263.0
 	wasmprinter@0.254.2
-	wasmtime-environ@48.0.8
-	wasmtime-internal-component-macro@48.0.8
-	wasmtime-internal-component-util@48.0.8
-	wasmtime-internal-core@48.0.8
-	wasmtime-internal-cranelift@48.0.8
-	wasmtime-internal-fiber@48.0.8
-	wasmtime-internal-jit-debug@48.0.8
-	wasmtime-internal-jit-icache-coherence@48.0.8
-	wasmtime-internal-unwinder@48.0.8
-	wasmtime-internal-versioned-export-macros@48.0.8
-	wasmtime-internal-wit-bindgen@48.0.8
-	wasmtime@48.0.8
+	wasmtime-environ@48.0.9
+	wasmtime-internal-component-macro@48.0.9
+	wasmtime-internal-component-util@48.0.9
+	wasmtime-internal-core@48.0.9
+	wasmtime-internal-cranelift@48.0.9
+	wasmtime-internal-fiber@48.0.9
+	wasmtime-internal-jit-debug@48.0.9
+	wasmtime-internal-jit-icache-coherence@48.0.9
+	wasmtime-internal-unwinder@48.0.9
+	wasmtime-internal-versioned-export-macros@48.0.9
+	wasmtime-internal-wit-bindgen@48.0.9
+	wasmtime@48.0.9
 	wast@263.0.0
 	wat@1.263.0
 	wayland-backend@0.3.17
@@ -836,7 +842,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-17/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-19/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
