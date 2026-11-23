@@ -228,7 +228,7 @@ CRATES="
 	foreign-types-macros@0.2.4
 	foreign-types-shared@0.3.1
 	foreign-types@0.5.0
-	form_urlencoded@1.2.2
+	form_urlencoded@1.2.3
 	fs-set-times@0.20.3
 	funty@2.0.0
 	futures-channel@0.3.34
@@ -546,6 +546,7 @@ CRATES="
 	sha3@0.10.9
 	shlex@2.0.1
 	signal-hook-registry@1.4.8
+	signal-hook@0.4.5
 	signature@2.2.0
 	simd-adler32@0.3.10
 	simd_cesu8@1.2.0
@@ -626,7 +627,7 @@ CRATES="
 	untrusted@0.9.0
 	ureq-proto@0.6.4
 	ureq@3.4.2
-	url@2.5.8
+	url@2.5.9
 	urlencoding@2.1.3
 	usvg@0.50.0
 	utf8-zero@0.8.1
@@ -842,7 +843,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-19/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-23/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
