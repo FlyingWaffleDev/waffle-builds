@@ -1,0 +1,14 @@
+BDEPEND=app-alternatives/ninja || ( dev-lang/python:3.15 dev-lang/python:3.14 dev-lang/python:3.13 dev-lang/python:3.12 ) dev-build/gn virtual/pkgconfig
+DEFINED_PHASES=compile configure install setup
+DEPEND=dev-libs/expat dev-libs/icu:= media-libs/fontconfig media-libs/freetype media-libs/harfbuzz:=[icu] media-libs/libjpeg-turbo:= media-libs/libpng:0= media-libs/libwebp:= virtual/zlib >=dev-util/vulkan-headers-1.4.321 >=media-libs/VulkanMemoryAllocator-3.5.0
+DESCRIPTION=2D graphics library (Ladybird configuration)
+EAPI=8
+HOMEPAGE=https://skia.org/
+INHERIT=ninja-utils python-any-r1 toolchain-funcs
+KEYWORDS=~amd64 ~arm64
+LICENSE=BSD
+RDEPEND=dev-libs/expat dev-libs/icu:= media-libs/fontconfig media-libs/freetype media-libs/harfbuzz:=[icu] media-libs/libjpeg-turbo:= media-libs/libpng:0= media-libs/libwebp:= virtual/zlib
+SLOT=0/148
+SRC_URI=https://github.com/google/skia/archive/e7c90ecca9444fe09598f1630ab7cee2c0ee027a.tar.gz -> skia-148.tar.gz
+_eclasses_=multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	python-utils-r1	025367880f07ae6444e6035a49db0dab	python-any-r1	891415dfe39ad9b41b461f2b86354af0
+_md5_=4dc74d58d4c4d2e87c33b65a103c5256

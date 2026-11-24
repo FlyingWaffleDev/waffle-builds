@@ -1,0 +1,15 @@
+DEFINED_PHASES=install postinst postrm preinst prepare unpack
+DESCRIPTION=Truly independent web browser (official alpha binary)
+EAPI=8
+HOMEPAGE=https://ladybird.org/ https://github.com/LadybirdBrowser/ladybird
+IDEPEND=dev-util/desktop-file-utils x11-misc/shared-mime-info
+INHERIT=optfeature unpacker xdg
+KEYWORDS=~amd64 ~arm64
+LICENSE=AFL-2.1 Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 BZIP2 CC0-1.0 FTL IJG ISC LGPL-2.1+ LGPL-3+ libpng2 MIT MPL-2.0 OFL-1.1 public-domain Unicode-3.0 ZLIB
+RDEPEND=!www-client/ladybird app-misc/ca-certificates >=dev-libs/glib-2.79:2 >=dev-libs/wayland-1.20 media-fonts/liberation-fonts media-libs/libglvnd media-libs/libpulse >=media-libs/vulkan-loader-1.3.204 >=sys-devel/gcc-14:*[cxx] >=sys-libs/glibc-2.39 >=x11-libs/libX11-1.8.7 x11-libs/libdrm >=x11-libs/libxcb-1.15 x11-libs/libxkbcommon[X] x11-libs/xcb-util x11-libs/xcb-util-cursor x11-libs/xcb-util-image x11-libs/xcb-util-keysyms x11-libs/xcb-util-renderutil x11-libs/xcb-util-wm
+REQUIRED_USE=elibc_glibc
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( https://apt.ladybird.org/pool/main/l/ladybird/ladybird_2026.47.7-1~ubuntu24.04_amd64.deb ) arm64? ( https://apt.ladybird.org/pool/main/l/ladybird/ladybird_2026.47.7-1~ubuntu24.04_arm64.deb )
+_eclasses_=optfeature	58cc13bdc4e9a204077e1e7c9a1d7988	eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	unpacker	4332a3f8fa974013f54f3bf39bab0de4	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_md5_=aa950e34a4ca4f6951d8f410c1f74680

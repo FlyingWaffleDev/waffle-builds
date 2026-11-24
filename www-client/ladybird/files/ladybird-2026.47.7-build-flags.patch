@@ -1,0 +1,72 @@
+Respect distribution compiler flags and keep Cargo builds offline and locked.
+Only use a Rust compiler cache when the user explicitly selects one.
+
+--- a/Meta/CMake/compile_options.cmake
++++ b/Meta/CMake/compile_options.cmake
+@@ -77,8 +77,6 @@
+     # FIXME: Remove this branch once -march=native is supported.
+ elseif (NOT CMAKE_CROSSCOMPILING)
+     # In all other cases, compile for the native architecture of the host system.
+-    add_cxx_compile_options(-march=native)
+-    set(RUSTC_TARGET_CPU_FLAGS -Ctarget-cpu=native)
+ endif()
+ 
+ # Stack walks such as the crash handler's follow frame pointers. Apple platforms keep them by default, and Windows
+@@ -107,7 +105,6 @@
+ add_cxx_compile_options(-Wno-unused-command-line-argument)
+ add_cxx_only_compile_options(-Wno-user-defined-literals)
+ 
+-add_cxx_compile_options(-Werror)
+ 
+ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+     add_cxx_compile_options(-Wpadded-bitfield)
+@@ -290,7 +287,6 @@
+     endif()
+ elseif (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+     if (NOT MSVC)
+-        add_cxx_compile_options(-O2)
+         add_cxx_compile_options(-g1)
+     else()
+         # Add OPT:REF either way as it doesn't impact debugging experience negatively and decreases binary size
+@@ -305,7 +301,6 @@
+     endif()
+ elseif (CMAKE_BUILD_TYPE STREQUAL "Release")
+     if (NOT MSVC)
+-        add_cxx_compile_options(-O3)
+ 
+         # Line tables, inlined frames included, are what symbolicating a crash report needs.
+         if (LADYBIRD_GENERATE_SYMBOL_FILES)
+--- a/Meta/CMake/rust_crate.cmake
++++ b/Meta/CMake/rust_crate.cmake
+@@ -6,12 +6,6 @@
+ 
+ if (NOT DEFINED RUSTC_WRAPPER)
+     set(RUSTC_WRAPPER "$ENV{RUSTC_WRAPPER}" CACHE FILEPATH "Path to a rustc wrapper program, e.g. sccache")
+-endif()
+-if (NOT RUSTC_WRAPPER)
+-    find_program(SCCACHE_PROGRAM sccache)
+-    if (SCCACHE_PROGRAM)
+-        set(RUSTC_WRAPPER "${SCCACHE_PROGRAM}" CACHE FILEPATH "Path to a rustc wrapper program, e.g. sccache" FORCE)
+-    endif()
+ endif()
+ 
+ if (NOT DEFINED CACHE{RUST_TARGET_TRIPLE})
+@@ -22,7 +16,9 @@
+ endif()
+ 
+ # Compiler flags shared by Rust libraries, binaries, and tests.
+-set(RUSTC_TARGET_FLAGS -Dwarnings ${RUSTC_TARGET_CPU_FLAGS} ${RUSTC_TARGET_FRAME_POINTER_FLAGS})
++set(RUSTC_TARGET_FLAGS ${RUSTC_TARGET_CPU_FLAGS} ${RUSTC_TARGET_FRAME_POINTER_FLAGS})
++separate_arguments(distribution_rustflags UNIX_COMMAND "$ENV{RUSTFLAGS}")
++list(APPEND RUSTC_TARGET_FLAGS ${distribution_rustflags})
+ list(JOIN RUSTC_TARGET_FLAGS " " RUSTC_TARGET_FLAGS)
+ 
+ # import_rust_crate(MANIFEST_PATH path/to/Cargo.toml CRATE_NAME name [PANIC_UNWIND] [NO_DEFAULT_FEATURES]
+@@ -434,6 +430,7 @@
+     endif()
+ 
+     set(cargo_common_flags
++        --frozen
+         "--target=${RUST_TARGET_TRIPLE}"
+         --package ${ARG_CRATE_NAME}
+         --manifest-path "${manifest_path}"

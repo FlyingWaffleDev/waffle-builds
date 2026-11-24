@@ -1,0 +1,23 @@
+Use the upstream-pinned allocator instead of the incompatible system mimalloc 3 API.
+
+--- a/Meta/CMake/check_for_dependencies.cmake
++++ b/Meta/CMake/check_for_dependencies.cmake
+@@ -6,7 +6,17 @@
+     pkg_check_modules(LIBEDIT REQUIRED IMPORTED_TARGET libedit)
+ endif()
+ 
+-find_package(mimalloc CONFIG REQUIRED)
++# Ladybird uses the mimalloc 2 heap API, which mimalloc 3 no longer provides.
++# Build the pinned allocator privately, without installing it over the system copy.
++set(MI_BUILD_SHARED OFF CACHE BOOL "" FORCE)
++set(MI_BUILD_STATIC ON CACHE BOOL "" FORCE)
++set(MI_BUILD_OBJECT OFF CACHE BOOL "" FORCE)
++set(MI_BUILD_TESTS OFF CACHE BOOL "" FORCE)
++set(MI_OVERRIDE OFF CACHE BOOL "" FORCE)
++set(MI_SECURE ON CACHE BOOL "" FORCE)
++set(MI_OPT_ARCH OFF CACHE BOOL "" FORCE)
++add_subdirectory("${LADYBIRD_SOURCE_DIR}/mimalloc" "${CMAKE_BINARY_DIR}/mimalloc" EXCLUDE_FROM_ALL)
++add_library(mimalloc ALIAS mimalloc-static)
+ 
+ # AK dependencies
+ find_package(Backtrace)

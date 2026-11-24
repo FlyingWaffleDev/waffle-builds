@@ -67,6 +67,10 @@ source = "github"
 repo = "zsh-users/zsh-history-substring-search"
 tag_prefix = "v"
 
+["dev-libs/angle"]
+ignore = true
+notes = "Pinned to the ANGLE snapshot used by Ladybird"
+
 ["dev-libs/liboqs"]
 source = "github"
 repo = "open-quantum-safe/liboqs"
@@ -132,6 +136,10 @@ tag_prefix = "v"
 source = "github"
 repo = "storytold/vectorcraft"
 tag_prefix = "v"
+
+["media-libs/skia"]
+ignore = true
+notes = "Pinned to the Skia milestone used by Ladybird"
 
 ["media-sound/soundcraft"]
 source = "github"
@@ -221,3 +229,13 @@ tag_prefix = "v"
 source = "github"
 repo = "Floorp-Projects/Floorp"
 tag_prefix = "v"
+
+["www-client/ladybird"]
+source = "github"
+repo = "LadybirdBrowser/ladybird"
+check = "tags"
+
+["www-client/ladybird-bin"]
+source = "github"
+repo = "LadybirdBrowser/ladybird"
+check = "tags"
