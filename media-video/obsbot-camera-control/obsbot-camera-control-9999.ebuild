@@ -17,7 +17,7 @@ else
 fi
 
 # The bundled OBSBOT SDK has no upstream license grant.
-LICENSE="MIT all-rights-reserved"
+LICENSE="MIT LGPL-2.1+ Boost-1.0 all-rights-reserved"
 SLOT="0"
 IUSE="+lsof virtual-camera"
 
@@ -33,9 +33,9 @@ RDEPEND="
 BDEPEND="dev-util/patchelf"
 
 # The proprietary SDK is only distributed as an amd64 binary.
-QA_PREBUILT="usr/lib*/${PN}/libdev.so.1.0.2"
+QA_PREBUILT="usr/lib*/${PN}/libdev.so.1.0.0"
 
-DOCS=( README.md )
+DOCS=( README.md THIRD_PARTY_NOTICES )
 
 src_install() {
 	dobin bin/obsbot-{cli,gui}
@@ -43,10 +43,10 @@ src_install() {
 	# Keep the generically named vendor library private to this package.
 	insinto /usr/$(get_libdir)/${PN}
 	insopts -m0755
-	doins sdk/lib/libdev.so.1.0.2
+	doins sdk/lib/libdev.so.1.0.0
 
 	patchelf --remove-rpath \
-		"${ED}/usr/$(get_libdir)/${PN}/libdev.so.1.0.2" || die
+		"${ED}/usr/$(get_libdir)/${PN}/libdev.so.1.0.0" || die
 	local sdk_rpath="\$ORIGIN/../$(get_libdir)/${PN}"
 	patchelf --set-rpath "${sdk_rpath}" "${ED}"/usr/bin/obsbot-{cli,gui} || die
 
