@@ -228,6 +228,7 @@ CRATES="
 	foldhash@0.1.5
 	foldhash@0.2.0
 	font-types@0.12.6
+	fontdb@0.24.0
 	foreign-types-macros@0.2.4
 	foreign-types-shared@0.3.1
 	foreign-types@0.5.0
@@ -395,6 +396,8 @@ CRATES="
 	objc2-metal@0.3.2
 	objc2-quartz-core@0.2.2
 	objc2-quartz-core@0.3.2
+	objc2-quick-look-thumbnailing@0.3.2
+	objc2-quick-look-ui@0.3.2
 	objc2-symbols@0.2.2
 	objc2-ui-kit@0.2.2
 	objc2-ui-kit@0.3.2
@@ -856,7 +859,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-24/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-25/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"

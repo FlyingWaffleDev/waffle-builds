@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python3_{11..15} )
 inherit cmake python-any-r1
 
 MY_COMMIT="d9fc4a372074b1079c193c422fc4a180e79b6636"
-LADYBIRD_VERSION="2026.47.7"
+LADYBIRD_VERSION="2026.47.8"
 WEBKIT_COMMIT="0742522b24152262b04913242cb0b3c48de92ba0"
 ZLIB_COMMIT="4028ebf8710ee39d2286cb0f847f9b95c59f84d8"
 ZLIB_URI="https://chromium.googlesource.com/chromium/src/third_party/zlib/+/${ZLIB_COMMIT}/google"
