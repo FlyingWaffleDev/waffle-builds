@@ -14,6 +14,8 @@ CRATES="
 	accesskit_winit@0.34.1
 	adler2@2.0.1
 	ahash@0.8.12
+	aligned-vec@0.6.4
+	aligned@0.4.3
 	allocator-api2@0.2.21
 	alsa-sys@0.3.1
 	alsa@0.9.1
@@ -23,9 +25,11 @@ CRATES="
 	anyhow@1.0.104
 	arbitrary@1.5.0
 	arboard@3.7.0
+	arg_enum_proc_macro@0.3.4
 	arrayref@0.3.9
 	arrayvec@0.7.8
 	as-raw-xcb-connection@1.0.1
+	as-slice@0.2.1
 	ash@0.38.0+1.3.281
 	async-broadcast@0.7.2
 	async-channel@2.5.0
@@ -42,16 +46,20 @@ CRATES="
 	atspi-proxies@0.13.0
 	atspi@0.29.0
 	autocfg@1.5.1
+	av-scenechange@0.14.1
+	av1-grain@0.2.5
 	base64@0.22.1
 	base64@0.23.1
 	bit-set@0.10.0
 	bit-vec@0.9.1
 	bitflags@1.3.2
 	bitflags@2.13.2
+	bitstream-io@4.10.0
 	block-buffer@0.10.4
 	block2@0.5.1
 	block2@0.6.2
 	blocking@1.7.0
+	built@0.8.1
 	bumpalo@3.20.3
 	bytemuck@1.25.2
 	bytemuck_derive@1.12.1
@@ -114,6 +122,8 @@ CRATES="
 	enum-map@3.1.0
 	enumflags2@0.7.12
 	enumflags2_derive@0.7.12
+	equator-macro@0.4.2
+	equator@0.4.2
 	equivalent@1.0.2
 	errno@0.3.14
 	error-code@3.4.0
@@ -204,8 +214,10 @@ CRATES="
 	image@0.25.10
 	imagesize@0.14.0
 	indexmap@2.14.2
+	interpolate_name@0.2.4
 	is-docker@0.2.0
 	is-wsl@0.4.0
+	itertools@0.14.0
 	itertools@0.15.0
 	itoa@1.0.18
 	jni-macros@0.22.4
@@ -222,6 +234,7 @@ CRATES="
 	kurbo@0.13.1
 	lazy_static@1.5.1
 	libc@0.2.190
+	libfuzzer-sys@0.4.13
 	libloading@0.8.9
 	libm@0.2.16
 	libredox@0.1.25
@@ -233,6 +246,7 @@ CRATES="
 	lock_api@0.4.14
 	log@0.4.34
 	mach2@0.4.3
+	maybe-rayon@0.1.1
 	memchr@2.8.3
 	memmap2@0.9.11
 	memoffset@0.9.1
@@ -246,12 +260,18 @@ CRATES="
 	ndk-context@0.1.1
 	ndk-sys@0.6.0+11769913
 	ndk@0.9.0
+	new_debug_unreachable@1.0.6
 	nix@0.31.3
+	no_std_io2@0.9.4
 	nohash-hasher@0.2.0
 	nom@8.0.0
+	noop_proc_macro@0.3.0
 	nu-ansi-term@0.50.3
+	num-bigint@0.4.8
 	num-conv@0.2.2
 	num-derive@0.4.2
+	num-integer@0.1.47
+	num-rational@0.4.2
 	num-traits@0.2.19
 	num_enum@0.7.6
 	num_enum_derive@0.7.6
@@ -296,6 +316,8 @@ CRATES="
 	parking@2.2.1
 	parking_lot@0.12.5
 	parking_lot_core@0.9.12
+	paste@1.0.15
+	pastey@0.1.1
 	pdf-writer@0.15.0
 	peniko@0.6.1
 	percent-encoding@2.3.2
@@ -321,9 +343,11 @@ CRATES="
 	postcard@1.1.3
 	potential_utf@0.1.6
 	powerfmt@0.2.1
+	ppv-lite86@0.2.21
 	presser@0.3.1
 	proc-macro-crate@3.5.0
 	proc-macro2@1.0.107
+	profiling-procmacros@1.0.18
 	profiling@1.0.18
 	pxfm@0.1.30
 	quick-error@2.0.1
@@ -332,7 +356,11 @@ CRATES="
 	quote@1.0.47
 	r-efi@5.3.0
 	r-efi@6.0.0
+	rand@0.9.5
+	rand_chacha@0.9.0
+	rand_core@0.9.5
 	range-alloc@0.1.5
+	rav1e@0.8.1
 	raw-window-handle@0.6.2
 	raw-window-metal@1.1.0
 	rayon-core@1.13.0
@@ -381,6 +409,7 @@ CRATES="
 	signal-hook-registry@1.4.8
 	simd-adler32@0.3.10
 	simd_cesu8@1.2.0
+	simd_helpers@0.1.0
 	simdutf8@0.1.5
 	siphasher@1.0.4
 	skrifa@0.42.1
@@ -466,6 +495,7 @@ CRATES="
 	utf8-zero@0.8.1
 	utf8_iter@1.0.4
 	uuid@1.27.0
+	v_frame@0.3.9
 	vello_common@0.2.0
 	vello_cpu@0.2.0
 	verifysign@1.0.1
@@ -560,6 +590,7 @@ CRATES="
 	xkeysym@0.2.1
 	xml-rs@0.8.29
 	xmp-writer@0.3.3
+	y4m@0.8.0
 	yoke-derive@0.8.4
 	yoke@0.8.3
 	zbus-lockstep-macros@0.5.2
@@ -590,15 +621,30 @@ CRATES="
 "
 
 declare -A GIT_CRATES=(
-	[craft-audio]='https://github.com/storytold/craft-libs;75895c0321d8cb6e175a42466cba050352b117c5;craft-libs-%commit%/crates/audio'
-	[craft-fonts-build]='https://github.com/storytold/craft-libs;6e03f65bf45181db77ba6229716e6624db9eb25b;craft-libs-%commit%/crates/fonts-build'
-	[craft-i18n]='https://github.com/storytold/craft-libs;6e03f65bf45181db77ba6229716e6624db9eb25b;craft-libs-%commit%/crates/i18n'
-	[craft-media]='https://github.com/storytold/craft-libs;75895c0321d8cb6e175a42466cba050352b117c5;craft-libs-%commit%/crates/media'
-	[craft-pdf]='https://github.com/storytold/craft-libs;6e03f65bf45181db77ba6229716e6624db9eb25b;craft-libs-%commit%/crates/pdf'
-	[craft-ui]='https://github.com/storytold/craft-libs;6e03f65bf45181db77ba6229716e6624db9eb25b;craft-libs-%commit%/crates/ui'
-	[craft-update]='https://github.com/storytold/craft-libs;6e03f65bf45181db77ba6229716e6624db9eb25b;craft-libs-%commit%/crates/update'
+	[craft-audio]='https://github.com/storytold/craft-libs;010702ee9b030844c852939095b1da0d0656a890;craft-libs-%commit%/crates/audio'
+	[craft-cfb]='https://github.com/storytold/craft-libs;8048f8ef92da80fb3ce5a056d59ca591ee66faf1;craft-libs-%commit%/crates/cfb'
+	[craft-codepage-254e9a40]='https://github.com/storytold/craft-libs;254e9a409b410dc93c0e06ff66cd1e767893ac32;craft-libs-%commit%/crates/codepage'
+	[craft-codepage-d0193d7e]='https://github.com/storytold/craft-libs;d0193d7e94b5ec180ecc2a152ea72047d39ac632;craft-libs-%commit%/crates/codepage'
+	[craft-deckcraft-format]='https://github.com/storytold/craft-libs;254e9a409b410dc93c0e06ff66cd1e767893ac32;craft-libs-%commit%/crates/deckcraft-format'
+	[craft-drawingml]='https://github.com/storytold/craft-libs;8048f8ef92da80fb3ce5a056d59ca591ee66faf1;craft-libs-%commit%/crates/drawingml'
+	[craft-fonts-build]='https://github.com/storytold/craft-libs;63196e66f3033a6623eb629af95a104d26986725;craft-libs-%commit%/crates/fonts-build'
+	[craft-i18n]='https://github.com/storytold/craft-libs;63196e66f3033a6623eb629af95a104d26986725;craft-libs-%commit%/crates/i18n'
+	[craft-mcp-server]='https://github.com/storytold/craft-libs;bc186ca719958fcce3b6ee24794277eabed14609;craft-libs-%commit%/crates/mcp-server'
+	[craft-media]='https://github.com/storytold/craft-libs;010702ee9b030844c852939095b1da0d0656a890;craft-libs-%commit%/crates/media'
+	[craft-metafile]='https://github.com/storytold/craft-libs;f428c3d36e0faf3924b76956a01334c051543527;craft-libs-%commit%/crates/metafile'
+	[craft-mime]='https://github.com/storytold/craft-libs;254e9a409b410dc93c0e06ff66cd1e767893ac32;craft-libs-%commit%/crates/mime'
+	[craft-opc]='https://github.com/storytold/craft-libs;8048f8ef92da80fb3ce5a056d59ca591ee66faf1;craft-libs-%commit%/crates/opc'
+	[craft-pdf]='https://github.com/storytold/craft-libs;63196e66f3033a6623eb629af95a104d26986725;craft-libs-%commit%/crates/pdf'
+	[craft-pptx]='https://github.com/storytold/craft-libs;8048f8ef92da80fb3ce5a056d59ca591ee66faf1;craft-libs-%commit%/crates/pptx'
+	[craft-rtf]='https://github.com/storytold/craft-libs;d0193d7e94b5ec180ecc2a152ea72047d39ac632;craft-libs-%commit%/crates/rtf'
+	[craft-ui]='https://github.com/storytold/craft-libs;63196e66f3033a6623eb629af95a104d26986725;craft-libs-%commit%/crates/ui'
+	[craft-update]='https://github.com/storytold/craft-libs;63196e66f3033a6623eb629af95a104d26986725;craft-libs-%commit%/crates/update'
+	[craft-video]='https://github.com/storytold/craft-libs;010702ee9b030844c852939095b1da0d0656a890;craft-libs-%commit%/crates/video'
 	[craft-web-api]='https://github.com/storytold/craft-libs;fd5e2feff6ea25bed371a99cc732b3968d621505;craft-libs-%commit%/crates/web-api'
 	[craft-web-host]='https://github.com/storytold/craft-libs;fd5e2feff6ea25bed371a99cc732b3968d621505;craft-libs-%commit%/crates/web-host'
+	[craft-xml]='https://github.com/storytold/craft-libs;8048f8ef92da80fb3ce5a056d59ca591ee66faf1;craft-libs-%commit%/crates/xml'
+	[craft-zip-254e9a40]='https://github.com/storytold/craft-libs;254e9a409b410dc93c0e06ff66cd1e767893ac32;craft-libs-%commit%/crates/zip'
+	[craft-zip-8048f8ef]='https://github.com/storytold/craft-libs;8048f8ef92da80fb3ce5a056d59ca591ee66faf1;craft-libs-%commit%/crates/zip'
 	[ecolor]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/ecolor'
 	[eframe]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/eframe'
 	[egui]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/egui'
@@ -613,7 +659,7 @@ declare -A GIT_CRATES=(
 	[emath]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/emath'
 	[epaint]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint'
 	[epaint_default_fonts]='https://github.com/storytold/egui;6d518fc799681571963842f95b55a6b68431b15a;egui-%commit%/crates/epaint_default_fonts'
-	[krilla]='https://github.com/storytold/craft-libs;6e03f65bf45181db77ba6229716e6624db9eb25b;craft-libs-%commit%/vendor/krilla'
+	[krilla]='https://github.com/storytold/craft-libs;63196e66f3033a6623eb629af95a104d26986725;craft-libs-%commit%/vendor/krilla'
 	[winit]='https://github.com/storytold/winit;a517b3846ee8457d84ee4975110bfda6797c44dc;winit-%commit%'
 )
 
@@ -631,7 +677,7 @@ SRC_URI="
 LICENSE="|| ( Apache-2.0 MIT )"
 # Dependent crate licenses
 LICENSE+="
-	Apache-2.0 BSD BSD-2 Boost-1.0 CDLA-Permissive-2.0 ISC MIT MPL-2.0 OFL-1.1
+	Apache-2.0 BSD BSD-2 Boost-1.0 CDLA-Permissive-2.0 ISC MIT MPL-2.0 OFL-1.1 UoI-NCSA
 	UbuntuFontLicense-1.0 Unicode-3.0 ZLIB
 "
 SLOT="0"
@@ -640,6 +686,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-libs/wayland
 	media-libs/alsa-lib
+	media-libs/fontconfig
 	media-libs/vulkan-loader
 	sys-apps/xdg-desktop-portal
 	x11-libs/libX11
@@ -665,18 +712,47 @@ QA_FLAGS_IGNORED="usr/bin/${PN} usr/bin/${PN}-cli"
 src_prepare() {
 	default
 
-	# Use fetched sources for upstream's crates.io patches in offline builds.
-	local crate crate_uri commit crate_dir
-	local -a crates=(
-		ecolor eframe egui egui-wgpu egui-winit egui_demo_lib egui_extras egui_glow
-		egui_inspection egui_kittest egui_system_font_provider emath epaint
-		epaint_default_fonts krilla winit
-	)
-	for crate in "${crates[@]}"; do
+	sed -i -e 's/^Keywords=presentation;/Keywords=/' \
+		"packaging/linux/ai.storyteller.${PN}.desktop" || die
+
+	# Several Git revisions contain crates with identical names and versions.
+	# Keep their lockfile identities with per-revision directory sources.
+	local crate crate_uri commit crate_dir source_dir vendor_dir manifest
+	local -A sources=()
+	for crate in "${!GIT_CRATES[@]}"; do
+		sed -i "/^${crate} = /d" "${ECARGO_HOME}/config.toml" || die
 		IFS=';' read -r crate_uri commit crate_dir <<< "${GIT_CRATES[${crate}]}"
-		sed -i -e "s|^${crate} = {.*git = .*|${crate} = { path = \"${WORKDIR}/${crate_dir//%commit%/${commit}}\" }|" \
-			Cargo.toml || die
+		crate_dir="${crate_dir//%commit%/${commit}}"
+		source_dir="${WORKDIR}/${crate_dir%%/*}"
+		crate_dir="${WORKDIR}/${crate_dir}"
+		vendor_dir="${WORKDIR}/git-${commit}-vendor"
+		mkdir -p "${vendor_dir}" || die
+		manifest="${crate_dir}/Cargo.toml"
+		# Directory sources must still find the original workspace for inheritance.
+		if [[ ${crate_dir} != ${source_dir} ]] &&
+			grep -Eq '(\.workspace[[:space:]]*=|workspace[[:space:]]*=[[:space:]]*true)' "${manifest}"; then
+			sed -i "/^\[package\]/a workspace = \"${source_dir}\"" "${manifest}" || die
+		fi
+		printf '%s\n' '{"files":{},"package":null}' \
+			> "${crate_dir}/.cargo-checksum.json" || die
+		ln -s "${crate_dir}" "${vendor_dir}/${crate_dir##*/}" || die
+
+		[[ ${sources[${commit}]} ]] && continue
+		sources[${commit}]=1
+		cat >> "${ECARGO_HOME}/config.toml" <<-EOF || die
+			[source.git-${commit}]
+			git = "${crate_uri}"
+			rev = "${commit}"
+			replace-with = "git-${commit}-vendor"
+
+			[source.git-${commit}-vendor]
+			directory = "${vendor_dir}"
+		EOF
 	done
+}
+
+src_configure() {
+	cargo_src_configure --locked
 }
 
 src_compile() {
