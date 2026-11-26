@@ -62,7 +62,7 @@ Only use a Rust compiler cache when the user explicitly selects one.
  list(JOIN RUSTC_TARGET_FLAGS " " RUSTC_TARGET_FLAGS)
  
  # import_rust_crate(MANIFEST_PATH path/to/Cargo.toml CRATE_NAME name [PANIC_UNWIND] [NO_DEFAULT_FEATURES]
-@@ -434,6 +430,7 @@
+@@ -438,6 +434,7 @@
      endif()
  
      set(cargo_common_flags

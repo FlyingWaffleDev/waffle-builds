@@ -449,6 +449,9 @@ SRC_URI="
 	https://github.com/microsoft/mimalloc/archive/refs/tags/v${MIMALLOC_VERSION}.tar.gz
 		-> mimalloc-${MIMALLOC_VERSION}.tar.gz
 	https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.xz
+	https://ffmpeg.org/releases/ffmpeg-6.1.6.tar.xz
+	https://ffmpeg.org/releases/ffmpeg-7.1.5.tar.xz
+	https://ffmpeg.org/releases/ffmpeg-8.1.3.tar.xz
 	${CARGO_CRATE_URIS}
 "
 
@@ -468,7 +471,6 @@ RDEPEND="
 	~dev-libs/angle-7258:0=
 	~dev-libs/icu-78.3:=
 	dev-libs/libedit
-	dev-libs/libxml2:=[icu]
 	dev-libs/openssl:=
 	dev-libs/simdjson:=
 	dev-libs/wayland
@@ -516,7 +518,6 @@ BDEPEND="
 DOCS=( README.md Documentation/BuildInstructionsLadybird.md )
 PATCHES=(
 	"${FILESDIR}/${P}-build-flags.patch"
-	"${FILESDIR}/${P}-cargo-layout.patch"
 	"${FILESDIR}/${P}-mimalloc.patch"
 	"${FILESDIR}/${P}-private-ffmpeg-rpath.patch"
 )
@@ -550,7 +551,9 @@ src_prepare() {
 	eapply "${FILESDIR}/${P}-pdfjs.patch"
 	cd "${S}" || die
 
-	mkdir -p "${BUILD_DIR}/caches/HSTSPreload" "${WORKDIR}/include/wuffs" || die
+	mkdir -p "${BUILD_DIR}/caches/"{HSTSPreload,FFmpegHeaders} "${WORKDIR}/include/wuffs" || die
+	# Headers for upstream's optional system-codec adapters; these are never built.
+	cp "${DISTDIR}/"ffmpeg-{6.1.6,7.1.5,8.1.3}.tar.xz "${BUILD_DIR}/caches/FFmpegHeaders/" || die
 	cp "${DISTDIR}/${P}-hsts.json" \
 		"${BUILD_DIR}/caches/HSTSPreload/transport_security_state_static.json" || die
 	cp "${WORKDIR}/wuffs-mirror-release-c-0.3.5/release/c/wuffs-v0.3.c" \
@@ -589,8 +592,9 @@ src_configure() {
 		--enable-encoder=libopus \
 		--enable-hwaccel=vp9_vulkan,av1_vulkan \
 		|| die
-	# CMake needs the headers and pkg-config files before the libraries are built.
-	emake install-headers
+	# CMake resolves the shared library SONAMEs during configuration.
+	emake
+	emake install-headers install-libs
 	popd > /dev/null || die
 	export PKG_CONFIG_PATH="${ffmpeg_prefix}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"
 
@@ -620,8 +624,6 @@ src_configure() {
 }
 
 src_compile() {
-	emake -C "${WORKDIR}/ffmpeg-build"
-	emake -C "${WORKDIR}/ffmpeg-build" install-libs
 	# Build-time helpers need the private libraries before the package is installed.
 	LD_LIBRARY_PATH="${WORKDIR}/ffmpeg-prefix/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" \
 		cmake_src_compile ladybird WebDriver

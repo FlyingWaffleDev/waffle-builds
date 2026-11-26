@@ -1,0 +1,40 @@
+Use build-tree dependencies for helpers, and only explicit private runtime paths after installation.
+The ebuild installs the runtime libraries; never retain their WORKDIR paths.
+
+--- a/Meta/CMake/lagom_install_options.cmake
++++ b/Meta/CMake/lagom_install_options.cmake
+@@ -18,7 +18,7 @@
+ set(CMAKE_SKIP_BUILD_RPATH FALSE)
+ 
+ if ("${VCPKG_INSTALLED_DIR}" STREQUAL "")
+-    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
++    set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+ else()
+     if (CMAKE_BUILD_TYPE MATCHES "Release|RelWithDebInfo")
+         set(CMAKE_BUILD_RPATH "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib")
+@@ -45,7 +45,7 @@
+ 
+ # Installs carry the shared libraries from vcpkg, so they must not look for them in the build machine's vcpkg tree.
+ if ("${VCPKG_INSTALLED_DIR}" STREQUAL "")
+-    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
++    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+ endif()
+ 
+ set(CMAKE_INSTALL_MESSAGE NEVER)
+--- a/Meta/CMake/check_for_dependencies.cmake
++++ b/Meta/CMake/check_for_dependencies.cmake
+@@ -56,14 +56,6 @@
+         add_library(BundledFFmpeg::${library} SHARED IMPORTED)
+         set_target_properties(BundledFFmpeg::${library} PROPERTIES IMPORTED_LOCATION "${library_file}")
+ 
+-        # Without vcpkg, installs do not carry the bundled FFmpeg, so binaries look for it where it was found, as they do
+-        # for the libraries they link.
+-        if ("${VCPKG_INSTALLED_DIR}" STREQUAL "")
+-            cmake_path(GET LADYBIRD_BUNDLED_${library}_LIBRARY PARENT_PATH library_directory)
+-            if (NOT library_directory IN_LIST CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES AND NOT library_directory IN_LIST CMAKE_INSTALL_RPATH)
+-                list(APPEND CMAKE_INSTALL_RPATH "${library_directory}")
+-            endif()
+-        endif()
+     endforeach()
+ endif()
+ 

@@ -564,6 +564,7 @@ CRATES="
 	slab@0.4.12
 	slotmap@1.1.1
 	smallvec@1.16.2
+	smed-client@0.1.0
 	smithay-client-toolkit@0.19.2
 	smithay-client-toolkit@0.20.0
 	smithay-clipboard@0.7.3
@@ -859,7 +860,7 @@ src_install() {
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-25/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-26/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
