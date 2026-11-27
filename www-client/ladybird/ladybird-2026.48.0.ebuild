@@ -493,7 +493,7 @@ RDEPEND="
 	media-libs/vulkan-loader[wayland=]
 	media-libs/woff2
 	net-libs/libpsl
-	net-misc/curl[http2,ssl,websockets]
+	net-misc/curl[curl_ssl_openssl,http2,ssl,websockets]
 	sys-apps/dbus
 	virtual/zlib
 	x11-libs/libdrm
