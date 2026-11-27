@@ -459,6 +459,7 @@ LICENSE="Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 ISC LGPL-2.1+ MIT 
 	OFL-1.1 Unicode-3.0 ZLIB"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="+wayland"
 # Upstream tests include network/browser integration and a large external corpus.
 RESTRICT="test"
 
@@ -473,9 +474,8 @@ RDEPEND="
 	dev-libs/libedit
 	dev-libs/openssl:=
 	dev-libs/simdjson:=
-	dev-libs/wayland
 	dev-libs/zmij:=
-	>=dev-qt/qtbase-6.10:6[gui,network,opengl,widgets]
+	>=dev-qt/qtbase-6.10:6[X,gui,network,opengl,wayland=,widgets]
 	>=dev-qt/qtpositioning-6.10:6
 	media-fonts/liberation-fonts
 	media-libs/dav1d:=
@@ -486,11 +486,11 @@ RDEPEND="
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=[apng]
 	media-libs/libpulse
-	media-libs/libsdl3
+	media-libs/libsdl3[wayland=]
 	media-libs/libwebp:=
 	media-libs/opus
 	~media-libs/skia-148:0=
-	media-libs/vulkan-loader
+	media-libs/vulkan-loader[wayland=]
 	media-libs/woff2
 	net-libs/libpsl
 	net-misc/curl[http2,ssl,websockets]
@@ -499,6 +499,7 @@ RDEPEND="
 	x11-libs/libdrm
 	x11-libs/libxcb
 	x11-libs/xcb-util-wm
+	wayland? ( dev-libs/wayland )
 "
 DEPEND="${RDEPEND}
 	dev-cpp/fast_float
@@ -513,6 +514,7 @@ BDEPEND="
 	dev-vcs/git
 	virtual/pkgconfig
 	amd64? ( dev-lang/nasm )
+	wayland? ( dev-util/wayland-scanner )
 "
 
 DOCS=( README.md Documentation/BuildInstructionsLadybird.md )
@@ -520,6 +522,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-build-flags.patch"
 	"${FILESDIR}/${P}-mimalloc.patch"
 	"${FILESDIR}/${P}-private-ffmpeg-rpath.patch"
+	"${FILESDIR}/${P}-wayland.patch"
 )
 
 pkg_setup() {
@@ -605,6 +608,7 @@ src_configure() {
 		-DENABLE_INSTALL_HEADERS=OFF
 		-DENABLE_INSTALL_FREEDESKTOP_FILES=ON
 		-DENABLE_NETWORK_DOWNLOADS=OFF
+		-DENABLE_WAYLAND=$(usex wayland)
 		-DINCLUDE_WASM_SPEC_TESTS=OFF
 		-DLADYBIRD_ENABLE_CCACHE=OFF
 		-DLADYBIRD_ENABLE_UPDATE_CHECK=OFF
