@@ -356,8 +356,8 @@ CRATES="
 	moxcms@0.8.1
 	muda@0.21.2
 	multiversion_no_op@1.0.0
-	naga-types@30.0.1
-	naga@30.0.1
+	naga-types@30.0.2
+	naga@30.0.2
 	ndk-context@0.1.1
 	ndk-sys@0.6.0+11769913
 	ndk@0.9.0
@@ -695,15 +695,15 @@ CRATES="
 	webpki-root-certs@1.0.10
 	weezl@0.1.12
 	weezl@0.2.1
-	wgpu-core-deps-apple@30.0.1
-	wgpu-core-deps-emscripten@30.0.1
-	wgpu-core-deps-wasm@30.0.1
-	wgpu-core-deps-windows-linux-android@30.0.1
-	wgpu-core@30.0.1
-	wgpu-hal@30.0.1
-	wgpu-naga-bridge@30.0.1
-	wgpu-types@30.0.1
-	wgpu@30.0.1
+	wgpu-core-deps-apple@30.0.2
+	wgpu-core-deps-emscripten@30.0.2
+	wgpu-core-deps-wasm@30.0.2
+	wgpu-core-deps-windows-linux-android@30.0.2
+	wgpu-core@30.0.2
+	wgpu-hal@30.0.2
+	wgpu-naga-bridge@30.0.2
+	wgpu-types@30.0.2
+	wgpu@30.0.2
 	widestring@1.2.1
 	winapi-i686-pc-windows-gnu@0.4.0
 	winapi-util@0.1.11
@@ -855,12 +855,13 @@ src_install() {
 	dobin "$(cargo_target_dir)/${PN}" "$(cargo_target_dir)/${PN}-cli"
 
 	local app_id="io.tangencylabs.${PN}"
-	domenu "assets/platforms/linux/${app_id}.desktop"
+	domenu "assets/platforms/linux/${app_id}.desktop" \
+		"assets/platforms/linux/${app_id}.workshop-links.desktop"
 
 	insinto /usr/share/mime/packages
 	newins "assets/platforms/linux/${app_id}.mime.xml" "${app_id}.xml"
 
-	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-26/g' \
+	sed -e "s/@VERSION@/${PV}/g" -e 's/@DATE@/2026-11-28/g' \
 		"assets/platforms/linux/${app_id}.metainfo.xml.in" > "${T}/${app_id}.metainfo.xml" || die
 	insinto /usr/share/metainfo
 	doins "${T}/${app_id}.metainfo.xml"
