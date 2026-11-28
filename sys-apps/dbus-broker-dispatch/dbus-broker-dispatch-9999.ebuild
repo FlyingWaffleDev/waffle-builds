@@ -9,7 +9,7 @@ DESCRIPTION="Init-independent launcher and service activation for dbus-broker"
 HOMEPAGE="https://github.com/FlyingWaffleDev/dbus-broker-dispatch"
 EGIT_REPO_URI="${HOMEPAGE}.git"
 
-LICENSE="GPL-3"
+LICENSE="GPL-3+"
 SLOT="0"
 IUSE="dinit elogind +openrc pam runit s6 selinux"
 
@@ -73,9 +73,15 @@ src_install() {
 		fi
 	fi
 	if use s6; then
+		local s6dir
+		s6dir=$(s6_get_servicedir) || die
 		s6_install_service dbus "${S}/init/s6/system/dbus/run"
+		insinto "${s6dir#"${EPREFIX}"}/dbus"
+		doins "${S}/init/s6/system/dbus/notification-fd"
 		exeinto /usr/share/dbus-broker-dispatch/s6/user/dbus
 		newexe "${S}/init/s6/user/dbus/run" run
+		insinto /usr/share/dbus-broker-dispatch/s6/user/dbus
+		doins "${S}/init/s6/user/dbus/notification-fd"
 		if ! use pam; then
 			insinto /etc/profile.d
 			newins "${S}/init/s6/dbus-broker-dispatch.sh" dbus-broker-dispatch-s6.sh
